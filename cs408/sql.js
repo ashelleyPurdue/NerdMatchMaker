@@ -21,7 +21,7 @@ function createAccount(json){
     if(err){
       var userName = {UserName : json.UserName};
       Console.Log(err);
-      con.querry('Select * from User where ?',userName,function(err,res)){
+      con.querry('Select * from User where ?',userName,function(err,res){
         //err happen twice must be sql error happening
         if(err){
           Console.Log(err);
