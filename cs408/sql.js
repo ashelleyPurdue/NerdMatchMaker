@@ -21,7 +21,7 @@ function createAccount(json){
     if(err){
       var userName = {UserName : json.UserName};
       Console.Log(err);
-      con.querry('Select * from User where ?',userName,function(err,res)){
+      con.querry('Select * from User where ?',userName,function(err,res){
         //err happen twice must be sql error happening
         if(err){
           Console.Log(err);
@@ -35,7 +35,7 @@ function createAccount(json){
         else if(rows.length > 0){
           return -1;
         }
-      }
+      });
     }
   });
   return login({UserName:json.UserName,Password:json.Password});
@@ -72,7 +72,7 @@ function login(json){
     else{
       return res[0].UserID;
     }
-  }
+  });
 }
 //Give it {UserID:num,Name: "Pref_Name"}
 //Adds user Preference to UserID 
