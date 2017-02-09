@@ -1,5 +1,5 @@
 drop Table Matches;
-drop Table messages;
+drop Table Messages;
 drop Table UserLanguage;
 drop Table BlockedUsers;
 drop Table User_Interests;
