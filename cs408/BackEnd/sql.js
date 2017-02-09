@@ -58,7 +58,7 @@ var createAccount = function(json,con,res){
         //userName already exists
         else if(rows.length > 0){
           if(res == null){
-            console.error("UserName already exist");
+            console.log("UserName already exist");
             con.end(function(err){
               //if error don't kill
             });
@@ -135,7 +135,7 @@ var login = function (json,con,res,close){
           con.end(function(err){
           //if error don't kill
           });
-          console.log("killed");  
+          //console.log("killed");  
         }
         console.error(err);
         return;
@@ -147,7 +147,7 @@ var login = function (json,con,res,close){
     } 
     else if(rows.length == 0){
       if(res == null){
-        console.error("User name or password is incorrect");
+        console.log("User name or password is incorrect");
         if(close){
           con.end(function(err){
             //if error don't kill

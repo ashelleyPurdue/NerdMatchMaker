@@ -4,6 +4,7 @@
   "description": "",
   "main": "sql.js",
   "dependencies": {
+    "body-parser": "^1.16.0",
     "mysql": "^2.13.0"
   },
   "devDependencies": {
