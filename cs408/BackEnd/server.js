@@ -13,8 +13,9 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post("/BackEnd/createUser",function(req,res){
-  sqlFile.createAccount(req.body,con,res);
+app.post("/BackEnd/createUser/",function(req,res){
+  //sqlFile.createAccount(req.body,con,res);
+  console.log(req.body);
   res.send();
 });
 app.post("/BackEnd/login",function(req,res){
