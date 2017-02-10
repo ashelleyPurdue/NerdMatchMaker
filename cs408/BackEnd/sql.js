@@ -1,8 +1,9 @@
 //TODO change functions to deal with res.
+var con;
 var createCon = function(){
   var mysql = require("mysql");
   var config = require("../config");
-  var con = mysql.createConnection(config.sql);
+  con = mysql.createConnection(config.sql);
   con.connect(function(err){
     if(err){
       console.log("Error Connection to mysql database");
@@ -15,7 +16,7 @@ var createCon = function(){
 /*this function will create an account in sql and return 0 if the account was created successfully, else it will return -1 if username exist or -2 if sql error happens
 json will be {UserName: "Not Null",Password "Not Null(I will salt this)",Picture: "Null",Birthday : "00/00/0000",Gender: "M","F,"MF",GenderInto: "M","F","MF",Location: "Not Null",InARelationship:"false"}
 */
-var createAccount = function(json,con,res){
+var createAccount = function(json,res){
   //return con;
   //TODO salt passwords
   con.query('Insert Into User Set ?',json,function(err,rows){
@@ -85,7 +86,7 @@ var createAccount = function(json,con,res){
 give {UserName: name,oldPassword:"password",newPassword:"password"}
 */
 //never close for test as we will call login right after to make sure change happens
-var editPassword = function(json,con,res){
+var editPassword = function(json,res){
   //TODO salt password to check
   var check = {UserName:json.UserName,Password:json.oldPassword}
   var x = login(check,con,res,false);
@@ -120,7 +121,7 @@ var editPassword = function(json,con,res){
 };
 //Give it {UserName: Not Null,Password: Not Null}
 //returns ID or -1 if invalid password or username or -2 if sql error
-var login = function (json,con,res,close){
+var login = function (json,res,close){
   //TODO deal with salting
   //console.log(json);
   con.query('Select * from User where ?',json,function(err,rows){
@@ -230,3 +231,4 @@ var login = function (json,con,res,close){
   exports.createCon = createCon;
   exports.login = login;
   exports.editPassword = editPassword;
+  exports.con = con;
