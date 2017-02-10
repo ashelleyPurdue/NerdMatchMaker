@@ -1,13 +1,8 @@
 //TODO change functions to deal with res.
 var createCon = function(){
   var mysql = require("mysql");
-  var con = mysql.createConnection({
-    //TODO put in a properties file
-    host: "localhost",
-    user: "root",
-    password: "cz002",
-    database : 'cs408'
-  });
+  var config = require("../config");
+  var con = mysql.createConnection(config.sql);
   con.connect(function(err){
     if(err){
       console.log("Error Connection to mysql database");
