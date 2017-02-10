@@ -1,0 +1,134 @@
+#!/bin/bash
+#TODO test 6,7,8 test with login as well do make sure that fails
+loc=$(pwd)
+ERR="error.log"
+touch $ERR
+errs=$false
+FILE="cat.txt"
+nor="temp.log"
+touch $FILE
+echo 
+function saveErrors(){
+  echo "test $1 has failed"
+  echo "" >> $FILE
+  echo "" >> $FILE
+  echo "test $1 error report" >> $FILE
+  echo "Error with $2" >> $FILE
+  echo "-----------------" >> $FILE
+  #TODO fix with issues where $ERR is not overwritten
+  cat $ERR >> $FILE
+}
+mysql -u root -pcz002 cs408 < $loc/../SQL/drop.sql
+mysql -u root -pcz002 cs408 < $loc/../SQL/temp.sql
+node $loc/testDatabase.js 'test1' '1' 2> $ERR
+if [[ -s $ERR ]] ; then
+    saveErrors "one" "basic account creation with no erros"
+fi ;
+node $loc/testDatabase.js 'test2' '1' 2> $ERR
+if [[ -s $ERR ]] ; then
+  saveErrors "two" "able to login with account created in test1"
+fi ;
+node $loc/testDatabase.js 'test3' '1' 2> $ERR
+if [[ -s $ERR ]] ; then
+  saveErrors "three" "able to change password for account created in test1 then login with new password"
+fi ;
+
+node $loc/testDatabase.js 'test4' '1' 2> $ERR >$nor
+if [[ -s $nor ]]; then
+    echo "User name or password is incorrect" > login.txt
+    if cmp -s "$nor" "login.txt"
+    then
+      echo "test four success"
+    else
+      saveErrors "four" "should not be able to login with invalid passowrd"
+    fi
+else
+  saveErrors "four" "should not be able to login with invalid passowrd"
+fi
+rm login.txt
+node $loc/testDatabase.js 'test5' '1' 2> $ERR >$nor
+if [[ -s $nor ]]; then
+    echo "User name or password is incorrect" > login.txt
+    if cmp -s "$nor" "login.txt"
+    then
+      echo "test five success"
+    else
+      saveErrors "five" "should not be able to login with invalid passowrd"
+    fi
+else
+  saveErrors "five" "should not be able to login with invalid passowrd"
+fi
+rm login.txt
+#TODO add test login to file
+node $loc/testDatabase.js 'test6' '145' 2>$ERR
+if [[ -s $ERR ]]; then
+  echo "test six success"
+else
+  saveErrors "six" "errors not thrown for invalid input" 
+fi
+node $loc/testDatabase.js 'test7' '146' 2>$ERR
+if [[ -s $ERR ]]; then
+  echo "test seven success"
+else
+  saveErrors "seven" "errors not thrown for invalid input" 
+fi
+node $loc/testDatabase.js 'test8' '147' 2>$ERR
+if [[ -s $ERR ]]; then
+  echo "test eight success"
+else
+  saveErrors "eight " "errors not thrown for invalid input" 
+fi
+
+node $loc/testDatabase.js 'test9' '1' >$nor 2>$ERR
+if [[ -s $nor ]]; then
+    echo "User name or password is incorrect" > login.txt
+    if cmp -s "$nor" "login.txt"
+    then
+      echo "test nine success"
+    else
+      saveErrors "nine" "should not be able to change password with invalid passowrd"
+    fi
+else
+  saveErrors "nine" "should not be able to change password with invalid passowrd"
+fi
+rm login.txt
+node $loc/testDatabase.js 'test10' '1' >$nor 2>$ERR
+if [[ -s $nor ]]; then
+    echo "User name or password is incorrect" > login.txt
+    if cmp -s "$nor" "login.txt"
+    then
+      echo "test ten success"
+    else
+      saveErrors "ten" "should not be able to change password with invalid passowrd"
+    fi
+else
+  saveErrors "ten" "should not be able to change password with invalid passowrd"
+fi
+rm login.txt
+#TODO finish
+node $loc/testDatabase.js 'test1' '1' >$nor 2>$ERR
+echo "UserName already exist" > login.txt
+if [[ -s $nor ]]; then
+  if cmp -s "$nor" "login.txt"
+  then
+    echo "test 11 success"
+  else
+    saveErrors "11" "should not be able to create new usersname"    
+  fi
+else 
+  saveErrors "11" "should not be able to create new usersname"  
+fi
+rm login.txt
+
+if [[ -s $FILE ]] ; then
+  echo ""
+  echo "----------------------"
+  echo "Errors in text document"
+  cat $FILE
+else 
+  echo "test cases pass no issues"  
+fi
+
+rm $ERR
+rm $FILE
+rm $nor
