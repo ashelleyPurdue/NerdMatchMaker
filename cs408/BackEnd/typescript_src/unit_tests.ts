@@ -32,7 +32,27 @@ allTests.push(alwaysPasses);
 
 function createAccount_basic(): boolean
 {
-	//Attempts to create an account.
+	//Attempts to create an account that does not already exist
+	
+	let sql = require("./sql.js");
+	
+	//Create the account
+	let jsonRequest: any = 
+	{
+		UserName: "UniqueName",
+		Password: "Password(with salt)",
+		Picture: "Null",
+		Birthday : "00/00/0000",
+		Gender: "M",
+		GenderInto: "F",
+		Location: "Here",
+		InARelationship: "false"
+	};
+	
+	let result: number = sql.createAccount(jsonRequest, "null", "null");		//TODO: Persuade Alex Meyer to make sql not care about the connection.
+	
+	//Assert that the account does not exist.
+	
 	return false;
 }
 allTests.push(createAccount_basic);
