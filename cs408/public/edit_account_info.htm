@@ -10,14 +10,33 @@
     <h1>Edit Account Information</h1>
 
 
-    <form action="action_page.php">
+    <form action="/BackEnd/editUser/" onsubmit="return myFunction()" method="post">
         <div class="container">
 
             <label><b>Enter new password</b></label>
-            <input type="password" placeholder="Enter new Password" name="user[Password1]" required>
+            <input id="pass1" type="password" placeholder="Enter new Password" name="user[Password1]" required>
 
             <label><b>Re-enter new password</b></label>
-            <input type="password" placeholder="Enter new Password again" name="user[Password2]" required>
+            <input id="pass2" type="password" placeholder="Enter new Password again" name="user[Password2]" required>
+
+
+            <script>
+                function myFunction() {
+                    var pass1 = document.getElementById("pass1").value;
+                    var pass2 = document.getElementById("pass2").value;
+                    var ok = true;
+                    if (pass1 != pass2) {
+                        //alert("Passwords Do not match");
+                        document.getElementById("pass1").style.borderColor = "#E34234";
+                        document.getElementById("pass2").style.borderColor = "#E34234";
+                        ok = false;
+                    } else {
+                        alert("Passwords Match!!!");
+                    }
+                    return ok;
+                }
+            </script>
+
 
             <button type="submit">Submit Password Change</button>
 
