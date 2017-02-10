@@ -9,16 +9,33 @@
 
     <h1>Create a new Acccount</h1>
 
-    <form method="post" action="/BackEnd/createUser/">
+    <form action="/BackEnd/createUser/" onsubmit="return myFunction()" method="post">
         <div class="container">
             <label><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="user[UserName]" required>
 
             <label><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="user[Password1]" required>
+            <input id="pass1" type="password" placeholder="Enter Password" name="user[Password1]" required>
 
             <label><b>Re-enter Password</b></label>
-            <input type="password" placeholder="Enter Same Password" name="user[Password2]" required>
+            <input id="pass2" type="password" placeholder="Enter Same Password" name="user[Password2]" required>
+
+            <script>
+                function myFunction() {
+                    var pass1 = document.getElementById("pass1").value;
+                    var pass2 = document.getElementById("pass2").value;
+                    var ok = true;
+                    if (pass1 != pass2) {
+                        //alert("Passwords Do not match");
+                        document.getElementById("pass1").style.borderColor = "#E34234";
+                        document.getElementById("pass2").style.borderColor = "#E34234";
+                        ok = false;
+                    } else {
+                        alert("Passwords Match!!!");
+                    }
+                    return ok;
+                }
+            </script>
 
             <label><b>Birthday</b></label>
             <input type="text" placeholder="Enter Birthdate" name="user[birthdate]" required>
@@ -30,7 +47,7 @@
             <input type="text" placeholder="Enter what gender you are interested in" name="user[GenderInto]" required>
 
             <label><b>Location (Optional)</b></label>
-            <input type="text" placeholder="Enter Location" name="user[location]">
+            <input type="text" placeholder="Enter Location" name="user[location]" required>
 
             <label><b>Relationship Stauts</b></label>
             <input type="text" placeholder="Enter Relationship Stauts" name="user[InARelationship]" required>
