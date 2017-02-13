@@ -52,7 +52,6 @@ var createAccountError = function(err, json, res, callback) {
 /*this function with allow user to edit passwords return 0 if works, returs -1 if old password is wrong or -2 sql error
 give {UserName: name,oldPassword:"password",newPassword:"password"}
 */
-<<<<<<< HEAD
 /*need to call login first to check that password is correct if not user can just change password*/
 var editPassword = function(json,res,callback){
   con.query('Update User Set password = ? where UserID = ?',[json.newPassword,x],function(err,row){
@@ -64,38 +63,6 @@ var editPassword = function(json,res,callback){
     }
   });
   return 0;
-=======
-//never close for test as we will call login right after to make sure change happens
-var editPassword = function(json, res) {
-    //TODO salt password to check
-    var check = { UserName: json.UserName, Password: json.oldPassword }
-    var x = login(check, con, res, false);
-    if (x < 0) {
-        if (res == null) {
-            return;
-        } else {
-            //TODO 
-            return x;
-        }
-    }
-    con.query('Update User Set password = ? where UserID = ?', [json.newPassword, x], function(err, row) {
-        if (err) {
-            if (res == null) {
-                console.log(err);
-                return;
-            } else {
-                //TODO
-                return -2;
-            }
-        }
-        if (res == null) {
-            return;
-        } else {
-            //TODO
-        }
-    });
-    return 0;
->>>>>>> 3c3bc533e87c6842f6a1f89ab35ec17ed77895b1
 };
 var genSuccess = function(rows,json,res,callback){
   res.send(0);
@@ -120,13 +87,9 @@ var loginTest = function(rows, json, res, callback) {
 var loginEmptySet = function(res) {
     res.send({ Error: -1 });
 };
-<<<<<<< HEAD
+
 var genSQLError = function(err,json,callback,con){
   res.send({Error:-2});
-=======
-var loginError = function(err, json, callback, con) {
-    res.send({ Error: -2 });
->>>>>>> 3c3bc533e87c6842f6a1f89ab35ec17ed77895b1
 };
 //Give it {UserID:num,Name: "Pref_Name"}
 //Adds user Preference to UserID 

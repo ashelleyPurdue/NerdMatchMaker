@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs'); 
 const express = require('express');
 const bodyParser =  require("body-parser");
-const sqlFile = require("../BackEnd/sql.js");
+const sqlFile = require("../BackEnd/temp.js");
 //TODO make in prop files
 const port = 3000;
 const url = 'localhost'
