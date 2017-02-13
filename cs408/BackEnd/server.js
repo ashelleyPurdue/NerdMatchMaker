@@ -18,17 +18,18 @@ app.post("/BackEnd/createUser/",function(req,res){
   var callback = {success:sqlFile.createAccountCallback,error:sqlFile.createAccountError};
   sqlFile.createAccount(req.body,callback,res);
 });
-app.post("/BackEnd/login",function(req,res){
+app.post("/BackEnd/login/",function(req,res){
   console.log(req.body);
   var callback = {success: sqlFile.loginTest,Empty:sqlFile.loginEmptySet ,error:sqlFile.genSQLError};
-  sqlFile.login(req.bodyres,callback);
+  sqlFile.login(req.body,res,callback);
 });
-//TODO finish
+
 app.post("/BackEnd/changePassword/",function(req,res){
-  sqlFile.editPassword(req.body,con,res);
-  res.send();
+  var callback = {success: sqlFile.loginForEdPassSuc,Empty:sqlFile.loginEmptySet ,error:sqlFile.genSQLError};
+  //login then can call editPassword
+  sqlFile.login(req.body,res,callback);
 });
-app.post("/BackEnd/getPrefs",function(req,res){
+app.post("/BackEnd/getPrefs/",function(req,res){
   var callback = {success:sqlFile.getPrefsSuccess,error:genSQLError};
   sqlFile.getPrefs(req.body,callback,res);
 });

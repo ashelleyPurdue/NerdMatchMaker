@@ -120,7 +120,7 @@ var isRepeatUserName = function(){
   }
 }
 var loginForEdPassSuc = function(rows,json,res,callback){
-  var call = {main:testAll,error:genericErrorTest,main:testAll,success:genericSuccessTest};
+  var call = {error:genericErrorTest,main:testAll,success:genericSuccessTest};
   sqlFile.editPassword(json,null,call); 
 }
 //Function is called in case of an error in creating account to see if error is called or not

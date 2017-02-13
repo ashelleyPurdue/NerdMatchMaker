@@ -67,6 +67,13 @@ var editPassword = function(json,res,callback){
 var genSuccess = function(rows,json,res,callback){
   res.send(0);
 };
+var loginForEdPassSuc = function(rows,json,res,callback){
+  var call = {error:genSQLError,success:genSuccess};
+  sqlFile.editPassword(json,null,call);
+}
+var genSuccess = function(){
+  
+}
 //Give it {UserName: Not Null,Password: Not Null}
 //returns ID or -1 if invalid password or username or -2 if sql error
 var login = function(json, res, callback) {
@@ -147,7 +154,7 @@ var getPrefs = function(json, callback, res) {
 };
 var getPrefsSuccess = function(rows, json, res, callback) {
   res.send(rows);
-}
+};
 exports.createAccount = createAccount;
 exports.createCon = createCon;
 exports.login = login;
@@ -161,3 +168,4 @@ exports.loginTest = loginTest;
 exports.loginEmptySet = loginEmptySet;
 exports.genSQLError = genSQLError;
 exports.getPrefs = getPrefs;
+exports.loginForEdPassSuc = loginForEdPassSuc;
