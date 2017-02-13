@@ -30,8 +30,6 @@ function alwaysPasses() {
     return true;
 }
 
-
-//allTests.push(alwaysPasses);
 var createAccount_basic = function() {
     var user = ({ UserName: "User" + userID++, Password: "abcd1234", Picture: null, Birthday: "02/" + userID + "/1995", Gender: "M", GenderInto: "M", Location: null, InARelationship: false });
     var callback = { error: createTestError, success: genericSuccessTest, main: testAll };
@@ -46,6 +44,26 @@ var login = function() {
     var callback = { error: genericErrorTest, success: loginTest, main: testAll, Empty: loginEmptySet };
     sqlFile.login(user, null, callback);
 }
+//checks login with a failed password
+var loginFailPassword = function(){
+  if (userID <= 0) {
+        return;
+    }
+    var user = ({ UserName: "User" + (--userID), Password: "wrong" });
+    var callback = { error: genericErrorTest, success: loginTest, main: testAll, Empty: loginEmptySet };
+    sqlFile.login(user, null, callback);
+
+}
+//checks login with a failed user name
+var loginFailUserName = function(){
+  if (userID <= 0) {
+        return;
+    }
+    var user = ({ UserName: "Not a User", Password: "abcd1234" });
+    var callback = { error: genericErrorTest, success: loginTest, main: testAll, Empty: loginEmptySet };
+    sqlFile.login(user, null, callback);
+}
+
 //Checks login and if login is success it will call change password, which deals with changing the password of the user
 var editPassword = function(){
   if(userID < 0){
@@ -69,9 +87,41 @@ var isSuccess = function(){
     return false;
   }
 }
+//this function will tell if logining was a failure like we expect to be.
+var loginFailure = function(){
+  if(success){
+    console.log("login when it shouldn't have");
+    success = false;
+    return false;
+  }
+  else{
+    if(error === "User name or password is incorrect"){
+      console.log("Test"+ (i)+ " is a success");
+      return true;
+    }
+    else{
+      console.log(error);
+      return false;
+    }
+  }
+}
+var isRepeatUserName = function(){
+  if(success){
+    console.log("Create dup user names");
+  }
+  else{
+    if(error === "UserName already exist"){
+      console.log("Test"+ (i)+ " is a success");
+      return true;
+    }
+    else{
+      console.log(error);
+    }
+  }
+}
 var loginForEdPassSuc = function(rows,json,res,callback){
-  var callback = {main:testAll,error:genericErrorTest,main:testAll,success:genericSuccessTest};
-  sqlFile.editPassword(json,null,callback); 
+  var call = {main:testAll,error:genericErrorTest,main:testAll,success:genericSuccessTest};
+  sqlFile.editPassword(json,null,call); 
 }
 //Function is called in case of an error in creating account to see if error is called or not
 var createTestError = function(err,json,res,callback,con){
@@ -134,24 +184,52 @@ var successGetPrefs = function(){
   // TODO go through rows and find out if we get the right things that we expect
   
 }
+//tests going through creating basic users
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
+//tests logining with said basic users
 allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
+//tests dup user names
+allTests.push({fun:createAccount_basic,check:isRepeatUserName});
+allTests.push({fun:createAccount_basic,check:isRepeatUserName});
+allTests.push({fun:createAccount_basic,check:isRepeatUserName});
+allTests.push({fun:createAccount_basic,check:isRepeatUserName});
+allTests.push({fun:createAccount_basic,check:isRepeatUserName});
+allTests.push({fun:createAccount_basic,check:isRepeatUserName});
+//tests if user name can login or not
+allTests.push({fun:loginFailPassword,check:loginFailure});
+allTests.push({fun:loginFailPassword,check:loginFailure});
+allTests.push({fun:loginFailPassword,check:loginFailure});
+allTests.push({fun:loginFailPassword,check:loginFailure});
+allTests.push({fun:loginFailPassword,check:loginFailure});
+//tests if login is a failure or not with a bad username
+allTests.push({fun:loginFailUserName,check:loginFailure});
+//tests if password can be edited or not
 allTests.push({fun:editPassword,check:isSuccess});
 allTests.push({fun:editPassword,check:isSuccess});
 allTests.push({fun:editPassword,check:isSuccess});
 allTests.push({fun:editPassword,check:isSuccess});
 allTests.push({fun:editPassword,check:isSuccess});
-
-
+//tests if passowrd is edited or not as basic login should now fail
+allTests.push({fun:login,check:loginFailure});
+allTests.push({fun:login,check:loginFailure});
+allTests.push({fun:login,check:loginFailure});
+allTests.push({fun:login,check:loginFailure});
+allTests.push({fun:login,check:loginFailure});
+//tests to make sure editPassword fails as username is now different
+allTests.push({fun:editPassword,check:loginFailure});
+allTests.push({fun:editPassword,check:loginFailure});
+allTests.push({fun:editPassword,check:loginFailure});
+allTests.push({fun:editPassword,check:loginFailure});
+allTests.push({fun:editPassword,check:loginFailure});
 
 //File entry point.
 testAll();
