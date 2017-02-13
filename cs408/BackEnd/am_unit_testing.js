@@ -118,6 +118,14 @@ var loginEmptySet = function(res){
   callback.main();
 };
 
+/* Tests for addUserPref */
+var addUserPrefTest0 = function()
+{
+	
+}
+
+/* End of tests for addUserPref */
+
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
