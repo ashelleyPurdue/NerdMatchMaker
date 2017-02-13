@@ -54,39 +54,20 @@ var createAccountError = function(err,json,res,callback){
 /*this function with allow user to edit passwords return 0 if works, returs -1 if old password is wrong or -2 sql error
 give {UserName: name,oldPassword:"password",newPassword:"password"}
 */
-//never close for test as we will call login right after to make sure change happens
-var editPassword = function(json,res){
-  //TODO salt password to check
-  var check = {UserName:json.UserName,Password:json.oldPassword}
-  var x = login(check,con,res,false);
-  if(x < 0){
-    if(res == null){
-      return;
-    }
-    else{
-      //TODO 
-      return x;
-    }
-  }
+/*need to call login first to check that password is correct if not user can just change password*/
+var editPassword = function(json,res,callback){
   con.query('Update User Set password = ? where UserID = ?',[json.newPassword,x],function(err,row){
     if(err){
-      if(res == null){
-        console.log(err);
-        return;
-      }
-      else{
-        //TODO
-        return -2;
-      }
-    }
-    if(res == null){
-      return;
+      callback.error(err,json,res,callback,con);  
     }
     else{
-      //TODO
+      callback.success(rows,json,res,callback);
     }
   });
   return 0;
+};
+var genSuccess = function(rows,json,res,callback){
+  res.send(0);
 };
 //Give it {UserName: Not Null,Password: Not Null}
 //returns ID or -1 if invalid password or username or -2 if sql error
@@ -110,7 +91,7 @@ var loginTest = function(rows,json,res,callback){
 var loginEmptySet = function(res){
   res.send({Error:-1});
 };
-var loginError = function(err,json,callback,con){
+var genSQLError = function(err,json,callback,con){
   res.send({Error:-2});
 };
   //Give it {UserID:num,Name: "Pref_Name"}

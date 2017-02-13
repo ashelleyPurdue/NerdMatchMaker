@@ -6,6 +6,8 @@ var allTests = []; //This array stores all test case functions.  We will iterate
 //All tests return true on passing, and false on fail
 var error;
 var success;
+var tempID;
+var ret;
 var testAll = function(){
     //Runs all test cases.  Prints a message each time one of them fails.
   if(i != 0){
@@ -44,13 +46,15 @@ var login = function() {
   var callback = {error:genericErrorTest,success:loginTest,main:testAll,Empty:loginEmptySet};
   sqlFile.login(user,null,callback);
 }
+//Checks login and if login is success it will call change password, which deals with changing the password of the user
 var editPassword = function(){
   if(userID < 0){
     return;
   }
-  var json = {UserName:"User"+userID++,oldPassword:"abcd1234",newPassword:"1234abcd"};
-  var callback = {error:genericErrorTest,main:testAll,success:genericErrorTest};
-
+  var json = {UserName:"User"+userID++,Password:"abcd1234",newPassword:"1234abcd"};
+  var callback = {main:testAll,error:genericErrorTest,Empty:loginEmptySet,success:loginForEdPassSuc};
+  sqlFile.login(json,null,callback);
+  
 }
 //return true or false if it successful or not
 //only works if no error is assumed to happen
@@ -64,6 +68,10 @@ var isSuccess = function(){
     console.error(error);
     return false;
   }
+}
+var loginForEdPassSuc = function(rows,json,res,callback){
+  var callback = {main:testAll,error:genericErrorTest,main:testAll,success:genericSuccessTest};
+  sqlFile.editPassword(json,null,callback); 
 }
 //Function is called in case of an error in creating account to see if error is called or not
 var createTestError = function(err,json,res,callback,con){
@@ -129,6 +137,11 @@ allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
+allTests.push({fun:editPassword,check:isSuccess});
+allTests.push({fun:editPassword,check:isSuccess});
+allTests.push({fun:editPassword,check:isSuccess});
+allTests.push({fun:editPassword,check:isSuccess});
+allTests.push({fun:editPassword,check:isSuccess});
 
 //File entry point.
 testAll();
