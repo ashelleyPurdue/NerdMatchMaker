@@ -16,21 +16,21 @@ function createAccount(user){
     console.error("Error with connection");
     return;
   }
-  sqlFile.createAccount(user,con,null);
+  sqlFile.createAccount(user,null);
 }
 function login (user){
   if(typeof con == 'number' ){
     console.error("Error with connection");
     return;
   }
-  sqlFile.login({UserName:user.UserName,Password:user.Password},con,null,true);
+  sqlFile.login({UserName:user.UserName,Password:user.Password},null,true);
 }
 function changePassword(user,newPassword){
   if(typeof con == 'number' ){
     console.error("Error with connection");
     return;
   }
-  sqlFile.editPassword({UserName: user.UserName,oldPassword:user.Password,newPassword:newPassword},con,null);
+  sqlFile.editPassword({UserName: user.UserName,oldPassword:user.Password,newPassword:newPassword},null);
   user.Password = newPassword;
   login(user);
 }

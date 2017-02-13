@@ -1,6 +1,12 @@
 //TODO change functions to deal with res.
 var con;
+//IS the test called a sucess or not
+var success;
+//will set the error to this and it can read it on the test side
+var error;
+
 var createCon = function(){
+  count = 0;
   var mysql = require("mysql");
   var config = require("../config");
   con = mysql.createConnection(config.sql);
@@ -12,76 +18,39 @@ var createCon = function(){
     //console.log('Connection established');
   })
   return con;
-}
+};
 /*this function will create an account in sql and return 0 if the account was created successfully, else it will return -1 if username exist or -2 if sql error happens
 json will be {UserName: "Not Null",Password "Not Null(I will salt this)",Picture: "Null",Birthday : "00/00/0000",Gender: "M","F,"MF",GenderInto: "M","F","MF",Location: "Not Null",InARelationship:"false"}
 */
-var createAccount = function(json,res){
-  //return con;
+//inside callback will deal with two functions on error and on success
+var createAccount = function(json,callback,res){
   //TODO salt passwords
   con.query('Insert Into User Set ?',json,function(err,rows){
     if(err){
-      var userName = {UserName : json.UserName};
-      con.query('Select * from User where ?',userName,function(err,rows){
-        //err happen twice must be sql error happening
-        if(err){
-          if(res == null){
-            console.error(err);
-            con.end(function(err){
-            //if error don't kill
-            });
-            return;
-          }
-          else{
-            //TODO put send to res
-            return -2;
-          }
-        }
-        //no username the same must be someother error
-        else if(rows.length == 0){
-          if(res == null){
-            console.error(err);
-            con.end(function(err){
-              //if error don't kill
-            }); 
-            return;
-          }
-          else{
-            //TODO
-            return -2;
-          }
-        }
-        //userName already exists
-        else if(rows.length > 0){
-          if(res == null){
-            console.log("UserName already exist");
-            con.end(function(err){
-              //if error don't kill
-            });
-            return;
-          }
-          else{
-            //TODO
-            return -1;
-          }
-        }
-        if(res == null){
-          con.end(function(err){
-            //if error don't kill
-          });
-          return;
-        }
-      });
+      callback.error(err,json,res,callback,con);
     }
-    if(res == null){
-      con.end(function(err){
-        //if error don't kill
-      });
-      return;
+    else{
+      callback.success(rows,json,res,callback);
     }
   });
-  return 0;
 };
+//this function will deal with call back for if not error
+var createAccountCallback = function(con,rows,json,res,callback){
+  //have it login so that way it can get the userID and test to make sure everything works right
+  login(json,res);
+};
+var createAccountError = function(err,json,res,callback){
+  var userName = {UserName : json.UserName};
+  con.query('Select * from User where ?',userName,function(err2,rows){
+    if(err2 || row.length == 0){
+      res.send({Error:-2});
+    }
+    else{
+      res.send({Error:-1});
+    }
+  });
+}
+
 /*this function with allow user to edit passwords return 0 if works, returs -1 if old password is wrong or -2 sql error
 give {UserName: name,oldPassword:"password",newPassword:"password"}
 */
@@ -121,57 +90,28 @@ var editPassword = function(json,res){
 };
 //Give it {UserName: Not Null,Password: Not Null}
 //returns ID or -1 if invalid password or username or -2 if sql error
-var login = function (json,res,close){
-  //TODO deal with salting
-  //console.log(json);
+var login = function (json,res,callback){
   con.query('Select * from User where ?',json,function(err,rows){
     if(err){
-      if(res == null){
-        if(close){
-          con.end(function(err){
-          //if error don't kill
-          });
-          //console.log("killed");  
-        }
-        console.error(err);
-        return;
-      }
-      else{
-        //TODO
-        return -2;
-      }
+      callback.error(err,json,res,callback,con);
     } 
     else if(rows.length == 0){
-      if(res == null){
-        console.log("User name or password is incorrect");
-        if(close){
-          con.end(function(err){
-            //if error don't kill
-          });
-        }
-        return;
-      }
-      else{
-        //TODO 
-        return -1;
-      }
+      callback.Empty(res);
     }
     else{
-      if(res == null){
-        console.log("userID = "+rows[0].UserID);
-        if(close){
-          con.end(function(err){
-            //if error don't kill
-          });
-        }
-        return;
-      }
-      else{
-        return rows[0].UserID;
-      }
+      callback.sucess(rows,json,res,callback);
     }
   });
   return 0;
+};
+var loginTest = function(rows,json,res,callback){
+  res.send({UserID: rows[0].UserID});
+};
+var loginEmptySet = function(res){
+  res.send({Error:-1});
+};
+var loginError = function(err,json,callback,con){
+  res.send({Error:-2});
 };
   //Give it {UserID:num,Name: "Pref_Name"}
   //Adds user Preference to UserID 
@@ -232,3 +172,5 @@ var login = function (json,res,close){
   exports.login = login;
   exports.editPassword = editPassword;
   exports.con = con;
+  exports.success = success;
+  exports.error = error;
