@@ -124,12 +124,15 @@ var loginEmptySet = function(res) {
     callback.main();
 };
 var getPrefsError = function(err, json, res, callback, con) {
-    genericErrorTest;
-
+  error = err;
 }
 
 var getPrefsSuccess = function(rows, json, res, callback) {
-    ret = rows;
+  ret = rows;
+}
+var successGetPrefs = function(){
+  // TODO go through rows and find out if we get the right things that we expect
+  
 }
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
