@@ -6,6 +6,7 @@ var allTests = []; //This array stores all test case functions.  We will iterate
 //All tests return true on passing, and false on fail
 var error;
 var success;
+var ret;
 var testAll = function() {
     //Runs all test cases.  Prints a message each time one of them fails.
     if (i != 0) {
@@ -115,13 +116,13 @@ var loginEmptySet = function(res) {
     callback.main();
 };
 
-var getPrefError = function(err, json, res, callback, con) {
-    success = false;
+var getPrefsError = function(err, json, res, callback, con) {
+    genericErrorTest;
 
 }
 
-var getPrefSuccess = function(rows, json, res, callback) {
-
+var getPrefsSuccess = function(rows, json, res, callback) {
+    ret = rows;
 }
 
 
