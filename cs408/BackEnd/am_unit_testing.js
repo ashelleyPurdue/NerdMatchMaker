@@ -10,19 +10,19 @@ var tempID;
 var ret;
 var testAll = function(){
     //Runs all test cases.  Prints a message each time one of them fails.
-  if(i != 0){
-    //Test to see if is Success or not
-    if(allTests[i-1].check() == true){
-    
-    }
+    if (i != 0) {
+        //Test to see if is Success or not
+        if (allTests[i - 1].check() == true) {
 
-  }
-  if(i >= allTests.length){
-    console.log("we are done");
-    return;
-  }
-  allTests[i++].fun();
-  //so next time this called it will go the next function  :
+        }
+
+    }
+    if (i >= allTests.length) {
+        console.log("we are done");
+        return;
+    }
+    allTests[i++].fun();
+    //so next time this called it will go the next function  :
 }
 
 function alwaysPasses() {
@@ -33,18 +33,18 @@ function alwaysPasses() {
 
 //allTests.push(alwaysPasses);
 var createAccount_basic = function() {
-  var user = ({UserName: "User"+userID++,Password:"abcd1234",Picture:null,Birthday:"02/"+userID+"/1995",Gender:"M",GenderInto:"M",Location:null,InARelationship:false});
-  var callback = {error:createTestError,success:genericSuccessTest,main:testAll};
-  sqlFile.createAccount(user,callback,null);
+    var user = ({ UserName: "User" + userID++, Password: "abcd1234", Picture: null, Birthday: "02/" + userID + "/1995", Gender: "M", GenderInto: "M", Location: null, InARelationship: false });
+    var callback = { error: createTestError, success: genericSuccessTest, main: testAll };
+    sqlFile.createAccount(user, callback, null);
 };
 
 var login = function() {
-  if(userID <= 0){
-    return;
-  }
-  var user = ({UserName:"User"+(--userID),Password:"abcd1234"});
-  var callback = {error:genericErrorTest,success:loginTest,main:testAll,Empty:loginEmptySet};
-  sqlFile.login(user,null,callback);
+    if (userID <= 0) {
+        return;
+    }
+    var user = ({ UserName: "User" + (--userID), Password: "abcd1234" });
+    var callback = { error: genericErrorTest, success: loginTest, main: testAll, Empty: loginEmptySet };
+    sqlFile.login(user, null, callback);
 }
 //Checks login and if login is success it will call change password, which deals with changing the password of the user
 var editPassword = function(){
@@ -84,48 +84,53 @@ var createTestError = function(err,json,res,callback,con){
       //console.err(err2);
       error = err2;
       //return2
-    }
-    else if(rows.length == 0){
-      //must be error in first statement
-      //console.err(err);
-      error = err;
-      //return err
-    }
-    else{
-      error = "UserName already exist";
-    }
-    //go to the next method
-    callback.main();
-  });
+    } else if (rows.length == 0) {
+            //must be error in first statement
+            //console.err(err);
+            error = err;
+            //return err
+        } else {
+            error = "UserName already exist";
+        }
+        //go to the next method
+        callback.main();
+    });
 };
 //Called if a success in creating an account
-var genericSuccessTest = function(rows,json,res,callback){
-  success = true;
-   //TODO how do i want to call the function to let it know it successed and go to the next function
-  //or call back to restart process
-  callback.main();
+var genericSuccessTest = function(rows, json, res, callback) {
+    success = true;
+    //TODO how do i want to call the function to let it know it successed and go to the next function
+    //or call back to restart process
+    callback.main();
 };
 //called in login was done successfully
-var loginTest = function(rows,json,res,callback){
-  success = true;
-  ret = rows[0].UserID;
-  //TODO how do i want to call the function to let it know it successed and go to the next function
-  //or call back to restart process
-  callback.main();
+var loginTest = function(rows, json, res, callback) {
+    success = true;
+    ret = rows[0].UserID;
+    //TODO how do i want to call the function to let it know it successed and go to the next function
+    //or call back to restart process
+    callback.main();
 };
 //called if error in login happens
-var genericErrorTest = function(err,json,res,callback,con){
-  success = false;
-  error = err;
-  callback.main();
+var genericErrorTest = function(err, json, res, callback, con) {
+    success = false;
+    error = err;
+    callback.main();
 };
 //called if a empty set is returned in login test
-var loginEmptySet = function(res){
-  success = false;
-  error = "User name or password is incorrect";
-  callback.main();
+var loginEmptySet = function(res) {
+    success = false;
+    error = "User name or password is incorrect";
+    callback.main();
 };
+var getPrefsError = function(err, json, res, callback, con) {
+    genericErrorTest;
 
+}
+
+var getPrefsSuccess = function(rows, json, res, callback) {
+    ret = rows;
+}
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
@@ -142,6 +147,8 @@ allTests.push({fun:editPassword,check:isSuccess});
 allTests.push({fun:editPassword,check:isSuccess});
 allTests.push({fun:editPassword,check:isSuccess});
 allTests.push({fun:editPassword,check:isSuccess});
+
+
 
 //File entry point.
 testAll();
