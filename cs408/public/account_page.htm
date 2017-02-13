@@ -9,19 +9,31 @@
 
     <h1>Account Homepage</h1>
 
+    <script>
+        var dummyUser = ({
+            UserName: "User",
+            Password: "abcd1234",
+            Picture: null,
+            Birthday: "02/21/1995",
+            Gender: "M",
+            GenderInto: "M",
+            Location: null,
+            InARelationship: false
+        });
+    </script>
+
 
     <label><b>Username</b></label>
-
-
-    <label><b>Password</b></label>
-
-
-    <label><b>Re-enter Password</b></label>
-
+    <input id="UserName" type="text" required>
+    <script>
+        var elem = document.getElementById("UserName").value = dummyUser.UserName;
+    </script>
 
     <label><b>Birthday</b></label>
-
-
+    <input id="Birthday" type="text" required>
+    <script>
+        var elem = document.getElementById("Birthday").value = dummyUser.Birthday;
+    </script>
     <label><b>Gender (M, F, or Other)</b></label>
 
 
@@ -32,15 +44,6 @@
 
 
     <label><b>Relationship Stauts</b></label>
-
-
-
-
-    <script>
-    </script>
-
-
-
 
 </body>
 
