@@ -14,20 +14,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post("/BackEnd/createUser/",function(req,res){
-  //sqlFile.createAccount(req.body,con,res);
   console.log(req.body);
-  res.send();
+  var callback = {success:sqlFile.createAccountCallback,error:sqlFile.createAccountError};
+  sqlFile.createAccount(req.body,callback,res);
 });
 app.post("/BackEnd/login",function(req,res){
-  sqlFile.login(req.body,con,res,false);
-  res.send();
+  console.log(req.body);
+  var callback = {success: sqlFile.loginTest,Empty:sqlFile.loginEmptySet ,error:sqlFile.genSQLError};
+  sqlFile.login(req.bodyres,callback);
 });
+//TODO finish
 app.post("/BackEnd/changePassword/",function(req,res){
   sqlFile.editPassword(req.body,con,res);
   res.send();
 });
-
-
+app.post("/BackEnd/getPrefs",function(req,res){
+  var callback = {success:sqlFile.getPrefsSuccess,error:genSQLError};
+  sqlFile.getPrefs(req.body,callback,res);
+});
 //sets default http server
 app.use(express.static(__dirname + '/../public'));
 console.log(__dirname + '/../public');

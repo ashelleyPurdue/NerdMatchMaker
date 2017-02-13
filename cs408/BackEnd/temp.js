@@ -145,7 +145,9 @@ var getPrefs = function(json, callback, res) {
         }
     });
 };
-
+var getPrefsSuccess = function(rows, json, res, callback) {
+  res.send(rows);
+}
 exports.createAccount = createAccount;
 exports.createCon = createCon;
 exports.login = login;
@@ -153,3 +155,9 @@ exports.editPassword = editPassword;
 exports.con = con;
 exports.success = success;
 exports.error = error;
+exports.createAccountCallback = createAccountCallback;
+exports.createAccountError = createAccountError;
+exports.loginTest = loginTest;
+exports.loginEmptySet = loginEmptySet;
+exports.genSQLError = genSQLError;
+exports.getPrefs = getPrefs;

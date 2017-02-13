@@ -174,10 +174,12 @@ var loginEmptySet = function(res) {
     callback.main();
 };
 var getPrefsError = function(err, json, res, callback, con) {
+  success = false;
   error = err;
 }
 
 var getPrefsSuccess = function(rows, json, res, callback) {
+  success = true;
   ret = rows;
 }
 var successGetPrefs = function(){
