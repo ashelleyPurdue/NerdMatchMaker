@@ -93,35 +93,25 @@ var editPassword = function(json,res){
 var login = function (json,res,callback){
   con.query('Select * from User where ?',json,function(err,rows){
     if(err){
-      if(res == null){
-        console.error(err);
-        return;
-      }
-      else{
-        return -2;
-      }
+      callback.error(err,json,res,callback,con);
     } 
     else if(rows.length == 0){
-      if(res == null){
-        console.log("User name or password is incorrect");
-        return;
-      }
-      else{
-        //TODO 
-        return -1;
-      }
+      callback.Empty(res);
     }
     else{
-      if(res == null){
-        console.log("userID = "+rows[0].UserID);
-        return;
-      }
-      else{
-        return rows[0].UserID;
-      }
+      callback.sucess(rows,json,res,callback);
     }
   });
   return 0;
+};
+var loginTest = function(rows,json,res,callback){
+  res.send({UserID: rows[0].UserID});
+};
+var loginEmptySet = function(res){
+  res.send({Error:-1});
+};
+var loginError = function(err,json,callback,con){
+  res.send({Error:-2});
 };
   //Give it {UserID:num,Name: "Pref_Name"}
   //Adds user Preference to UserID 

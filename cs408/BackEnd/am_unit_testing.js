@@ -4,10 +4,16 @@ var i = 0;
 var userID = 0;
 var allTests = []; //This array stores all test case functions.  We will iterate through them and execute them.
 //All tests return true on passing, and false on fail
+var error;
+var success;
 var testAll = function(){
     //Runs all test cases.  Prints a message each time one of them fails.
   if(i != 0){
-    //TODO test if last case successed or not and see what must be done
+    //Test to see if is Success or not
+    if(allTests[i-1].check() == true){
+    
+    }
+
   }
   if(i >= allTests.length){
     console.log("we are done");
@@ -16,34 +22,45 @@ var testAll = function(){
   allTests[i++].fun();
   //so next time this called it will go the next function  :
 }
+
 function alwaysPasses() {
     //This test always passes.
     return true;
 }
+
+
 //allTests.push(alwaysPasses);
 var createAccount_basic = function() {
-  user = ({UserName: "User"+userID++,Password:"abcd1234",Picture:null,Birthday:"02/"+userID+"/1995",Gender:"M",GenderInto:"M",Location:null,InARelationship:false});
+  var user = ({UserName: "User"+userID++,Password:"abcd1234",Picture:null,Birthday:"02/"+userID+"/1995",Gender:"M",GenderInto:"M",Location:null,InARelationship:false});
   var callback = {error:createTestError,success:createAccountTest,main:testAll};
   sqlFile.createAccount(user,callback,null);
 };
+
 var login = function() {
-  console.log
+  if(userID <= 0){
+    return;
+  }
+  var user = ({UserName:"User"+(--userID),Password:"abcd1234"});
+  var callback = {error:loginErrorTest,success:loginTest,main:testAll,Empty:loginEmptySet};
+  sqlFile.login(user,null,callback);
 }
+
 //return true or false if it successful or not
 //only works if no error is assumed to happen
 var isSuccess = function(){
-  if(sqlFile.success){
+  if(success){
     console.log("test case"+i+" success");
-    sqlFile.success = false;
+    success = false;
     return true;
   }
   else{
-    console.error(sqlFile.error);
+    console.error(error);
     return false;
   }
 }
+//Function is called in case of an error in creating account to see if error is called or not
 var createTestError = function(err,json,res,callback,con){
-  sucess = false;
+  success = false;
   var userName = {UserName : json.UserName};
   con.query('Select * from User where ?',userName,function(err2,rows){
     //err happen twice must be sql error happening
@@ -66,17 +83,44 @@ var createTestError = function(err,json,res,callback,con){
     callback.main();
   });
 };
+//Called if a success in creating an account
 var createAccountTest = function(rows,json,res,callback){
-  sucess = true;
+  success = true;
    //TODO how do i want to call the function to let it know it successed and go to the next function
   //or call back to restart process
   callback.main();
 };
+//called in login was done successfully
+var loginTest = function(rows,json,res,callback){
+  success = true;
+  ret = rows[0].UserID;
+  //TODO how do i want to call the function to let it know it successed and go to the next function
+  //or call back to restart process
+  callback.main();
+}
+//called if error in login happens
+var loginErrorTest = function(err,json,res,callback,con){
+  success = false;
+  error = err;
+  callback.main();
+}
+//called if a empty set is returned in login test
+var loginEmptySet = function(res){
+  success = false;
+  error = "User name or password is incorrect";
+  callback.main();
+}
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
+allTests.push({fun:login,check:isSuccess});
+allTests.push({fun:login,check:isSuccess});
+allTests.push({fun:login,check:isSuccess});
+allTests.push({fun:login,check:isSuccess});
+allTests.push({fun:login,check:isSuccess});
+
 //File entry point.
 testAll();
