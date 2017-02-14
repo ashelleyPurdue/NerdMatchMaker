@@ -13,11 +13,15 @@
     <form action="/BackEnd/editUser/" onsubmit="return myFunction()" method="post">
         <div class="container">
 
+            <!--
+                make user type in old password
+            -->
+
             <label><b>Enter new password</b></label>
-            <input id="pass1" type="password" placeholder="Enter new Password" name="user[Password1]" required>
+            <input id="pass1" type="password" placeholder="Enter new Password" name="Password" required>
 
             <label><b>Re-enter new password</b></label>
-            <input id="pass2" type="password" placeholder="Enter new Password again" name="user[Password2]" required>
+            <input id="pass2" type="password" placeholder="Enter new Password again" required>
 
 
             <script>
@@ -31,7 +35,7 @@
                         document.getElementById("pass2").style.borderColor = "#E34234";
                         ok = false;
                     } else {
-                        alert("Passwords Match!!!");
+                        // alert("Passwords Match!!!");
                     }
                     return ok;
                 }
@@ -42,12 +46,12 @@
 
 
             <label><b>Add Preferences</b></label>
-            <input type="text" placeholder="Enter one preference you would like to add and hit submit" name="user[]" required>
+            <input type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
             <button type="submit">Submit New Preferences</button>
 
             <label><b>Remove Preferences</b></label>
-            <input type="text" placeholder="Type one prefernce at a time and hit submit" name="psw" required>
+            <input type="text" placeholder="Type one prefernce at a time and hit submit" name="" required>
 
             <button type="submit">Remove Prefernce</button>
 
