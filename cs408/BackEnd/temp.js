@@ -98,49 +98,96 @@ var loginEmptySet = function(res) {
 var genSQLError = function(err,json,callback,con){
   res.send({Error:-2});
 };
+
+/* Beginning of addUserPref saga */
+
 //Give it {UserID:num,Name: "Pref_Name"}
 //Adds user Preference to UserID 
 //if preference does not exist it will add it to the list
 //getPreferences will return list of preferences.
-var addUserPref = function(json) {
-    //get id of pref
-    var id = getPrefID(Name);
-    //if error in id
-    if (id == -1) {
-        id = addPref({ Name: json.Name, Description: null });
-    } else if (id == -2) {
-        return -2;
-    }
-    //TODO deal with adding id
-    con.query('Insert Into User_Interests Set ?', { UserID: json.UserID, InterestID: id }, function(err, res) {
-        if (err) {
-            return -1;
-        }
-    });
-    return 0;
+var addUserPref = function(json, callback){
+	getPrefID(json.Name, function(id){
+		
+		//If we didn't find that ID, create it and use that as ID.
+		if (id == -1){
+			addPref({ Name: userID_prefName_pair.Name, Description: null }, function(id){
+				addUserPref_weHaveID(id, callback);
+			});
+		}
+		//If there was an SQL error, then "return" that there was an SQL error.
+		else if (id == -2){
+			callback(-2);
+			return;
+		}
+		
+		//We did find the ID, so use it.
+		addUserPref_weHaveID(id, callback);
+	});
 };
+
+function addUserPref_weHaveID(id, callback){
+	//TODO: Deal with adding ID
+	
+	con.query('Insert Into User_Interests Set ?', { UserID: userID_prefName_pair.UserID, InterestID: id }, function(err){
+		
+		//If there's an error, return -1
+		if (err){
+			callback(-1);
+			return;
+		}
+		
+		//No errors, so "return" 0.
+		callback(0);
+		return;
+	});
+}
+
 //Add a preference with {Name:"Not Null",Description:"Null"}
 //returns id if no error or -1 if error
-var addPref = function(json) {
-    con.query('Insert into Interests Set ?', json, function(err, res) {
-        if (err) {
-            return -2;
-        }
-    });
-    return getPrefID;
+//The "return value" is actualy going to be the first argument of calback.
+var addPref = function(name_and_desc, callback) {
+	con.query('Insert into Interests Set ?', name_and_desc, function(err, rows){
+		
+		//Check for errors
+		if (err)
+		{
+			callback(-2);
+			return;
+		}
+		
+		//"Return" the prefID that we just added.
+		//It will call callback for us.
+		getPrefID(name_and_desc.Name, callback);
+		return;
+	});
 };
-//takes Name of pref and returns Id of pref, if -1 does not exist, if -2 sql error 
-var getPrefID = function(Name) {
-    con.query('Select * from Interests where ?', { Name: Name }, function(err, res) {
-        if (err) {
-            return -2;
-        }
-        if (ret.length == 0) {
-            return -1;
-        }
-        return ret[0].InterestID;
-    });
+
+//takes Name of pref and returns Id of pref, if -1 does not exist, if -2 sql error
+//The "return value" is actually going to be the first argument of callback.
+var getPrefID = function(Name, callback) {
+	
+	//Query for the id
+	con.query('Select * from Interests where ?', { Name: Name }, function(err, rows){
+		
+		//Check for errors
+		if (err){
+			callback(-2);
+			return;
+		}
+		if (rows.length == 0){
+			callback(-1);
+			return;
+		}
+		
+		//"Return" the interest ID to the callback.
+		callback(rows[0].InterestID);
+		return;
+	});
+	
 };
+
+/* End of addUserPref saga */
+
 //Will return a list of preferences {Name:"String",Description:"Null"}
 //if error returns [{Name:"Error"}]
 var getPrefs = function(json, callback, res) {
