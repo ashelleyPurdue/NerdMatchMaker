@@ -11,8 +11,10 @@ const url = 'localhost'
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+//app.use(express.bodyParser());
 
-app.post("/test/createUser/",function(req,res){
+app.post("/BackEnd/createUser/",function(req,res){
+  console.log(req.body);
   if(req.body.UserName != null){
     delete req.body.UserName;
   }
@@ -102,7 +104,7 @@ app.post("/test/createUser/",function(req,res){
   }
 });
 
-app.post("/test/login/",function(req,res){
+app.post("/BackEnd/login/",function(req,res){
   if(req.body.UserName != null){
     delete req.body.UserName;
   }
@@ -130,7 +132,7 @@ app.post("/test/login/",function(req,res){
     res.send("Too many objects in you json object");
   }
 });
-app.post("/test/changePassword/",function(req,res){
+app.post("/BackEnd/changePassword/",function(req,res){
   if(req.body.UserName != null){
     delete req.body.UserName;
   }
@@ -172,9 +174,11 @@ app.post("/test/changePassword/",function(req,res){
 var checkGender = function(gender){
   return (gender === "M" || gender === "F" || gender === "MF");
 };
-var req = {body:user};
-rest(req,null);
-/*
-var x = {test:0};
-delete x.test;
-console.log(!Object.keys(x).length);*/
+//sets default http server
+app.use(express.static(__dirname + '/../public'));
+console.log(__dirname + '/../public');
+// start server on the specified port and binding host
+app.listen(port, url, function() {
+  // print a message when the server starts listening
+  console.log("server starting on " + url + " on port " + port );
+});
