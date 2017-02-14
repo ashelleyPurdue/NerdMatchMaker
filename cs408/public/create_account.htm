@@ -9,19 +9,19 @@
 
     <h1>Create a new Acccount</h1>
 
-    <form action="/BackEnd/createUser/" onsubmit="return myFunction()" method="post">
+    <form method="post" action="/BackEnd/createUser/" onsubmit="return passWordsMatch()">
         <div class="container">
             <label><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="user[UserName]" required>
+            <input type="text" placeholder="Enter Username" name="UserName" required>
 
             <label><b>Password</b></label>
-            <input id="pass1" type="password" placeholder="Enter Password" name="user[Password1]" required>
+            <input id="pass1" type="password" placeholder="Enter Password" name="Password" required>
 
             <label><b>Re-enter Password</b></label>
-            <input id="pass2" type="password" placeholder="Enter Same Password" name="user[Password2]" required>
+            <input id="pass2" type="password" placeholder="Enter Same Password" required>
 
             <script>
-                function myFunction() {
+                function passWordsMatch() {
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
@@ -38,19 +38,30 @@
             </script>
 
             <label><b>Birthday</b></label>
-            <input type="text" placeholder="Enter Birthdate" name="user[birthdate]" required>
+            <input type="text" placeholder="Enter Birthdate" name="Birthday" required>
 
             <label><b>Gender (M, F, or Other)</b></label>
-            <input type="text" placeholder="Enter Gender" name="user[Gender]" required>
+            <!--
+            <label>
+    <input type="checkbox" class="radio" value="1" name="user[Gender]" />Male</label>
+            <label>
+    <input type="checkbox" class="radio" value="1" name="user[Gender]" />Female</label>
+            <label>
+    <input type="checkbox" class="radio" value="1" name="user[Gender]" />Other</label>
+
+            -->
+
+
+            <input type="text" placeholder="Enter Gender" name="Gender" required>
 
             <label><b>Gender Interested In</b></label>
-            <input type="text" placeholder="Enter what gender you are interested in" name="user[GenderInto]" required>
+            <input type="text" placeholder="Enter what gender you are interested in" name="GenderInto" required>
 
             <label><b>Location (Optional)</b></label>
-            <input type="text" placeholder="Enter Location" name="user[location]" required>
+            <input type="text" placeholder="Enter Location" name="Location" required>
 
             <label><b>Relationship Stauts</b></label>
-            <input type="text" placeholder="Enter Relationship Stauts" name="user[InARelationship]" required>
+            <input type="text" placeholder="Enter Relationship Stauts" name="InARelationship" required>
 
             <button type="submit">Login</button>
 
