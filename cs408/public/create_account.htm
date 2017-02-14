@@ -9,7 +9,7 @@
 
     <h1>Create a new Acccount</h1>
 
-    <form action="/BackEnd/createUser/" onsubmit="return myFunction()" method="post">
+    <form method="post" action="/BackEnd/createUser/" onsubmit="return passWordsMatch()">
         <div class="container">
             <label><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="user[UserName]" required>
@@ -21,7 +21,7 @@
             <input id="pass2" type="password" placeholder="Enter Same Password" name="user[Password2]" required>
 
             <script>
-                function myFunction() {
+                function passWordsMatch() {
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
@@ -41,6 +41,17 @@
             <input type="text" placeholder="Enter Birthdate" name="user[birthdate]" required>
 
             <label><b>Gender (M, F, or Other)</b></label>
+            <!--
+            <label>
+    <input type="checkbox" class="radio" value="1" name="user[Gender]" />Male</label>
+            <label>
+    <input type="checkbox" class="radio" value="1" name="user[Gender]" />Female</label>
+            <label>
+    <input type="checkbox" class="radio" value="1" name="user[Gender]" />Other</label>
+
+            -->
+
+
             <input type="text" placeholder="Enter Gender" name="user[Gender]" required>
 
             <label><b>Gender Interested In</b></label>
