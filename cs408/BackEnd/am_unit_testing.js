@@ -56,9 +56,6 @@ var loginFailPassword = function(){
 }
 //checks login with a failed user name
 var loginFailUserName = function(){
-  if (userID <= 0) {
-        return;
-    }
     var user = ({ UserName: "Not a User", Password: "abcd1234" });
     var callback = { error: genericErrorTest, success: loginTest, main: testAll, Empty: loginEmptySet };
     sqlFile.login(user, null, callback);
@@ -168,7 +165,7 @@ var genericErrorTest = function(err, json, res, callback, con) {
     callback.main();
 };
 //called if a empty set is returned in login test
-var loginEmptySet = function(res) {
+var loginEmptySet = function(res,callback) {
     success = false;
     error = "User name or password is incorrect";
     callback.main();
@@ -200,7 +197,6 @@ allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
-allTests.push({fun:createAccount_basic,check:isSuccess});
 //tests logining with said basic users
 allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
@@ -208,7 +204,6 @@ allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
 allTests.push({fun:login,check:isSuccess});
 //tests dup user names
-allTests.push({fun:createAccount_basic,check:isRepeatUserName});
 allTests.push({fun:createAccount_basic,check:isRepeatUserName});
 allTests.push({fun:createAccount_basic,check:isRepeatUserName});
 allTests.push({fun:createAccount_basic,check:isRepeatUserName});

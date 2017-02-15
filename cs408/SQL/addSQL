@@ -1,0 +1,3 @@
+#!/bin/bash
+mysql -u root -pcz002 cs408 < drop.sql
+mysql -u root -pcz002 cs408 < temp.sql

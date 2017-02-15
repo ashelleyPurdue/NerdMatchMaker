@@ -36,15 +36,22 @@ var createAccount = function(json, callback, res) {
 //this function will deal with call back for if not error
 var createAccountCallback = function(con, rows, json, res, callback) {
     //have it login so that way it can get the userID and test to make sure everything works right
-    login(json, res);
+    //TODO fix login
+    var callback = {success:loginTest,Empty:loginEmptySet,error:genSQLError};
+    login(json, res,callback);
 };
 var createAccountError = function(err, json, res, callback) {
     var userName = { UserName: json.UserName };
     con.query('Select * from User where ?', userName, function(err2, rows) {
-        if (err2 || row.length == 0) {
-            res.send({ Error: -2 });
-        } else {
-            res.send({ Error: -1 });
+        if (err2){
+          console.log(err2);  
+          res.send({ Error: -2 });
+        } 
+        else if(rows.length == 0){
+          console.log(err);
+          res.send({ Error: -2 });
+        }else {
+            res.send({ Error: -1,err:"User Name already taken" });
         }
     });
 }
@@ -54,12 +61,12 @@ give {UserName: name,oldPassword:"password",newPassword:"password"}
 */
 /*need to call login first to check that password is correct if not user can just change password*/
 var editPassword = function(json,res,callback){
-  con.query('Update User Set password = ? where UserID = ?',[json.newPassword,x],function(err,row){
+  con.query('Update User Set password = ? where UserID = ?',[json.newPassword,json.UserID],function(err,row){
     if(err){
       callback.error(err,json,res,callback,con);  
     }
     else{
-      callback.success(rows,json,res,callback);
+      callback.success(row,json,res,callback);
     }
   });
   return 0;
@@ -71,19 +78,17 @@ var loginForEdPassSuc = function(rows,json,res,callback){
   var call = {error:genSQLError,success:genSuccess};
   sqlFile.editPassword(json,null,call);
 }
-var genSuccess = function(){
-  
-}
 //Give it {UserName: Not Null,Password: Not Null}
 //returns ID or -1 if invalid password or username or -2 if sql error
 var login = function(json, res, callback) {
-    con.query('Select * from User where ?', json, function(err, rows) {
+    var q = con.query('Select * from User where UserName = ? AND Password = ?', [json.UserName,json.Password], function(err, rows) {
+        //console.log(q);
         if (err) {
             callback.error(err, json, res, callback, con);
         } else if (rows.length == 0) {
-            callback.Empty(res);
+            callback.Empty(res,callback);
         } else {
-            callback.sucess(rows, json, res, callback);
+            callback.success(rows, json, res, callback);
         }
     });
     return 0;

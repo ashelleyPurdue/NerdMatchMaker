@@ -7,7 +7,7 @@ Create Table User(
 	Gender varchar(2) Not Null,
 	GenderInto varchar(2) Not Null,
 	Location varchar(45),
-	InARelationship boolean Not Null
+	InARelationship boolean DEFAULT false
 );
 Create Table Interests(
 	InterestID int Primary Key AUTO_INCREMENT,
