@@ -1,5 +1,5 @@
 const sqlFile = require("./temp.js");
-sqlFile.con = sqlFile.createCon();
+var con = sqlFile.createCon();
 var i = 0;
 var userID = 0;
 var allTests = []; //This array stores all test case functions.  We will iterate through them and execute them.
@@ -179,7 +179,7 @@ var getPrefsError = function(err, json, res, callback, con) {
 /* Tests for addUserPref */
 var addUserPrefTest0 = function(){
 	let callback = { error: genericErrorTest, success: genericSuccessTest, main: testAll };
-	addUserPref({UserID: 1, Name: "Test"}, callback, null);
+	sqlFile.addUserPref({UserID: 1, Name: "Test"}, callback, null);
 }
 
 function addUserPrefTest0_check(){

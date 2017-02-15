@@ -26,7 +26,7 @@ var createAccount = function (json, callback, res) {
     //TODO salt passwords
     con.query('Insert Into User Set ?', json, function (err, rows) {
         if (err) {
-            callback.error(err, json, res, callback, con);
+            callback.error(err, json, res, callback);
         }
         else {
             callback.success(rows, json, res, callback);
@@ -126,9 +126,9 @@ var addUserPref = function (json, callback, res) {
         addUserPref_weHaveID(id, res, callback);
     });
 };
-function addUserPref_weHaveID(id, res, callback) {
+var addUserPref_weHaveID = function (id, res, callback) {
     //TODO: Deal with adding ID
-    con.query('Insert Into User_Interests Set ?', { UserID: userID_prefName_pair.UserID, InterestID: id }, function (err) {
+    con.query('Insert Into User_Interests Set ?', { UserID: 1 /*userID_prefName_pair.UserID*/, InterestID: id }, function (err) {
         //If there's an error, return -1
         if (err) {
             callback.error(err, null, res, callback, null);
@@ -138,7 +138,7 @@ function addUserPref_weHaveID(id, res, callback) {
         callback.success(null, null, res, callback);
         return;
     });
-}
+};
 //Add a preference with {Name:"Not Null",Description:"Null"}
 //returns id if no error or -1 if error
 //The "return value" is actualy going to be the first argument of calback.
@@ -204,3 +204,4 @@ exports.loginEmptySet = loginEmptySet;
 exports.genSQLError = genSQLError;
 exports.getPrefs = getPrefs;
 exports.loginForEdPassSuc = loginForEdPassSuc;
+exports.addUserPref = addUserPref;
