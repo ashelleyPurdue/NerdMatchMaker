@@ -17,6 +17,9 @@
                 make user type in old password
             -->
 
+            <label><b>Enter old password</b></label>
+            <input id="oldPass" type="password" placeholder="Enter old Password" name="Password" required>
+
             <label><b>Enter new password</b></label>
             <input id="pass1" type="password" placeholder="Enter new Password" name="Password" required>
 
@@ -26,17 +29,10 @@
 
             <script>
                 function myFunction() {
+                    var oldPass = document.getElementByID('oldPass').value;
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
-                    if (pass1 != pass2) {
-                        //alert("Passwords Do not match");
-                        document.getElementById("pass1").style.borderColor = "#E34234";
-                        document.getElementById("pass2").style.borderColor = "#E34234";
-                        ok = false;
-                    } else {
-                        // alert("Passwords Match!!!");
-                    }
                     return ok;
                 }
             </script>
