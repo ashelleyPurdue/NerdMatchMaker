@@ -110,7 +110,7 @@ var genSQLError = function (err, json, callback, con) {
 //if preference does not exist it will add it to the list
 //getPreferences will return list of preferences.
 //callback is an object that is used to communicate with the testing framework.
-var addUserPref = function (json, res, callback) {
+var addUserPref = function (json, callback, res) {
     getPrefID(json.Name, function (id) {
         //If we didn't find that ID, create it and use that as ID.
         if (id == -1) {
@@ -119,7 +119,7 @@ var addUserPref = function (json, res, callback) {
             });
         }
         else if (id == -2) {
-            callback.error(null, null, res, callback, null);
+            callback.error(null, null, res, callback);
             return;
         }
         //We did find the ID, so use it.
@@ -131,7 +131,7 @@ function addUserPref_weHaveID(id, res, callback) {
     con.query('Insert Into User_Interests Set ?', { UserID: userID_prefName_pair.UserID, InterestID: id }, function (err) {
         //If there's an error, return -1
         if (err) {
-            callback.error(null, null, res, callback, null);
+            callback.error(err, null, res, callback, null);
             return;
         }
         //No errors, so "return" 0.

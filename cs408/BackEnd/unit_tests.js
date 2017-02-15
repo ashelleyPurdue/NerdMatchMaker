@@ -2,15 +2,15 @@ var allTests = []; //This array stores all test case functions.  We will iterate
 //All tests return true on passing, and false on failing.
 function testAll() {
     //Runs all test cases.  Prints a message each time one of them fails.
-    for (var i = 0; i < allTests.length; i++) {
+    for (var i_1 = 0; i_1 < allTests.length; i_1++) {
         //Run this test
-        var success_1 = allTests[i]();
+        var success_1 = allTests[i_1]();
         //If it failed, log that.
         if (success_1) {
-            console.log("TEST PASSED: " + i);
+            console.log("TEST PASSED: " + i_1);
         }
         else {
-            console.log("*TEST FAILED: " + i);
+            console.log("*TEST FAILED: " + i_1);
         }
     }
 }

@@ -31,6 +31,10 @@ app.post("/BackEnd/getPrefs/", function (req, res) {
     var callback = { success: sqlFile.getPrefsSuccess, error: genSQLError };
     sqlFile.getPrefs(req.body, callback, res);
 });
+app.post("/BackEnd/addUserPref/", function (req, res) {
+    var callback = { success: sqlFile.genSuccess, error: genSQLError };
+    sqlFile.addUserPref(req.body, callback, res);
+});
 //sets default http server
 app.use(express.static(__dirname + '/../public'));
 console.log(__dirname + '/../public');

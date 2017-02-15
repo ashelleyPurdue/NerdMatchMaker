@@ -167,6 +167,9 @@ app.post("/BackEnd/changePassword/", function (req, res) {
         res.send("Too many objects in you json object");
     }
 });
+app.post("/BackEnd/addUserPref", function (req, res) {
+    //TODO:
+});
 var checkGender = function (gender) {
     return (gender === "M" || gender === "F" || gender === "MF");
 };
