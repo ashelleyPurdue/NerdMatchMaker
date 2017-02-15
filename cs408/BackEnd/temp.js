@@ -61,7 +61,7 @@ give {UserName: name,oldPassword:"password",newPassword:"password"}
 */
 /*need to call login first to check that password is correct if not user can just change password*/
 var editPassword = function(json,res,callback){
-  con.query('Update User Set password = ? where UserID = ?',[json.newPassword,json.UserID],function(err,row){
+  con.query('Update User Set password = ? where UserID = ?',[json.newPassword,json.UserId],function(err,row){
     if(err){
       callback.error(err,json,res,callback,con);  
     }
