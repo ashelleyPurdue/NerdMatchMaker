@@ -122,7 +122,7 @@ var loginForEdPassSuc = function(rows,json,res,callback){
   sqlFile.editPassword(json,null,call); 
 }
 //Function is called in case of an error in creating account to see if error is called or not
-var createTestError = function(err,json,res,callback,con){
+var createTestError = function(err,json,res,callback){
   success = false;
   var userName = {UserName : json.UserName};
   con.query('Select * from User where ?',userName,function(err2,rows){
