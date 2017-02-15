@@ -96,7 +96,7 @@ var login = function(json, res, callback) {
 var loginTest = function(rows, json, res, callback) {
     res.send({ UserID: rows[0].UserID });
 };
-var loginEmptySet = function(res) {
+var loginEmptySet = function(res,callback) {
     res.send({ Error: -1 });
 };
 

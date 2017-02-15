@@ -4,9 +4,9 @@ function testAll() {
     //Runs all test cases.  Prints a message each time one of them fails.
     for (var i = 0; i < allTests.length; i++) {
         //Run this test
-        var success = allTests[i]();
+        var success_1 = allTests[i]();
         //If it failed, log that.
-        if (success) {
+        if (success_1) {
             console.log("TEST PASSED: " + i);
         }
         else {
