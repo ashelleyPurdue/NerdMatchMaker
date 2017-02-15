@@ -61,7 +61,7 @@ give {UserName: name,oldPassword:"password",newPassword:"password"}
 */
 /*need to call login first to check that password is correct if not user can just change password*/
 var editPassword = function (json, res, callback) {
-    con.query('Update User Set password = ? where UserID = ?', [json.newPassword, json.UserID], function (err, row) {
+    con.query('Update User Set password = ? where UserID = ?', [json.newPassword, json.UserId], function (err, row) {
         if (err) {
             callback.error(err, json, res, callback, con);
         }
@@ -98,7 +98,7 @@ var login = function (json, res, callback) {
 var loginTest = function (rows, json, res, callback) {
     res.send({ UserID: rows[0].UserID });
 };
-var loginEmptySet = function (res) {
+var loginEmptySet = function (res, callback) {
     res.send({ Error: -1 });
 };
 var genSQLError = function (err, json, callback, con) {
@@ -110,7 +110,7 @@ var genSQLError = function (err, json, callback, con) {
 //if preference does not exist it will add it to the list
 //getPreferences will return list of preferences.
 //callback is an object that is used to communicate with the testing framework.
-var addUserPref = function (json, res, callback) {
+var addUserPref = function (json, callback, res) {
     getPrefID(json.Name, function (id) {
         //If we didn't find that ID, create it and use that as ID.
         if (id == -1) {
@@ -119,7 +119,7 @@ var addUserPref = function (json, res, callback) {
             });
         }
         else if (id == -2) {
-            callback.error(null, null, res, callback, null);
+            callback.error(null, null, res, callback);
             return;
         }
         //We did find the ID, so use it.
@@ -131,7 +131,7 @@ function addUserPref_weHaveID(id, res, callback) {
     con.query('Insert Into User_Interests Set ?', { UserID: userID_prefName_pair.UserID, InterestID: id }, function (err) {
         //If there's an error, return -1
         if (err) {
-            callback.error(null, null, res, callback, null);
+            callback.error(err, null, res, callback, null);
             return;
         }
         //No errors, so "return" 0.

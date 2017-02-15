@@ -1,5 +1,8 @@
-"use strict";
-var express = require("express");
+var http = require('http');
+//const url = require('url');
+var path = require('path');
+var fs = require('fs');
+var express = require('express');
 var bodyParser = require("body-parser");
 var sqlFile = require("../BackEnd/temp.js");
 //TODO make in prop files
@@ -27,6 +30,10 @@ app.post("/BackEnd/changePassword/", function (req, res) {
 app.post("/BackEnd/getPrefs/", function (req, res) {
     var callback = { success: sqlFile.getPrefsSuccess, error: genSQLError };
     sqlFile.getPrefs(req.body, callback, res);
+});
+app.post("/BackEnd/addUserPref/", function (req, res) {
+    var callback = { success: sqlFile.genSuccess, error: genSQLError };
+    sqlFile.addUserPref(req.body, callback, res);
 });
 //sets default http server
 app.use(express.static(__dirname + '/../public'));

@@ -177,9 +177,12 @@ var getPrefsError = function(err, json, res, callback, con) {
 }
 
 /* Tests for addUserPref */
-var addUserPrefTest0 = function()
-{
-	
+var addUserPrefTest0 = function(){
+	let callback = { error: genericErrorTest, success: genericSuccessTest, main: testAll };
+	addUserPref({UserID: 1, Name: "Test"}, callback, null);
+}
+
+function addUserPrefTest0_check(){
 }
 
 /* End of tests for addUserPref */
@@ -236,6 +239,9 @@ allTests.push({fun:editPassword,check:loginFailure});
 allTests.push({fun:editPassword,check:loginFailure});
 allTests.push({fun:editPassword,check:loginFailure});
 allTests.push({fun:editPassword,check:loginFailure});
+
+//addUserPref
+allTests.push({fun: addUserPrefTest0, check: isSuccess});
 
 //File entry point.
 testAll();

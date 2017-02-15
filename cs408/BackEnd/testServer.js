@@ -1,5 +1,9 @@
-"use strict";
-var express = require("express");
+//This server will give the front end a way of checking to make sure that the front end is giving the back-end the right code
+var http = require('http');
+//const url = require('url');
+var path = require('path');
+var fs = require('fs');
+var express = require('express');
 var bodyParser = require("body-parser");
 //TODO make in prop files
 var port = 3000;
@@ -162,6 +166,9 @@ app.post("/BackEnd/changePassword/", function (req, res) {
         console.log(req.body);
         res.send("Too many objects in you json object");
     }
+});
+app.post("/BackEnd/addUserPref", function (req, res) {
+    //TODO:
 });
 var checkGender = function (gender) {
     return (gender === "M" || gender === "F" || gender === "MF");

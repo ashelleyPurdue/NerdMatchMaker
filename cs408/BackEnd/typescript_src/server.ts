@@ -36,7 +36,7 @@ app.post("/BackEnd/getPrefs/",function(req,res){
 
 app.post("/BackEnd/addUserPref/", function(req, res){
 	var callback = {success:sqlFile.genSuccess, error:genSQLError};
-	sqlFile.addUserPref(req.body, callback, res));
+	sqlFile.addUserPref(req.body, callback, res);
 });
 
 //sets default http server
