@@ -111,7 +111,7 @@ var genSQLError = function(err,json,callback,con){
 //if preference does not exist it will add it to the list
 //getPreferences will return list of preferences.
 //callback is an object that is used to communicate with the testing framework.
-var addUserPref = function(json, res, callback){
+var addUserPref = function(json, callback, res){
 	getPrefID(json.Name, function(id){
 		
 		//If we didn't find that ID, create it and use that as ID.

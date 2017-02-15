@@ -1,49 +1,48 @@
-//This server will give the front end a way of checking to make sure that the front end is giving the back-end the right code
-const http = require('http');
-//const url = require('url');
-const path = require('path');
-const fs = require('fs');
-const express = require('express');
-const bodyParser = require("body-parser");
+"use strict";
+var express = require("express");
+var bodyParser = require("body-parser");
 //TODO make in prop files
-const port = 3000;
-const url = 'localhost'
+var port = 3000;
+var url = 'localhost';
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //app.use(express.bodyParser());
-
-app.post("/BackEnd/createUser/", function(req, res) {
+app.post("/BackEnd/createUser/", function (req, res) {
     console.log(req.body);
     if (req.body.UserName != null) {
         delete req.body.UserName;
-    } else {
+    }
+    else {
         console.log("No UserName in json");
         res.send("No UserName in json");
         return;
     }
     if (req.body.Password != null) {
         delete req.body.Password;
-    } else {
+    }
+    else {
         console.log("No Password in json");
         res.send("No Password in json");
         return;
     }
     if (req.body.Picture != null) {
         delete req.body.Picture;
-    } else {
+    }
+    else {
         delete req.body.Picture;
         console.log("No Picture in json, not that we need it");
     }
     if (req.body.Birthday != null) {
         //TODO check format
-        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        var regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
         if (regex.exec(req.body.Birthday) === null) {
             console.log("Error in birthday format of mm/dd/yyyy");
             res.send("Error in birthday format of mm/dd/yyyy");
         }
         delete req.body.Birthday;
-    } else {
+    }
+    else {
         console.log("No Birthday in json");
         res.send("No Birthday in json");
     }
@@ -54,7 +53,8 @@ app.post("/BackEnd/createUser/", function(req, res) {
             res.send("Gender in wrong format");
         }
         delete req.body.Gender;
-    } else {
+    }
+    else {
         console.log("No Gender in json");
         res.send("No Gender in json");
     }
@@ -64,49 +64,54 @@ app.post("/BackEnd/createUser/", function(req, res) {
             res.send("GenderInto in wrong format");
         }
         delete req.body.GenderInto;
-    } else {
+    }
+    else {
         console.log("No GenderInto in json");
         res.send("No GenderInto in json");
     }
     if (req.body.Location != null) {
         delete req.body.Location;
-    } else {
+    }
+    else {
         delete req.body.Location;
         console.log("No Location in json not that you need one");
     }
     if (req.body.InARelationship != null) {
-        if (typeof(req.body.InARelationship) !== 'boolean') {
+        if (typeof (req.body.InARelationship) !== 'boolean') {
             console.log("Please give InARelationship of type boolean");
             res.send("Please give InARelationship of type boolean");
         }
         delete req.body.InARelationship;
-    } else {
+    }
+    else {
         console.log("No InARelationship in json");
         res.send("No InARealtionship in json");
     }
     if (!Object.keys(req.body).length) {
         console.log("Congrats correct json object");
         res.send("Congrats correct json object");
-    } else {
+    }
+    else {
         console.log("Too many objects in you json object");
         console.log("None of these should be here");
         console.log(req.body);
         res.send("Too many objects in you json object");
     }
 });
-
-app.post("/BackEnd/login/", function(req, res) {
+app.post("/BackEnd/login/", function (req, res) {
     console.log(req.body);
     if (req.body.UserName != null) {
         delete req.body.UserName;
-    } else {
+    }
+    else {
         console.log("No UserName in json");
         res.send("No UserName in json");
         return;
     }
     if (req.body.Password != null) {
         delete req.body.Password;
-    } else {
+    }
+    else {
         console.log("No Password in json");
         res.send("No Password in json");
         return;
@@ -114,60 +119,58 @@ app.post("/BackEnd/login/", function(req, res) {
     if (!Object.keys(req.body).length) {
         console.log("Congrats correct json object");
         res.send("Congrats correct json object");
-    } else {
+    }
+    else {
         console.log("Too many objects in you json object");
         console.log("None of these should be here");
         console.log(req.body);
         res.send("Too many objects in you json object");
     }
 });
-app.post("/BackEnd/changePassword/", function(req, res) {
+app.post("/BackEnd/changePassword/", function (req, res) {
     if (req.body.UserName != null) {
         delete req.body.UserName;
-    } else {
+    }
+    else {
         console.log("No UserName in json");
         res.send("No UserName in json");
         return;
     }
     if (req.body.oldPassword != null) {
         delete req.body.oldPassword;
-    } else {
+    }
+    else {
         console.log("No oldPassword in json");
         res.send("No oldPassword in json");
         return;
     }
     if (req.body.newPassword != null) {
         delete req.body.newPassword;
-    } else {
+    }
+    else {
         console.log("No newPassword in json");
         res.send("No newPassword in json");
         return;
     }
-
     if (!Object.keys(req.body).length) {
         console.log("Congrats correct json object");
         res.send("Congrats correct json object");
-    } else {
+    }
+    else {
         console.log("Too many objects in you json object");
         console.log("None of these should be here");
         console.log(req.body);
         res.send("Too many objects in you json object");
     }
 });
-
-app.post("/BackEnd/addUserPref", function(req, res){
-	//TODO:
-});
-
-
-var checkGender = function(gender) {
+var checkGender = function (gender) {
     return (gender === "M" || gender === "F" || gender === "MF");
 };
 //sets default http server
 app.use(express.static(__dirname + '/../public'));
 console.log(__dirname + '/../public');
 // start server on the specified port and binding host
-app.listen(port, url, function() {
+app.listen(port, url, function () {
     // print a message when the server starts listening
     console.log("server starting on " + url + " on port " + port);
 });
