@@ -176,9 +176,24 @@ var addUserPrefTest0 = function () {
 };
 var addUserPrefTest1 = function () {
     //Invalid UserID.
-    var callback = { error: genericErrorTest, success: genericSuccessTest, testAll: testAll };
+    var callback = { error: genericErrorTest, success: genericSuccessTest, main: testAll };
     sqlFile.addUserPref({ UserID: -1, Name: "Test" }, callback, null);
 };
+var addUserPrefTest2 = function () {
+    //Null pref name
+    var callback = { error: genericErrorTest, success: genericSuccessTest, main: testAll };
+    sqlFile.addUserPref({ UserID: 1, Name: null }, callback, null);
+};
+var addUserPrefTest3 = function () {
+    //Deplicate pref name.
+    //Should be successful
+    var callback = { error: genericErrorTest, success: genericSuccessTest, main: addUserPrefTest3_afterFirst };
+    sqlFile.addUserPref({ UserID: 1, Name: "Test" }, callback, null);
+};
+function addUserPrefTest3_afterFirst() {
+    var callback = { error: genericErrorTest, success: genericSuccessTest, main: testAll };
+    sqlFile.addUserPref({ UserID: 1, Name: "Test" }, callback, null);
+}
 function notSuccess() {
     //Success should be set to false.
     return !success;
@@ -238,5 +253,6 @@ allTests.push({ fun: editPassword, check: loginFailure });
 //addUserPref
 allTests.push({ fun: addUserPrefTest0, check: isSuccess });
 allTests.push({ fun: addUserPrefTest1, check: notSuccess });
+allTests.push({ fun: addUserPrefTest2, check: notSuccess });
 //File entry point.
 testAll();
