@@ -29,6 +29,14 @@
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
+                    if (pass1 != pass2) {
+                        //alert("Passwords Do not match");
+                        document.getElementById("pass1").style.borderColor = "#E34234";
+                        document.getElementById("pass2").style.borderColor = "#E34234";
+                        ok = false;
+                    } else {
+                        // alert("Passwords Match!!!");
+                    }
                     return ok;
                 }
             </script>
@@ -39,15 +47,15 @@
     </form>
 
     <form action="/BackEnd/editUser/" method="post">
-            <label><b>Add Preferences</b></label>
-            <input type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
+        <label><b>Add Preferences</b></label>
+        <input type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
-            <button type="submit">Submit New Preferences</button>
+        <button type="submit">Submit New Preferences</button>
 
-            <label><b>Remove Preferences</b></label>
-            <input type="text" placeholder="Type one prefernce at a time and hit submit" name="" required>
+        <label><b>Remove Preferences</b></label>
+        <input type="text" placeholder="Type one prefernce at a time and hit submit" name="" required>
 
-            <button type="submit">Remove Prefernce</button>
+        <button type="submit">Remove Prefernce</button>
     </form>
 
 </body>
