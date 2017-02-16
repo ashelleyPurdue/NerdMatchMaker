@@ -118,7 +118,7 @@ var addUserPref = function (json, callback, res) {
         //If we didn't find that ID, create it and use that as ID.
         if (id == -1) {
             addPref({ Name: json.Name, Description: null }, function (id) {
-                addUserPref_weHaveID(id, res, callback);
+                addUserPref_weHaveID(id, json, res, callback);
             });
         }
         else if (id == -2) {

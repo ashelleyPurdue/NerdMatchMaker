@@ -28,7 +28,7 @@ function alwaysPasses() {
     return true;
 }
 var createAccount_basic = function () {
-    var user = ({ UserName: "User" + userID++, Password: "abcd1234", Picture: null, Birthday: "02/" + userID + "/1995", Gender: "M", GenderInto: "M", Location: null, InARelationship: false });
+    var user = ({ UserName: "User" + userID++, Password: "abcd1234", Picture: null, Birthday: "02/" + userID + "/1995", Gender: "M", GenderInto: "M", loc: null, InARelationship: false });
     var callback = { error: createTestError, success: genericSuccessTest, main: testAll };
     sqlFile.createAccount(user, callback, null);
 };
