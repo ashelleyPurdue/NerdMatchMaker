@@ -38,14 +38,22 @@
         </div>
     </form>
 
-    <form action="/BackEnd/editUser/" method="post">
+    <form action="/BackEnd/editUser/" onsubmit= "return myFunction()" method="post">
             <label><b>Add Preferences</b></label>
             <input type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
+            <!--add send info to server with name and userid-->
+
             <button type="submit">Submit New Preferences</button>
+
+    </form>
+
+    <form action="/BackEnd/editUser/" onsubmit= "return myFunction()" method="post">
 
             <label><b>Remove Preferences</b></label>
             <input type="text" placeholder="Type one prefernce at a time and hit submit" name="" required>
+
+            <!--add send info to server with name of remove preference and userid-->
 
             <button type="submit">Remove Prefernce</button>
     </form>
