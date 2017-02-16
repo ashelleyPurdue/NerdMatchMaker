@@ -1,3 +1,6 @@
+//Force this file to be a module
+/*export interface UselessInterface {
+}*/
 //TODO change functions to deal with res.
 var con;
 //IS the test called a sucess or not
@@ -5,7 +8,7 @@ var success;
 //will set the error to this and it can read it on the test side
 var error;
 var createCon = function () {
-    count = 0;
+    //count = 0;
     var mysql = require("mysql");
     var config = require("../config");
     con = mysql.createConnection(config.sql);

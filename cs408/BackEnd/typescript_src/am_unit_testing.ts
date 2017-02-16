@@ -1,4 +1,4 @@
-const sqlFile = require("./temp.js");
+import sqlFile = require("./temp.js");
 var con = sqlFile.createCon();
 var i = 0;
 var userID = 0;
@@ -13,7 +13,7 @@ var testAll = function(){
     if (i != 0) {
         //Test to see if is Success or not
         if (allTests[i - 1].check() == true) {
-
+			//TODO: Do something
         }
 
     }
@@ -178,11 +178,20 @@ var getPrefsError = function(err, json, res, callback, con) {
 
 /* Tests for addUserPref */
 var addUserPrefTest0 = function(){
+	//Basic test with obvious functionality
 	let callback = { error: genericErrorTest, success: genericSuccessTest, main: testAll };
 	sqlFile.addUserPref({UserID: 1, Name: "Test"}, callback, null);
 }
 
-function addUserPrefTest0_check(){
+var addUserPrefTest1 = function(){
+	//Invalid UserID.
+	let callback = { error: genericErrorTest, success: genericSuccessTest, testAll };
+	sqlFile.addUserPref({UserID: -1, Name: "Test"}, callback, null);
+}
+
+function notSuccess(){
+	//Success should be set to false.
+	return !success;
 }
 
 /* End of tests for addUserPref */
@@ -242,6 +251,7 @@ allTests.push({fun:editPassword,check:loginFailure});
 
 //addUserPref
 allTests.push({fun: addUserPrefTest0, check: isSuccess});
+allTest.push({fun: addUserPrefTest1, check: notSuccess});
 
 //File entry point.
 testAll();

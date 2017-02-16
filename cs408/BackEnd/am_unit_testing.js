@@ -1,3 +1,4 @@
+"use strict";
 var sqlFile = require("./temp.js");
 var con = sqlFile.createCon();
 var i = 0;
@@ -169,10 +170,18 @@ var getPrefsError = function (err, json, res, callback, con) {
 };
 /* Tests for addUserPref */
 var addUserPrefTest0 = function () {
+    //Basic test with obvious functionality
     var callback = { error: genericErrorTest, success: genericSuccessTest, main: testAll };
     sqlFile.addUserPref({ UserID: 1, Name: "Test" }, callback, null);
 };
-function addUserPrefTest0_check() {
+var addUserPrefTest1 = function () {
+    //Invalid UserID.
+    var callback = { error: genericErrorTest, success: genericSuccessTest, testAll: testAll };
+    sqlFile.addUserPref({ UserID: -1, Name: "Test" }, callback, null);
+};
+function notSuccess() {
+    //Success should be set to false.
+    return !success;
 }
 /* End of tests for addUserPref */
 var getPrefsSuccess = function (rows, json, res, callback) {
@@ -228,5 +237,6 @@ allTests.push({ fun: editPassword, check: loginFailure });
 allTests.push({ fun: editPassword, check: loginFailure });
 //addUserPref
 allTests.push({ fun: addUserPrefTest0, check: isSuccess });
+allTest.push({ fun: addUserPrefTest1, check: notSuccess });
 //File entry point.
 testAll();
