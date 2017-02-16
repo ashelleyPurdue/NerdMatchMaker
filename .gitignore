@@ -1,3 +1,5 @@
 cs408/node_modules
 cs408/config.js
 cs408/BackEnd/*.js
+cs408/SQL/addSQL
+cs408/BackEnd/node_modules/express/package.json

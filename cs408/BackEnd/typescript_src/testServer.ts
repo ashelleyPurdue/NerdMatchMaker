@@ -68,21 +68,11 @@ app.post("/BackEnd/createUser/", function(req, res) {
         console.log("No GenderInto in json");
         res.send("No GenderInto in json");
     }
-    if (req.body.Location != null) {
-        delete req.body.Location;
+    if (req.body.loc != null) {
+        delete req.body.loc;
     } else {
-        delete req.body.Location;
+        delete req.body.loc;
         console.log("No Location in json not that you need one");
-    }
-    if (req.body.InARelationship != null) {
-        if (typeof(req.body.InARelationship) !== 'boolean') {
-            console.log("Please give InARelationship of type boolean");
-            res.send("Please give InARelationship of type boolean");
-        }
-        delete req.body.InARelationship;
-    } else {
-        console.log("No InARelationship in json");
-        res.send("No InARealtionship in json");
     }
     if (!Object.keys(req.body).length) {
         console.log("Congrats correct json object");
@@ -156,8 +146,38 @@ app.post("/BackEnd/changePassword/", function(req, res) {
 });
 
 app.post("/BackEnd/addUserPref", function(req, res){
-	//TODO:
 	
+	//Check for UserID
+	if (req.body.UserID != null){
+		delete req.body.UserID;
+	}
+	else{
+		console.log("No UserID in json");
+		res.send("No UserID in json");
+		return;
+	}
+	
+	//Check for Name (prefName)
+	if (req.body.Name != null){
+		delete req.body.Name;
+	}
+	else{
+		console.log("No Name in json");
+		res.send("No Name in json");
+		return;
+	}
+	
+	//Check to see that those were the ONLY things in the JSON
+	if (Object.keys(req.body).length == 0){
+		console.log("Congrats, correct json object!");
+		res.send("Congrats, correct json object!");
+	}
+	else{
+		console.log("Too many things in your json object");
+		console.log("None of these should be here: ");
+		console.log(req.body);
+		res.send("Too many objects in your json object");
+	}
 });
 
 

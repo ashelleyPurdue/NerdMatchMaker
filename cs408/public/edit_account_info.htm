@@ -29,6 +29,14 @@
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
+                    if (pass1 != pass2) {
+                        //alert("Passwords Do not match");
+                        document.getElementById("pass1").style.borderColor = "#E34234";
+                        document.getElementById("pass2").style.borderColor = "#E34234";
+                        ok = false;
+                    } else {
+                        // alert("Passwords Match!!!");
+                    }
                     return ok;
                 }
             </script>
@@ -38,7 +46,7 @@
         </div>
     </form>
 
-    <form action="/BackEnd/editUser/" onsubmit= "return myFunction()" method="post">
+ 	<form action="/BackEnd/editUser/" onsubmit= "return myFunction()" method="post">
             <label><b>Add Preferences</b></label>
             <input type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
@@ -51,15 +59,14 @@
     <form action="/BackEnd/editUser/" onsubmit= "return myFunction()" method="post">
 
             <label><b>Remove Preferences</b></label>
-            <input type="text" placeholder="Type one prefernce at a time and hit submit" name="" required>
+            <input type="text" placeholder="Type one prefernce at a time to remove and hit submit" name="" required>
 
             <!--add send info to server with name of remove preference and userid-->
 
             <button type="submit">Remove Prefernce</button>
     </form>
 
+
 </body>
-
-
 
 </html>

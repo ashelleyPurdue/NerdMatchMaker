@@ -1,3 +1,7 @@
+//Force this file to be a module
+/*export interface UselessInterface {
+}*/
+
 //TODO change functions to deal with res.
 var con;
 //IS the test called a sucess or not
@@ -6,7 +10,7 @@ var success;
 var error;
 
 var createCon = function() {
-    count = 0;
+    //count = 0;
     var mysql = require("mysql");
     var config = require("../config");
     con = mysql.createConnection(config.sql);
@@ -34,7 +38,7 @@ var createAccount = function(json, callback, res) {
     });
 };
 //this function will deal with call back for if not error
-var createAccountCallback = function(con, rows, json, res, callback) {
+var createAccountCallback = function(rows, json, res, callback) {
     //have it login so that way it can get the userID and test to make sure everything works right
     //TODO fix login
     var callback = {success:loginTest,Empty:loginEmptySet,error:genSQLError};
@@ -117,7 +121,7 @@ var addUserPref = function(json, callback, res){
 		//If we didn't find that ID, create it and use that as ID.
 		if (id == -1){
 			addPref({ Name: json.Name, Description: null }, function(id:number){
-				addUserPref_weHaveID(id, res, callback);
+				addUserPref_weHaveID(id,json, res, callback);
 			});
 		}
 		//If there was an SQL error, then "return" that there was an SQL error.
@@ -127,14 +131,14 @@ var addUserPref = function(json, callback, res){
 		}
 		
 		//We did find the ID, so use it.
-		addUserPref_weHaveID(id, res, callback);
+		addUserPref_weHaveID(id, json, res, callback);
 	});
 };
 
-var addUserPref_weHaveID = function(id, res, callback){
+var addUserPref_weHaveID = function(id, json, res, callback){
 	//TODO: Deal with adding ID
   	
-	con.query('Insert Into User_Interests Set ?', { UserID: 1/*userID_prefName_pair.UserID*/, InterestID: id }, function(err){
+	con.query('Insert Into User_Interests Set ?', { UserID: json.UserID, InterestID: id }, function(err){
 		
 		//If there's an error, return -1
 		if (err){

@@ -9,7 +9,7 @@
 
     <h1>Create a new Acccount</h1>
 
-    <form method="post" action="/BackEnd/createUser/" onsubmit="return passWordsMatch()">
+    <form method="post" action="/BackEnd/createUser/" onsubmit="return passWordsMatch()" id="searchForm">
         <div class="container">
             <label><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="UserName" required>
@@ -73,7 +73,7 @@
             -->
 
             <label><b>Location (Optional)</b></label>
-            <input type="text" placeholder="Enter Location" name="Location">
+            <input type="text" placeholder="Enter Location" name="loc">
 
             <!--
             <label><b>Relationship Stauts</b></label>
@@ -83,7 +83,27 @@
 
         </div>
 
+    </form>
 
+    <script>
+        $.ajax({
+            type: 'POST',
+            url: "/BackEnd/createUser",
+            data: {
+                UserName: UserName,
+                Password: Password,
+                Birthdday: Birthday,
+                Gender: Gender,
+                GenderInto: GenderInto,
+                Location: loc,
+
+            },
+            success: function(data, status) {
+                console.log(data);
+            }
+        });
+        location.replace('/account_page.htm');
+    </script>
 </body>
 
 </html>
