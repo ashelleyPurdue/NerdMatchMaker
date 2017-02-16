@@ -131,14 +131,14 @@ var addUserPref = function(json, callback, res){
 		}
 		
 		//We did find the ID, so use it.
-		addUserPref_weHaveID(id, res, callback);
+		addUserPref_weHaveID(id, json, res, callback);
 	});
 };
 
-var addUserPref_weHaveID = function(id, res, callback){
+var addUserPref_weHaveID = function(id, json, res, callback){
 	//TODO: Deal with adding ID
   	
-	con.query('Insert Into User_Interests Set ?', { UserID: 1/*userID_prefName_pair.UserID*/, InterestID: id }, function(err){
+	con.query('Insert Into User_Interests Set ?', { UserID: json.UserID, InterestID: id }, function(err){
 		
 		//If there's an error, return -1
 		if (err){

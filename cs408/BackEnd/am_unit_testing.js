@@ -237,6 +237,6 @@ allTests.push({ fun: editPassword, check: loginFailure });
 allTests.push({ fun: editPassword, check: loginFailure });
 //addUserPref
 allTests.push({ fun: addUserPrefTest0, check: isSuccess });
-allTest.push({ fun: addUserPrefTest1, check: notSuccess });
+allTests.push({ fun: addUserPrefTest1, check: notSuccess });
 //File entry point.
 testAll();
