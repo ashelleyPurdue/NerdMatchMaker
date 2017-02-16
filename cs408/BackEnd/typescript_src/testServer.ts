@@ -74,16 +74,6 @@ app.post("/BackEnd/createUser/", function(req, res) {
         delete req.body.loc;
         console.log("No Location in json not that you need one");
     }
-    if (req.body.InARelationship != null) {
-        if (typeof(req.body.InARelationship) !== 'boolean') {
-            console.log("Please give InARelationship of type boolean");
-            res.send("Please give InARelationship of type boolean");
-        }
-        delete req.body.InARelationship;
-    } else {
-        console.log("No InARelationship in json");
-        res.send("No InARealtionship in json");
-    }
     if (!Object.keys(req.body).length) {
         console.log("Congrats correct json object");
         res.send("Congrats correct json object");

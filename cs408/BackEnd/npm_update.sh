@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Updating npm packages.  Please wait..."
 
 npm install -g typescript
