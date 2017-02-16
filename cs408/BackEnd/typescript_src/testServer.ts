@@ -68,10 +68,10 @@ app.post("/BackEnd/createUser/", function(req, res) {
         console.log("No GenderInto in json");
         res.send("No GenderInto in json");
     }
-    if (req.body.Location != null) {
-        delete req.body.Location;
+    if (req.body.loc != null) {
+        delete req.body.loc;
     } else {
-        delete req.body.Location;
+        delete req.body.loc;
         console.log("No Location in json not that you need one");
     }
     if (req.body.InARelationship != null) {
