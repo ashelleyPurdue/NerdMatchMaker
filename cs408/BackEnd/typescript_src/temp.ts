@@ -38,7 +38,7 @@ var createAccount = function(json, callback, res) {
     });
 };
 //this function will deal with call back for if not error
-var createAccountCallback = function(rows, json, res, callback) {
+var createAccountCallback = function(rows, json, res, uselessParameter) {
     //have it login so that way it can get the userID and test to make sure everything works right
     //TODO fix login
     var callback = {success:loginTest,Empty:loginEmptySet,error:genSQLError};
@@ -173,7 +173,7 @@ var addPref = function(name_and_desc, returnFunc) {
 
 //takes Name of pref and returns Id of pref, if -1 does not exist, if -2 sql error
 //The "return value" is actually going to be the first argument of callback.
-var getPrefID = function(Name: string, returnFunc) {
+var getPrefID = function(Name, returnFunc) {
 	
 	//Query for the id
 	con.query('Select * from Interests where ?', { Name: Name }, function(err, rows){
@@ -196,6 +196,15 @@ var getPrefID = function(Name: string, returnFunc) {
 };
 
 /* End of addUserPref saga */
+
+/* Beginning of getUserPref saga */
+
+var getUserPref = function(json, callback, res){
+	//TODO: Do stuff
+	
+}
+
+/* End of getUserPref saga */
 
 //Will return a list of preferences {Name:"String",Description:"Null"}
 //if error returns [{Name:"Error"}]
