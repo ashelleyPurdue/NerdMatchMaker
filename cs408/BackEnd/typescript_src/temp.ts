@@ -34,7 +34,7 @@ var createAccount = function(json, callback, res) {
     });
 };
 //this function will deal with call back for if not error
-var createAccountCallback = function(con, rows, json, res, callback) {
+var createAccountCallback = function(rows, json, res, callback) {
     //have it login so that way it can get the userID and test to make sure everything works right
     //TODO fix login
     var callback = {success:loginTest,Empty:loginEmptySet,error:genSQLError};

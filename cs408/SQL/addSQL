@@ -1,4 +1,0 @@
-#!/bin/bash
-cd /Users/mattfouts/Desktop/NerdMatchMaker/cs408/SQL
-mysql -u root -psmokey1234 cs408 < drop.sql
-mysql -u root -psmokey1234 cs408 < temp.sql
