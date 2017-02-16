@@ -199,7 +199,6 @@ var getPrefID = function(Name, returnFunc) {
 
 /* Beginning of getUserPref saga */
 //Give it {UserID:num} in json
-//
 var getUserPref = function(json, callback, res){
 	//TODO: Do stuff
 	con.query('Select * from Interests Where UserID = ?', json.UserID, function(err, res) {
