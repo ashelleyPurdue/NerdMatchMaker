@@ -6,7 +6,7 @@ Create Table User(
 	Birthday varchar(30) Not Null,
 	Gender varchar(2) Not Null,
 	GenderInto varchar(2) Not Null,
-	Location varchar(45),
+	loc varchar(45),
 	InARelationship boolean DEFAULT false
 );
 Create Table Interests(
@@ -51,6 +51,3 @@ Create Table Messages(
 	FOREIGN KEY (UserID1) REFERENCES User(UserID),
 	FOREIGN KEY (UserID2) REFERENCES User(UserID)
 );
-
-
-

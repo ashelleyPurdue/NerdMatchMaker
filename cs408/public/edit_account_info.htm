@@ -13,12 +13,11 @@
     <form action="/BackEnd/editUser/" onsubmit="return myFunction()" method="post">
         <div class="container">
 
-            <!--
-                make user type in old password
-            -->
+            <label><b>Enter old password</b></label>
+            <input id="oldPass" type="password" placeholder="Enter old Password" name="oldPassword" required>
 
             <label><b>Enter new password</b></label>
-            <input id="pass1" type="password" placeholder="Enter new Password" name="Password" required>
+            <input id="pass1" type="password" placeholder="Enter new Password" name="newPassword" required>
 
             <label><b>Re-enter new password</b></label>
             <input id="pass2" type="password" placeholder="Enter new Password again" required>
@@ -26,6 +25,7 @@
 
             <script>
                 function myFunction() {
+                    var oldPass = document.getElementByID('oldPass').value;
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
@@ -43,25 +43,20 @@
 
 
             <button type="submit">Submit Password Change</button>
-
-
-            <label><b>Add Preferences</b></label>
-            <input type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
-
-            <button type="submit">Submit New Preferences</button>
-
-            <label><b>Remove Preferences</b></label>
-            <input type="text" placeholder="Type one prefernce at a time and hit submit" name="" required>
-
-            <button type="submit">Remove Prefernce</button>
-
-
         </div>
+    </form>
 
+    <form action="/BackEnd/editUser/" method="post">
+        <label><b>Add Preferences</b></label>
+        <input type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
+        <button type="submit">Submit New Preferences</button>
 
+        <label><b>Remove Preferences</b></label>
+        <input type="text" placeholder="Type one prefernce at a time and hit submit" name="" required>
 
-
+        <button type="submit">Remove Prefernce</button>
+    </form>
 
 </body>
 
