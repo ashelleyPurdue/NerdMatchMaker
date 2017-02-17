@@ -40,12 +40,31 @@
                 $("form").submit(function(event) {
 
                     event.preventDefault();
+
+                    if (document.getElementById('Gender0').checked) {       
+                      Gender = document.getElementById('Gender0').value;
+                    } else if (document.getElementById('Gender1').checked) {
+                         Gender = document.getElementById('Gender1').value;
+                    } else {
+                        Gender = document.getElementById('Gender2').value;
+                    }
+
+                    if (document.getElementById('GenderInto0').checked) {       
+                      GenderInto = document.getElementById('GenderInto0').value;
+                    } else if (document.getElementById('GenderInto1').checked) {
+                         GenderInto = document.getElementById('GenderInto1').value;
+                    } else {
+                        GenderInto = document.getElementById('GenderInto').value;
+                    }
+
                     var $form = $(this),
                         UserName = document.getElementById("userName").value,
                         Password = document.getElementById("pass1").value,
                         Birthday = document.getElementById("Birthday").value,
-                        Gender = document.getElementById("Gender").value,
-                        GenderInto = document.getElementById("GenderInto").value;
+                        Gender,
+                        GenderInto;
+
+
 
                     var posting = $.post("/BackEnd/createUser/", {
                         UserName: UserName,
@@ -75,11 +94,11 @@
 
             <div>
                 <label>
-                <input id="Gender" type="radio" name="Gender"  value="M" checked/>Male</label>
+                <input id="Gender0" type="radio" name="Gender"  value="M" checked/>Male</label>
                 <label>
-                <input id="Gender" type="radio" name="Gender"  value="F" />Female</label>
+                <input id="Gender1" type="radio" name="Gender"  value="F" />Female</label>
                 <label>
-                <input id="Gender" type="radio" name="Gender"  value="MF" />Other</label>
+                <input id="Gender2" type="radio" name="Gender"  value="MF" />Other</label>
 
             </div>
 
@@ -88,11 +107,11 @@
 
             <div>
                 <label>
-                <input id="GenderInto" type="radio" name="GenderInto" value="M" />Male</label>
+                <input id="GenderInto0" type="radio" name="GenderInto" value="M" />Male</label>
                 <label>
-                <input id="GenderInto" type="radio" name="GenderInto" value="F" checked />Female</label>
+                <input id="GenderInto1" type="radio" name="GenderInto" value="F" checked/>Female</label>
                 <label>
-                <input id="GenderInto" type="radio" name="GenderInto" value="MF" />Other</label>
+                <input id="GenderInto2" type="radio" name="GenderInto" value="MF" />Other</label>
 
             </div>
 
