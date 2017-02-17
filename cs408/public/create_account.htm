@@ -57,10 +57,15 @@
                     });
 
                     posting.done(function(data) {
-                        alert("called" + data.val());
+                        alert("called");
+                        // obj = jQuery.parseJSON(data);
+                        if (data[0].UserID != null) {
+                            document.cookie = "UserID=" + data[0].UserID + ";path=/";
+                            location.replace('/account_page.htm');
+                        }
                     });
                 });
-                // location.replace('/account_page.htm');
+                //
             </script>
 
             <label><b>Birthday (MM/DD/YYYY) </b></label>
@@ -70,11 +75,11 @@
 
             <div>
                 <label>
-                <input type="radio" name="Gender"  value="M" checked />Male</label>
+                <input id="Gender" type="radio" name="Gender"  value="M" checked/>Male</label>
                 <label>
-                <input type="radio" name="Gender"  value="F" />Female</label>
+                <input id="Gender" type="radio" name="Gender"  value="F" />Female</label>
                 <label>
-                <input type="radio" name="Gender"  value="MF" />Other</label>
+                <input id="Gender" type="radio" name="Gender"  value="MF" />Other</label>
 
             </div>
 
@@ -83,11 +88,11 @@
 
             <div>
                 <label>
-                <input type="radio" name="GenderInto" value="M" />Male</label>
+                <input id="GenderInto" type="radio" name="GenderInto" value="M" />Male</label>
                 <label>
-                <input type="radio" name="GenderInto" value="F" checked/>Female</label>
+                <input id="GenderInto" type="radio" name="GenderInto" value="F" checked />Female</label>
                 <label>
-                <input type="radio" name="GenderInto" value="MF" />Other</label>
+                <input id="GenderInto" type="radio" name="GenderInto" value="MF" />Other</label>
 
             </div>
 
