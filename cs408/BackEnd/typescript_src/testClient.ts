@@ -1,6 +1,7 @@
 //Imports/requires
 var request = require('request');
-
+const fs = require('fs');
+const bodyParser =  require("body-parser");
 
 //Function types
 type RequestFunction = (error, response, body) => void;
@@ -59,7 +60,7 @@ function failure(testName: string, message: string){
 }
 
 //Test cases
-let testCase0: TestCase = {
+let createCase0: TestCase = {
 	options: {
 		url: 'http://localhost:3000/BackEnd/createUser/',
 		method: 'POST',
@@ -69,13 +70,14 @@ let testCase0: TestCase = {
 	
 	requestFunction: function(error, response, body){
 		if (!error){
+      body = JSON.parse( body );
 			console.log(body);
 			
-			if (body[0].UserID != null && body[0].UserID > 0){
+			if ((body.length > 0 && body[0].UserID != null && body[0].UserID > 0)){
 				success("test0");
 			}
 			else{
-				failure("test0", "insert failure reason here")
+				failure("test0", "")
 			}
 		}
 		else{
@@ -83,14 +85,42 @@ let testCase0: TestCase = {
 		}
 	}
 };
-testCases.push(testCase0);
+//test create account twice in a row
+testCases.push(createCase0);
+
+let createCase1: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/createUser/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserName': 'xxx', 'Password': 'yyy',Picture:null,Birthday:"02/07/1995",Gender: "M",GenderInto:"M",loc:null}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.Error != null && body.Error === -1)){
+        success("test0");
+      }
+      else{
+        failure("test1", "Allowed creating two users")
+      }
+    }
+    else{
+      failure("test1", "error number " + error);
+    }
+  }
+};
+testCases.push(createCase1);
 
 let addUserPrefsTest0: TestCase = {
 	options: {
 		url: 'http://localhost:3000/BackEnd/createUser/',
 		method: 'POST',
 		headers: headers,
-		form: {UserID: 1, Pref_Name: "test pref name"}
+		form: {UserID: 1, Name: "test pref name"}
 	},
 	
 	requestFunction: function(error, response, body){
@@ -110,6 +140,6 @@ let addUserPrefsTest0: TestCase = {
 		}
 	}
 }
-
+testCases.push(addUserPrefsTest0);
 //File entry point
 nextTest();

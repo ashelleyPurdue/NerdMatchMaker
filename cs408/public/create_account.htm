@@ -74,11 +74,11 @@
                     });
 
                     posting.done(function(data) {
-                        alert("ID is " + data[0].UserID);
+                        alert("ID is " + data.UserID);
                         // obj = jQuery.parseJSON(data);
                         if (data[0].UserID != null) {
                             // alert("userID not null");
-                            document.cookie = data[0].UserID + "," + UserName + "," + Password + "," + Gender + "," + GenderInto + "," + "path=/";
+                            document.cookie = data.UserID + "," + UserName + "," + Password + "," + Gender + "," + GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
                         }
                     });
