@@ -118,7 +118,7 @@ var isRepeatUserName = function(){
 }
 var loginForEdPassSuc = function(rows,json,res,callback){
   var call = {error:genericErrorTest,main:testAll,success:genericSuccessTest};
-  json.UserId = rows[0].UserID;
+  json.UserID = rows[0].UserID;
   sqlFile.editPassword(json,null,call); 
 }
 //Function is called in case of an error in creating account to see if error is called or not
@@ -209,7 +209,13 @@ function addUserPrefTest3_afterFirst(){
 
 function notSuccess(){
 	//Success should be set to false.
-	return !success;
+	if(success){
+    console.log("Error should not have passed");
+  }
+  else{
+    console.log("test case "+i-1+"passed");
+  }
+  return !success;
 }
 
 /* End of tests for addUserPref */
