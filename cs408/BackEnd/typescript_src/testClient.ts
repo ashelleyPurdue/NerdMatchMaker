@@ -73,7 +73,7 @@ let createCase0: TestCase = {
       body = JSON.parse( body );
 			console.log(body);
 			
-			if ((body.length > 0 && body[0].UserID != null && body[0].UserID > 0)){
+			if ((body.UserID != null && body.UserID > 0)){
 				success("test0");
 			}
 			else{

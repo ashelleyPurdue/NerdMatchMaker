@@ -98,7 +98,7 @@ var login = function(json, res, callback) {
     return 0;
 };
 var loginTest = function(rows, json, res, callback) {
-    var lbj = [{UserID: rows[0].UserID }];
+    var lbj = {UserID: rows[0].UserID };
     console.log(lbj);
     res.send(lbj);
 };
