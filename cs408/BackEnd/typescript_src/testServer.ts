@@ -111,8 +111,8 @@ app.post("/BackEnd/login/", function(req, res) {
         res.send("Too many objects in you json object");
     }
 });
-app.post("/BackEnd/changePassword/", function(req, res) {
-    if (req.body.UserName != null) {
+app.post("/BackEnd/editPassword/", function(req, res) {
+    if (req.body.UserID != null) {
         delete req.body.UserName;
     } else {
         console.log("No UserName in json");
