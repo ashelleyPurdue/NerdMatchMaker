@@ -112,6 +112,7 @@ app.post("/BackEnd/login/", function(req, res) {
     }
 });
 app.post("/BackEnd/editPassword/", function(req, res) {
+    console.log(res.body);
     if (req.body.UserID != null) {
         delete req.body.UserName;
     } else {
