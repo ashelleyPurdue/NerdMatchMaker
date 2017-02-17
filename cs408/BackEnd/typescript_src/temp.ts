@@ -139,7 +139,7 @@ var addUserPref = function(json, callback, res){
 
 var addUserPref_weHaveID = function(id, json, res, callback){
 	//TODO: Deal with adding ID
-  	
+  console.log(json.UserID +","+id);	
 	con.query('Insert Into User_Interests Set ?', { UserID: json.UserID, InterestID: id }, function(err){
 		
 		//If there's an error, return -1
