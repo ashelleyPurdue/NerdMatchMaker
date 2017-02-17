@@ -17,8 +17,8 @@ var options = {
 // Start the request
 request(options, function (error, response, body){
   if(!error){
-      console.log(body);
-      if(body.UserID != null && body.UserID > 0){
+      console.log(body[0]);
+      if(body[0].UserID != null && body[0].UserID > 0){
         console.log("Success");
       }
       else{
@@ -29,3 +29,26 @@ request(options, function (error, response, body){
     console.log(error);
   }
 });
+var options = {
+    url: 'http://localhost:3000/BackEnd/login/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserName': 'User0', 'Password': 'abcd1234'}
+};
+
+// Start the request
+request(options, function (error, response, body){
+  if(!error){
+      console.log(body);
+      if(body[0].UserID != null && body[0].UserID > 0){
+        console.log("Success");
+      }
+      else{
+        console.log("failure");
+      }
+  }
+  else{
+    console.log(error);
+  }
+});
+
