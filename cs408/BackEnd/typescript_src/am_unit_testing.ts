@@ -213,7 +213,7 @@ function notSuccess(){
     console.log("Error should not have passed");
   }
   else{
-    console.log("test case "+i-1+"passed");
+    console.log("test case "+(i-1)+"passed");
   }
   return !success;
 }
@@ -267,6 +267,13 @@ var getPrefsSuccess = function(rows, json, res, callback) {
 //TODO finish
 var successGetPrefs = function(){
   // TODO go through rows and find out if we get the right things that we expect
+  //console.log(ret);
+  if(ret.length > 0 && ret[0].Name != null && ret[0].Name === "Test"){
+    console.log("Test case "+(i-1)+" passed"); 
+  }
+  else{
+    console.log("Test case failed"); 
+  }
   return true;
 }
 var successGetPrefsEmpty = function(){
@@ -348,5 +355,6 @@ allTests.push({fun: getUserPrefTest5, check: notSuccess});
 
 //getAllUserPref
 allTests.push({fun: getPrefTest, check: successGetPrefs});
+
 //File entry point.
 testAll();
