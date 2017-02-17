@@ -41,18 +41,18 @@
 
                     event.preventDefault();
 
-                    if (document.getElementById('Gender0').checked) {       
-                      Gender = document.getElementById('Gender0').value;
+                    if (document.getElementById('Gender0').checked) {
+                        Gender = document.getElementById('Gender0').value;
                     } else if (document.getElementById('Gender1').checked) {
-                         Gender = document.getElementById('Gender1').value;
+                        Gender = document.getElementById('Gender1').value;
                     } else {
                         Gender = document.getElementById('Gender2').value;
                     }
 
-                    if (document.getElementById('GenderInto0').checked) {       
-                      GenderInto = document.getElementById('GenderInto0').value;
+                    if (document.getElementById('GenderInto0').checked) {
+                        GenderInto = document.getElementById('GenderInto0').value;
                     } else if (document.getElementById('GenderInto1').checked) {
-                         GenderInto = document.getElementById('GenderInto1').value;
+                        GenderInto = document.getElementById('GenderInto1').value;
                     } else {
                         GenderInto = document.getElementById('GenderInto').value;
                     }
@@ -63,9 +63,6 @@
                         Birthday = document.getElementById("Birthday").value,
                         Gender,
                         GenderInto;
-
-
-
 
                     var posting = $.post("/BackEnd/createUser/", {
                         UserName: UserName,
@@ -80,8 +77,8 @@
                         alert("ID is " + data[0].UserID);
                         // obj = jQuery.parseJSON(data);
                         if (data[0].UserID != null) {
-                            alert("userID not null");
-                            document.cookie = "UserID=" + data[0].UserID + ";path=/";
+                            // alert("userID not null");
+                            document.cookie = data[0].UserID + "," + UserName + "," + Password + "," + Gender + "," + GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
                         }
                     });
