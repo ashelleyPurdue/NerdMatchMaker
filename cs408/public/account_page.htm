@@ -11,11 +11,12 @@
 
     <script>
         alert(document.cookie);
+        var testCookie = document.cookie[0];
         var dummyUser = ({
-            UserName: "User",
+            UserName: testCookie[0],
             Password: "abcd1234",
             Picture: null,
-            Birthday: "02/21/1995",
+            Birthday: testCookie[0].Birthday,
             Gender: "M",
             GenderInto: "M",
             Location: null,

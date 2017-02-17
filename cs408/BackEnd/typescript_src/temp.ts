@@ -205,6 +205,13 @@ var getUserPref = function(json, callback, res){
 	//Gets a list of all prefs for the given user
 	
 	//Check if UserID is invalid
+	if (json == null)
+	{
+		console.log("json is null");
+		callback.error(-1, json, res, callback, con);
+		return;
+	}
+	
 	if (json.UserID == null){
 		console.log("UserID is null");
 		callback.error(-1, json, res, callback, con);
