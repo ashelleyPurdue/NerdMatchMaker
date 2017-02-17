@@ -10,7 +10,7 @@
 
     <h1>Create a new Acccount</h1>
 
-    <form onsubmit="return passWordsMatch()">
+    <form onsubmit="return passWordsMatch">
         <div class="container">
             <label><b>Username</b></label>
             <input id="userName" type="text" placeholder="Enter Username" name="UserName" required>
@@ -66,6 +66,7 @@
 
 
 
+
                     var posting = $.post("/BackEnd/createUser/", {
                         UserName: UserName,
                         Password: Password,
@@ -76,9 +77,10 @@
                     });
 
                     posting.done(function(data) {
-                        alert("called");
+                        alert("ID is " + data[0].UserID);
                         // obj = jQuery.parseJSON(data);
                         if (data[0].UserID != null) {
+                            alert("userID not null");
                             document.cookie = "UserID=" + data[0].UserID + ";path=/";
                             location.replace('/account_page.htm');
                         }
