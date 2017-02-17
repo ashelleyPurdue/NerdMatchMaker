@@ -238,7 +238,7 @@ var getUserPref = function(json, callback, res){
 //Will return a list of preferences {Name:"String",Description:"Null"}
 //if error returns [{Name:"Error"}]
 var getPrefs = function(json, callback, res) {
-    con.query('Select * from Interests', null, function(err, res) {
+    con.query('Select * from Interests', null, function(err, rows) {
         if (err) {
             callback.error(err, json, res, callback, con);
         } else {
@@ -265,3 +265,4 @@ exports.getPrefs = getPrefs;
 exports.loginForEdPassSuc = loginForEdPassSuc;
 exports.addUserPref = addUserPref;
 exports.getUserPref = getUserPref;
+exports.getPrefsSuccess = getPrefsSuccess;

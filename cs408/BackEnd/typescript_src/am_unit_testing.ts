@@ -262,10 +262,28 @@ var getUserPrefTest5 = function(){
 var getPrefsSuccess = function(rows, json, res, callback) {
   success = true;
   ret = rows;
+  callback.main();
 }
+//TODO finish
 var successGetPrefs = function(){
   // TODO go through rows and find out if we get the right things that we expect
-  
+  return true;
+}
+var successGetPrefsEmpty = function(){
+
+  if(ret.length === 0){
+    console.log("Test case "+(i-1)+"success");
+    return true;
+  }
+  else{
+    console.log("Test case failed");
+    return false;
+  }
+};
+//Start getPrefsSuccess
+var getPrefTest = function(){
+  let callback = {error: genericErrorTest, success: getPrefsSuccess , main: testAll};
+  sqlFile.getPrefs(null,callback,null);
 }
 //tests going through creating basic users
 allTests.push({fun:createAccount_basic,check:isSuccess});
@@ -312,6 +330,9 @@ allTests.push({fun:editPassword,check:loginFailure});
 allTests.push({fun:editPassword,check:loginFailure});
 allTests.push({fun:editPassword,check:loginFailure});
 
+//getAllUserPref to check if empty
+allTests.push({fun: getPrefTest, check: successGetPrefsEmpty});
+
 //addUserPref
 allTests.push({fun: addUserPrefTest0, check: isSuccess});
 allTests.push({fun: addUserPrefTest1, check: notSuccess});
@@ -325,5 +346,7 @@ allTests.push({fun: getUserPrefTest3, check: notSuccess});
 allTests.push({fun: getUserPrefTest4, check: notSuccess});
 allTests.push({fun: getUserPrefTest5, check: notSuccess});
 
+//getAllUserPref
+allTests.push({fun: getPrefTest, check: successGetPrefs});
 //File entry point.
 testAll();
