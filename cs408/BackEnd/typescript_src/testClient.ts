@@ -102,7 +102,7 @@ let createCase1: TestCase = {
       console.log(body);
       //checks to see if error
       if ((body.Error != null && body.Error === -1)){
-        success("test0");
+        success("test1");
       }
       else{
         failure("test1", "Allowed creating two users")
@@ -129,14 +129,14 @@ let createLogin1: TestCase = {
       console.log(body);
       //checks to see if error
       if ((body.UserID != null && body.UserID > 0)){
-        success("test0");
+        success("test2");
       }
       else{
-        failure("test1", "Failed with logining in with create User")
+        failure("test2", "Failed with logining in with create User")
       }
     }
     else{
-      failure("test1", "error number " + error);
+      failure("test2", "error number " + error);
     }
   }
 };
@@ -148,7 +148,7 @@ let createLogin2: TestCase = {
     url: 'http://localhost:3000/BackEnd/login/',
     method: 'POST',
     headers: headers,
-    form: {'UserName': 'temp0', 'Password': 'abcd1234'}
+    form: {'UserName': 'temp3', 'Password': 'abcd1234'}
   },
 
   requestFunction: function(error, response, body){
@@ -157,14 +157,14 @@ let createLogin2: TestCase = {
       console.log(body);
       //checks to see if error
       if ((body.UserID != null && body.UserID > 0)){
-        success("test0");
+        success("test3");
       }
       else{
-        failure("test1", "Failed with logining in with database User")
+        failure("test3", "Failed with logining in with database User")
       }
     }
     else{
-      failure("test1", "error number " + error);
+      failure("test3", "error number " + error);
     }
   }
 };
@@ -185,14 +185,14 @@ let createLogin3: TestCase = {
       console.log(body);
       //checks to see if error
       if ((body.Error != null && body.Error === -1)){
-        success("test0");
+        success("test4");
       }
       else{
-        failure("test1", "Failed with logining in with database User")
+        failure("test4", "Failed with logining in with database User")
       }
     }
     else{
-      failure("test1", "error number " + error);
+      failure("test4", "error number " + error);
     }
   }
 };
@@ -213,14 +213,14 @@ let createLogin4: TestCase = {
       console.log(body);
       //checks to see if error
       if ((body.Error != null && body.Error > 0)){
-        success("test0");
+        success("test5");
       }
       else{
-        failure("test1", "Error did not occur with logining in with bad user name ")
+        failure("test5", "Error did not occur with logining in with bad user name ")
       }
     }
     else{
-      failure("test1", "error number " + error);
+      failure("test5", "error number " + error);
     }
   }
 };
@@ -232,7 +232,7 @@ let editPassWord1: TestCase = {
     url: 'http://localhost:3000/BackEnd/editPassword/',
     method: 'POST',
     headers: headers,
-    form: {'UserName': 'temp0', 'oldPassword': 'abcd1234',newPassword: '1234abcd'}
+    form: {'UserName': 'temp6', 'oldPassword': 'abcd1234',newPassword: '1234abcd'}
   },
 
   requestFunction: function(error, response, body){
@@ -241,14 +241,14 @@ let editPassWord1: TestCase = {
       console.log(body);
       //checks to see if error
       if ((body.UserID != null && body.UserID > 0)){
-        success("test0");
+        success("test6");
       }
       else{
-        failure("test1", "Login")
+        failure("test6", "Login")
       }
     }
     else{
-      failure("test1", "error number " + error);
+      failure("test6", "error number " + error);
     }
   }
 };
