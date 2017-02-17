@@ -203,6 +203,27 @@ var getPrefID = function(Name, returnFunc) {
 //Give it {UserID:num} in json
 var getUserPref = function(json, callback, res){
 	//Gets a list of all prefs for the given user
+	
+	//Check if UserID is invalid
+	if (json.UserID == null){
+		console.log("UserID is null");
+		callback.error(-1, json, res, callback, con);
+		return;
+	}
+	
+	if (json.UserID <= 0){
+		console.log("UserID " + json.UserID + " <= 0");
+		callback.error(-1, json, res, callback, con);
+		return;
+	}
+	
+	if (isNaN(json.UserID)){
+		console.log("UserID " + json.UserID + " is not a number.");
+		callback.error(-1, json, res, callback, con);
+		return;
+	}
+	
+	//Do the query
 	con.query('Select * from Interests Where UserID = ?', json.UserID, function(err, res) {
         if (err) {
             callback.error(err, json, res, callback, con);
