@@ -91,7 +91,7 @@ let addUserPrefsTest0: TestCase = {
 		method: 'POST',
 		headers: headers,
 		form: {UserID: 1, Pref_Name: "test pref name"}
-	}
+	},
 	
 	requestFunction: function(error, response, body){
 		
