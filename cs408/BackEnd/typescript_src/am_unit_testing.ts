@@ -214,6 +214,45 @@ function notSuccess(){
 
 /* End of tests for addUserPref */
 
+/* Tests for getUserPref */
+var getUserPrefTest0 = function(){
+	//Normal userID
+	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	sqlFile.getUserPref({UserID: 1}, callback, null);
+};
+
+var getUserPrefTest1 = function(){
+	//Invalid userID
+	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	sqlFile.getUserPref({UserID: -1}, callback, null);
+};
+
+var getUserPrefTest2 = function(){
+	//Null userID
+	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	sqlFile.getUserPref({UserID: null}, callback, null);
+};
+
+var getUserPrefTest3 = function(){
+	//Empty json object
+	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	sqlFile.getUserPref({}, callback, null);
+};
+
+var getUserPrefTest4 = function(){
+	//Null json object
+	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	sqlFile.getUserPref(null, callback, null);
+};
+
+var getUserPrefTest5 = function(){
+	//UserID is wrong type
+	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	sqlFile.getUserPref({UserID: "I'm not an integer."}, callback, null);
+};
+
+/* End of tests for getUserPref */
+
 var getPrefsSuccess = function(rows, json, res, callback) {
   success = true;
   ret = rows;
@@ -272,6 +311,13 @@ allTests.push({fun: addUserPrefTest0, check: isSuccess});
 allTests.push({fun: addUserPrefTest1, check: notSuccess});
 allTests.push({fun: addUserPrefTest2, check: notSuccess});
 
+//getUserPref
+allTests.push({fun: getUserPrefTest0, check: isSuccess});
+allTests.push({fun: getUserPrefTest1, check: notSuccess});
+allTests.push({fun: getUserPrefTest2, check: notSuccess});
+allTests.push({fun: getUserPrefTest3, check: notSuccess});
+allTests.push({fun: getUserPrefTest4, check: notSuccess});
+allTests.push({fun: getUserPrefTest5, check: notSuccess});
 
 //File entry point.
 testAll();

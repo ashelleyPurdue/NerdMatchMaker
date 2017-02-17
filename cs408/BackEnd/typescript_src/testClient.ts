@@ -1,5 +1,13 @@
 var request = require('request');
 
+//Interfaces (blueprints for objects; like classes but without methods)
+interface OptionSet{
+	url: string;
+	method: string;
+	headers: any;
+	form: any;
+}
+
 // Set the headers
 var headers = {
     'User-Agent':       'Super Agent/0.0.1',
@@ -7,7 +15,7 @@ var headers = {
 };
 
 // Configure the request
-var options = {
+var options: OptionSet = {
     url: 'http://localhost:3000/BackEnd/createUser/',
     method: 'POST',
     headers: headers,
