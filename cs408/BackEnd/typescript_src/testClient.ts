@@ -44,17 +44,17 @@ function nextTest(){
 	request(testData.options, testData.requestFunction);
 }
 
-function success(testID: number){
+function success(testName: string){
 	//Call this function inside your requestFunction when the test passes.
 	
-	console.log("Test " + testID + " passed");
+	console.log("Test " + testName + " passed");
 	nextTest();
 }
 
-function failure(testID: number, message: string){
+function failure(testName: string, message: string){
 	//Call this function inside your requestFunction when the test fails.
 	
-	console.log("Test " + testID + " failed: " + message);
+	console.log("Test " + testName + " failed: " + message);
 	nextTest();
 }
 
@@ -72,18 +72,44 @@ let testCase0: TestCase = {
 			console.log(body);
 			
 			if (body[0].UserID != null && body[0].UserID > 0){
-				success(0);
+				success("test0");
 			}
 			else{
-				failure(0, "insert failure reason here")
+				failure("test0", "insert failure reason here")
 			}
 		}
 		else{
-			failure(0, "error number " + error);
+			failure("test0", "error number " + error);
 		}
 	}
 };
 testCases.push(testCase0);
+
+let addUserPrefsTest0: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/createUser/',
+		method: 'POST',
+		headers: headers,
+		form: {UserID: 1, Pref_Name: "test pref name"}
+	},
+	
+	requestFunction: function(error, response, body){
+		
+		//Fail if error
+		if (error){
+			failure("addUserPrefsTest0", "error number " + error);
+			return;
+		}
+		
+		//Success if we received 0 from server, error if otherwise.
+		if (body == 0){
+			success("addUserPrefsTest0");
+		}
+		else{
+			failure("addUserPrefsTest0", "body = " + body);
+		}
+	}
+}
 
 //File entry point
 nextTest();
