@@ -24,7 +24,7 @@ app.post("/BackEnd/login/",function(req,res){
   sqlFile.login(req.body,res,callback);
 });
 
-app.post("/BackEnd/changePassword/",function(req,res){
+app.post("/BackEnd/editPassword/",function(req,res){
   var callback = {success: sqlFile.loginForEdPassSuc,Empty:sqlFile.loginEmptySet ,error:sqlFile.genSQLError};
   //login then can call editPassword
   sqlFile.login(req.body,res,callback);
