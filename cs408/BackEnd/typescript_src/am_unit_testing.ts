@@ -217,37 +217,37 @@ function notSuccess(){
 /* Tests for getUserPref */
 var getUserPrefTest0 = function(){
 	//Normal userID
-	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	let callback = {error: genericErrorTest, success: genericSuccessTest, main: testAll};
 	sqlFile.getUserPref({UserID: 1}, callback, null);
 };
 
 var getUserPrefTest1 = function(){
 	//Invalid userID
-	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	let callback = {error: genericErrorTest, success: genericSuccessTest, main: testAll};
 	sqlFile.getUserPref({UserID: -1}, callback, null);
 };
 
 var getUserPrefTest2 = function(){
 	//Null userID
-	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	let callback = {error: genericErrorTest, success: genericSuccessTest, main: testAll};
 	sqlFile.getUserPref({UserID: null}, callback, null);
 };
 
 var getUserPrefTest3 = function(){
 	//Empty json object
-	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	let callback = {error: genericErrorTest, success: genericSuccessTest, main: testAll};
 	sqlFile.getUserPref({}, callback, null);
 };
 
 var getUserPrefTest4 = function(){
 	//Null json object
-	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	let callback = {error: genericErrorTest, success: genericSuccessTest, main: testAll};
 	sqlFile.getUserPref(null, callback, null);
 };
 
 var getUserPrefTest5 = function(){
 	//UserID is wrong type
-	let callback = {error: genericErrorTest, success: genericErrorTest, main: testAll};
+	let callback = {error: genericErrorTest, success: genericSuccessTest, main: testAll};
 	sqlFile.getUserPref({UserID: "I'm not an integer."}, callback, null);
 };
 
