@@ -10,15 +10,17 @@
     <h1>Account Homepage</h1>
 
     <script>
-        alert(document.cookie);
-        var testCookie = document.cookie[0];
+        // alert(document.cookie);
+        var testCookie = document.cookie;
+        var partsOfCookie = testCookie.split(',');
+        alert(partsOfCookie[1]);
         var dummyUser = ({
-            UserName: testCookie[0],
+            UserName: partsOfCookie[1],
             Password: "abcd1234",
             Picture: null,
-            Birthday: testCookie[0].Birthday,
-            Gender: "M",
-            GenderInto: "M",
+            Birthday: partsOfCookie[2],
+            Gender: partsOfCookie[3],
+            GenderInto: partsOfCookie[4],
             Location: null,
             InARelationship: false
         });
@@ -54,13 +56,13 @@
     <script>
         var elem = document.getElementById("Location").value = dummyUser.Location;
     </script>
-
+    <!--
     <label><b>Relationship Stauts</b></label>
     <input id="InARelationship" type="text" required>
     <script>
         var elem = document.getElementById("InARelationship").value = dummyUser.InARelationship;
     </script>
-
+-->
 </body>
 
 
