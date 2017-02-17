@@ -145,7 +145,7 @@ app.post("/BackEnd/editPassword/", function(req, res) {
     }
 });
 
-app.post("/BackEnd/addUserPref", function(req, res){
+app.post("/BackEnd/addUserPref/", function(req, res){
 	
 	//Check for UserID
 	if (req.body.UserID != null){
@@ -177,6 +177,30 @@ app.post("/BackEnd/addUserPref", function(req, res){
 		console.log("None of these should be here: ");
 		console.log(req.body);
 		res.send("Too many objects in your json object");
+	}
+});
+
+app.post("/BackEnd/getUserPref/", function(req, res){
+	//Make sure it has user id
+	if (req.body.UserID != null){
+		delete req.body.UserID;
+	}
+	else{
+		console.log("No UserID in json");
+		res.send("No UserID in json");
+		return;
+	}
+	
+	//Check to see that UserID was the ONLY thing in JSON
+	if (Object.keys(req.body).length == 0){
+		console.log("Congrats, correct json object!");
+		res.send("Congrats, correct json object!");
+	}
+	else{
+		console.log("Too many things in json object.");
+		console.log("None of these should be here: ");
+		console.log(req.body);
+		res.send("Too many things in your json object");
 	}
 });
 
