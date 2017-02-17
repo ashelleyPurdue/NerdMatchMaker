@@ -114,7 +114,146 @@ let createCase1: TestCase = {
   }
 };
 testCases.push(createCase1);
+//Test login with given userName and password
+let createLogin1: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/login/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserName': 'xxx', 'Password': 'yyy'}
+  },
 
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.UserID != null && body.UserID > 0)){
+        success("test0");
+      }
+      else{
+        failure("test1", "Failed with logining in with create User")
+      }
+    }
+    else{
+      failure("test1", "error number " + error);
+    }
+  }
+};
+testCases.push(createLogin1);
+
+//Test login with alreay in database userName and password
+let createLogin2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/login/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserName': 'temp0', 'Password': 'abcd1234'}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.UserID != null && body.UserID > 0)){
+        success("test0");
+      }
+      else{
+        failure("test1", "Failed with logining in with database User")
+      }
+    }
+    else{
+      failure("test1", "error number " + error);
+    }
+  }
+};
+testCases.push(createLogin2);
+//TODO change test chance success to what is printed out if login failed also change all my test cases below to work
+//Test login with bad password
+let createLogin3: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/login/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserName': 'temp0', 'Password': '1234abcd'}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.Error != null && body.Error === -1)){
+        success("test0");
+      }
+      else{
+        failure("test1", "Failed with logining in with database User")
+      }
+    }
+    else{
+      failure("test1", "error number " + error);
+    }
+  }
+};
+testCases.push(createLogin3);
+
+//Test login with bad username
+let createLogin4: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/login/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserName': 'null0', 'Password': 'abcd1234'}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.Error != null && body.Error > 0)){
+        success("test0");
+      }
+      else{
+        failure("test1", "Error did not occur with logining in with bad user name ")
+      }
+    }
+    else{
+      failure("test1", "error number " + error);
+    }
+  }
+};
+testCases.push(createLogin4);
+
+//Test editPassword for user in database
+let editPassWord1: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/editPassword/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserName': 'temp0', 'oldPassword': 'abcd1234',newPassword: '1234abcd'}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.UserID != null && body.UserID > 0)){
+        success("test0");
+      }
+      else{
+        failure("test1", "Login")
+      }
+    }
+    else{
+      failure("test1", "error number " + error);
+    }
+  }
+};
+testCases.push(editPassWord1);
+//TODO test login after this to make sure changes work
 let addUserPrefsTest0: TestCase = {
 	options: {
 		url: 'http://localhost:3000/BackEnd/createUser/',

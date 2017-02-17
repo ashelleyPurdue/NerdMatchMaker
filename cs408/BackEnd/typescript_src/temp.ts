@@ -99,8 +99,8 @@ var login = function(json, res, callback) {
 };
 var loginTest = function(rows, json, res, callback) {
     var lbj = {UserID: rows[0].UserID };
-    console.log(lbj);
-    res.send(lbj);
+    console.log(rows);
+    res.send(rows);
 };
 var loginEmptySet = function(res,callback) {
     res.send({ Error: -1 });
