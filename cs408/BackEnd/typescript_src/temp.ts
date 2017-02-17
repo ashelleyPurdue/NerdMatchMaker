@@ -122,8 +122,8 @@ var addUserPref = function(json, callback, res){
 		
 		//If we didn't find that ID, create it and use that as ID.
 		if (id == -1){
-			addPref({ Name: json.Name, Description: null }, function(id:number){
-				addUserPref_weHaveID(id,json, res, callback);
+			addPref({ Name: json.Name, Description: null }, function(newid:number){
+				addUserPref_weHaveID(newid, json, res, callback);
 			});
 		}
 		//If there was an SQL error, then "return" that there was an SQL error.
