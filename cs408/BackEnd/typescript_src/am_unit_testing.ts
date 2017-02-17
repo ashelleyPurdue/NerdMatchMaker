@@ -213,7 +213,7 @@ function notSuccess(){
     console.log("Error should not have passed");
   }
   else{
-    console.log("test case "+i-1+"passed");
+    console.log("test case "+(i-1)+"passed");
   }
   return !success;
 }
