@@ -243,3 +243,4 @@ exports.genSQLError = genSQLError;
 exports.getPrefs = getPrefs;
 exports.loginForEdPassSuc = loginForEdPassSuc;
 exports.addUserPref = addUserPref;
+exports.getUserPref = getUserPref;
