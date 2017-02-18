@@ -1,5 +1,5 @@
 //Imports/requires
-var request = require('request');
+import request = require('request');
 const fs = require('fs');
 const bodyParser =  require("body-parser");
 
@@ -366,7 +366,7 @@ testCases.push(createLogin6);
 //TODO test login after this to make sure changes work
 
 //addUserPref test cases
-function addUserPrefs_requestFunction(testName: string, error, response, body){
+function addUserPref_requestFunction(testName: string, error, response, body){
 		
 		//Fail if error
 		if (error){
