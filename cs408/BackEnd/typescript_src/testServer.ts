@@ -112,12 +112,12 @@ app.post("/BackEnd/login/", function(req, res) {
     }
 });
 app.post("/BackEnd/editPassword/", function(req, res) {
-    console.log(res.body);
-    if (req.body.UserName != null) {
-        delete req.body.UserName;
+    console.log(req.body);
+    if (req.body.UserID != null) {
+        delete req.body.UserID;
     } else {
-        console.log("No UserName in json");
-        res.send("No UserName in json");
+        console.log("No UserID in json");
+        res.send("No UserID in json");
         return;
     }
     if (req.body.oldPassword != null) {
