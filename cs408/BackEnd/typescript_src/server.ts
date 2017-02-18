@@ -30,17 +30,17 @@ app.post("/BackEnd/editPassword/",function(req,res){
   sqlFile.loginWithID(req.body,res,callback);
 });
 app.post("/BackEnd/getPrefs/",function(req,res){
-  var callback = {success:sqlFile.getPrefsSuccess,error:genSQLError};
+  var callback = {success:sqlFile.getPrefsSuccess,error:sqlFile.genSQLError};
   sqlFile.getPrefs(req.body,callback,res);
 });
 
 app.post("/BackEnd/addUserPref/", function(req, res){
-	var callback = {success:sqlFile.genSuccess, error:genSQLError};
+	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
 	sqlFile.addUserPref(req.body, callback, res);
 });
 
 app.post("/BackEnd/getUserPref/", function(req, res){
-	var callback = {success:sqlFile.genSuccess, error:genSQLError};
+	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
 	sqlFile.getUserPref(req.body, callback, res);
 });
 app.post("BackEnd/getPrefs/",function(req,res){

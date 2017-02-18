@@ -28,7 +28,7 @@
     </script>
 
 
-    <form action="/BackEnd/editPassword/" onsubmit="return myFunction()" method="post">
+    <form id="getAnID" action="/BackEnd/editPassword/" onsubmit="return myFunction()" method="post">
         <div class="container">
 
             <label><b>Enter old password</b></label>
@@ -61,7 +61,7 @@
                     }
                     return ok;
                 }
-                $("form").submit(function(event) {
+                $("#getAnID").submit(function(event) {
 
                     event.preventDefault();
 
@@ -76,7 +76,7 @@
                     posting.done(function(data) {
                         alert("ID is " + data[0].UserID);
                         // obj = jQuery.parseJSON(data);
-                        if (data[0].UserID != null) {
+                        if (data.UserID != null) {
                             // alert("userID not null");
                             document.cookie = data[0].UserID + "," + UserName + "," + Password + "," + Birthday + "," + Gender + "," + GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
@@ -101,7 +101,8 @@
 
             <script>
                 $("#addPref").submit(function(event) {
-                    var add = document.getElementById("add").value;
+                    alert("Hello world");
+		    var add = document.getElementById("add").value;
                     var dCookie = document.cookie;
                     var id = dCookie.split(';', 1);
                     
