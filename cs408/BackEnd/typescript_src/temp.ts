@@ -76,11 +76,12 @@ var editPassword = function(json,res,callback){
   return 0;
 };
 var genSuccess = function(rows,json,res,callback){
-  res.send(0);
+  res.send({success:0});
 };
 var loginForEdPassSuc = function(rows,json,res,callback){
+  console.log("printing login json"+json);
   var call = {error:genSQLError,success:genSuccess};
-  sqlFile.editPassword(json,null,call);
+  editPassword(json,res,call);
 }
 //Give it {UserName: Not Null,Password: Not Null}
 //returns ID or -1 if invalid password or username or -2 if sql error
@@ -93,6 +94,19 @@ var login = function(json, res, callback) {
             callback.Empty(res,callback);
         } else {
             callback.success(rows, json, res, callback);
+        }
+    });
+    return 0;
+};
+var loginWithID = function(json, res, callback) {
+    var q = con.query('Select * from User where UserID = ? AND Password = ?', [json.UserID,json.oldPassword], function(err, rows) {
+        //console.log(q);
+        if (err) {
+            callback.error(err, json, res, callback, con);
+        } else if (rows.length == 0) {
+            callback.Empty(res,callback);
+        } else {
+          callback.success(rows, json, res, callback);
         }
     });
     return 0;
@@ -223,7 +237,7 @@ var getUserPref = function(json, callback, res){
 		callback.error(-1, json, res, callback, con);
 		return;
 	}
-	
+
 	if (isNaN(json.UserID)){
 		console.log("UserID " + json.UserID + " is not a number.");
 		callback.error(-1, json, res, callback, con);
@@ -273,3 +287,4 @@ exports.loginForEdPassSuc = loginForEdPassSuc;
 exports.addUserPref = addUserPref;
 exports.getUserPref = getUserPref;
 exports.getPrefsSuccess = getPrefsSuccess;
+exports.loginWithID = loginWithID;

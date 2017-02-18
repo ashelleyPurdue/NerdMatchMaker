@@ -27,7 +27,7 @@ app.post("/BackEnd/login/",function(req,res){
 app.post("/BackEnd/editPassword/",function(req,res){
   var callback = {success: sqlFile.loginForEdPassSuc,Empty:sqlFile.loginEmptySet ,error:sqlFile.genSQLError};
   //login then can call editPassword
-  sqlFile.login(req.body,res,callback);
+  sqlFile.loginWithID(req.body,res,callback);
 });
 app.post("/BackEnd/getPrefs/",function(req,res){
   var callback = {success:sqlFile.getPrefsSuccess,error:genSQLError};

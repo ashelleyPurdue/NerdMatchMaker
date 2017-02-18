@@ -113,7 +113,7 @@ app.post("/BackEnd/login/", function(req, res) {
 });
 app.post("/BackEnd/editPassword/", function(req, res) {
     console.log(res.body);
-    if (req.body.UserID != null) {
+    if (req.body.UserName != null) {
         delete req.body.UserName;
     } else {
         console.log("No UserName in json");
