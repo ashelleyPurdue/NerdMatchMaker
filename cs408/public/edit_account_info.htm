@@ -28,7 +28,7 @@
     </script>
 
 
-    <form id="getAnID" action="/BackEnd/editPassword/" onsubmit="return myFunction()" method="post">
+    <form onsubmit="return myFunction()">
         <div class="container">
 
             <label><b>Enter old password</b></label>
@@ -61,10 +61,10 @@
                     }
                     return ok;
                 }
-                $("#getAnID").submit(function(event) {
+                $("form").submit(function(event) {
 
                     event.preventDefault();
-
+                    alert("sending cookie");
 
                     var $form = $(this),
                         Password = document.getElementById("pass1").value,
@@ -74,11 +74,11 @@
                         });
 
                     posting.done(function(data) {
-                        alert("ID is " + data[0].UserID);
+                        // alert("ID is " + data[0].UserID);
                         // obj = jQuery.parseJSON(data);
                         if (data.UserID != null) {
-                            // alert("userID not null");
-                            document.cookie = data[0].UserID + "," + UserName + "," + Password + "," + Birthday + "," + Gender + "," + GenderInto + "," + "path=/";
+                            alert("userID not null");
+                            document.cookie = data.UserID + "," + data.UserName + "," + Password + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
                         } else {
                             if (data.Error === -1)
@@ -95,45 +95,44 @@
         </div>
     </form>
 
- 	<form id="addPref">
- 	
-            <label><b>Add Preferences</b></label>
-            <input id="add" type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
+    <form id="addPref">
+
+        <label><b>Add Preferences</b></label>
+        <input id="add" type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
         <!--add send info to server with name and userid-->
 
         <button type="submit">Submit New Preference</button>
 
-            <script>
-                $("#addPref").submit(function(event) {
-                    
-		    var add = document.getElementById("add").value;
-                    var dCookie = document.cookie;
-                    var id1 = JSON.stringify(dCookie.split(';', 1));
-					alert(id1);    
-					var id2 = id1.substring(2, id1.length - 2);
-                    alert(id2);
-                    var id3 = id2.substring(7);
-                    alert(id3);
-                    event.preventDefault();
-                    var $addpref = $(this),
+        <script>
+            $("#addPref").submit(function(event) {
+
+                var add = document.getElementById("add").value;
+                var dCookie = document.cookie;
+                var id1 = JSON.stringify(dCookie.split(';', 1));
+                var id2 = id1.substring(2, id1.length - 2);
+                var id3 = id2.substring(7);
+                event.preventDefault();
+
+                var $addpref = $(this),
                     Name = add,
                     UserID = id3;
-                    var posting = $.post("/BackEnd/addUserPref/", {
-                      Name: Name,
-                      UserID: UserID
-                    });
-                    posting.done(function(data) {
-                            if (data.Error === -2)
-                                alert("Sorry, server issues");
-                        }
-                    });
+
+                var posting = $.post("/BackEnd/addUserPref/", {
+                    Name: Name,
+                    UserID: UserID
                 });
-            </script>
+                
+                posting.done(function(data) {
+                    if (data.Error === -2)
+                        alert("Sorry, server issues");
+                });
+            });
+        </script>
 
     </form>
 
-    <form id= "removePref">
+    <form id="removePref">
 
         <label><b>Remove Preferences</b></label>
         <input type="text" placeholder="Type one prefernce at a time to remove and hit submit" name="" required>
