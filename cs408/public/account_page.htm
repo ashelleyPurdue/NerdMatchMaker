@@ -16,11 +16,11 @@
         alert(partsOfCookie[1]);
         var dummyUser = ({
             UserName: partsOfCookie[1],
-            Password: "abcd1234",
+            Password: partsOfCookie[2],
             Picture: null,
-            Birthday: partsOfCookie[2],
-            Gender: partsOfCookie[3],
-            GenderInto: partsOfCookie[4],
+            Birthday: partsOfCookie[3],
+            Gender: partsOfCookie[4],
+            GenderInto: partsOfCookie[5],
             Location: null,
             InARelationship: false
         });
@@ -63,6 +63,12 @@
         var elem = document.getElementById("InARelationship").value = dummyUser.InARelationship;
     </script>
 -->
+
+    <div class="container" style="background-color:#f1f1f1">
+        <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
+    </div>
+
+
 </body>
 
 
