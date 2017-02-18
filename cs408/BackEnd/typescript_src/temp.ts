@@ -120,7 +120,7 @@ var loginEmptySet = function(res,callback) {
     res.send({ Error: -1 });
 };
 
-var genSQLError = function(err,json,callback,con){
+var genSQLError = function(err, json, res, callback, con){
   res.send({Error:-2});
 };
 
