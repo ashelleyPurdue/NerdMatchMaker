@@ -46,18 +46,41 @@
         </div>
     </form>
 
- 	<form action="/BackEnd/editUser/" onsubmit= "return myFunction()" method="post">
+ 	<form id="addPref">
  	
             <label><b>Add Preferences</b></label>
-            <input type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
+            <input id="add" type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
             <!--add send info to server with name and userid-->
 
             <button type="submit">Submit New Preference</button>
 
+            <script>
+                $("#addPref").submit(function(event) {
+                    var add = document.getElementById("add").value;
+                    var dCookie = document.cookie;
+                    var id = dCookie.split(';', 1);
+                    
+                    event.preventDefault();
+
+                    var $#addpref = $(this),
+                    Name = add,
+                    UserID = id;
+
+                    var posting = $.post("/BackEnd/addUserPref/", {
+                      Name: Name,
+                      UserID: UserID
+                    });
+
+                    posting.done(function(data) {
+                        alert("Preference Sent");
+                    });
+                });
+            </script>
+
     </form>
 
-    <form action="/BackEnd/editUser/" onsubmit= "return myFunction()" method="post">
+    <form id= "removePref">
 
             <label><b>Remove Preferences</b></label>
             <input type="text" placeholder="Type one prefernce at a time to remove and hit submit" name="" required>
