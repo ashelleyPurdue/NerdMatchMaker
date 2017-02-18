@@ -364,31 +364,220 @@ let createLogin6: TestCase = {
 };
 testCases.push(createLogin6);
 //TODO test login after this to make sure changes work
+
+//addUserPref test cases
+function addUserPrefs_requestFunction(testName: string, error, response, body){
+		
+		//Fail if error
+		if (error){
+			failure(testName, "error number " + error);
+			return;
+		}
+		
+		//Success if we received 0 from server, error if otherwise.
+		if (body == 0){
+			success(testName);
+		}
+		else{
+			failure(testName, "body = " + body);
+		}
+}
+
 let addUserPrefsTest0: TestCase = {
 	options: {
-		url: 'http://localhost:3000/BackEnd/createUser/',
+		url: 'http://localhost:3000/BackEnd/addUserPref',
 		method: 'POST',
 		headers: headers,
 		form: {UserID: 1, Name: "test pref name"}
 	},
 	
 	requestFunction: function(error, response, body){
-		
-		//Fail if error
-		if (error){
-			failure("addUserPrefsTest0", "error number " + error);
-			return;
-		}
-		
-		//Success if we received 0 from server, error if otherwise.
-		if (body == 0){
-			success("addUserPrefsTest0");
-		}
-		else{
-			failure("addUserPrefsTest0", "body = " + body);
-		}
+		addUserPref_requestFunction("adduserPrefsTest0", error, response, body);
 	}
-}
+};
 testCases.push(addUserPrefsTest0);
+
+let addUserPrefs_invalidUserID0: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {UserID: -1, Name: "strange things" }
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidUserID0", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidUserID0);
+
+let addUserPrefs_invalidUserID1: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {UserID: null, Name: "strange things" }
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidUserID1", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidUserID1);
+
+let addUserPrefs_invalidUserID2: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {UserID: "username", Name: "strange things" }
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidUserID2", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidUserID2);
+
+let addUserPrefs_invalidUserID3: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {Name: "strange things" }
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidUserID3", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidUserID3);
+
+let addUserPrefs_invalidPrefName0: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {UserID: 1, Name: 0 }
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidPrefName0", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidPrefName0);
+
+let addUserPrefs_invalidPrefName1: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {UserID: 1, Name: null}
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidPrefName1", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidPrefName1);
+
+let addUserPrefs_invalidPrefName2: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {UserID: 1}
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidPrefName2", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidPrefName2);
+
+let addUserPrefs_invalidForm0: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {}
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidForm0", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidForm0);
+
+let addUserPrefs_invalidForm1: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {body: "LITTLE BOBBY TABLES"}
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidForm1", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidForm1);
+
+let addUserPrefs_invalidForm2: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: 1
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidForm2", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidForm2);
+
+let addUserPrefs_invalidForm3: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: "{UserID: 1, Name: \"wtf\"}"
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidForm3", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidForm3);
+
+let addUserPrefs_invalidForm4: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: {}
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidForm0", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidForm4);
+
+let addUserPrefs_invalidForm5: TestCase = {
+	options: {
+		url: 'http://localhost:3000/BackEnd/addUserPref',
+		method: 'POST',
+		headers: headers,
+		form: null
+	},
+	
+	requestFunction: function(error, response, body){
+		addUserPref_requestFunction("addUserPref_invalidForm5", error, response, body);
+	}
+};
+testCases.push(addUserPrefs_invalidForm5);
+
 //File entry point
 nextTest();
