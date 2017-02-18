@@ -28,7 +28,7 @@
     </script>
 
 
-    <form onsubmit="return myFunction()">
+    <form id="editPass" onsubmit="return myFunction()">
         <div class="container">
 
             <label><b>Enter old password</b></label>
@@ -61,27 +61,36 @@
                     }
                     return ok;
                 }
-                $("form").submit(function(event) {
-
+                $("#editPass").submit(function(event) {
+                    var oldPass = document.getElementById("oldPass").value;
+                    var newPass = document.getElementById("pass1").value;
+                    var dCookie = document.cookie;
+                    var id1 = JSON.stringify(dCookie.split(';', 1));
+                    // alert(id1);
+                    var id2 = id1.substring(2, id1.length - 2);
+                    // alert(id2);
+                    var id3 = id2.substring(7);
+                    //alert(id3);
                     event.preventDefault();
-                    alert("sending cookie");
-
-                    var $form = $(this),
-                        Password = document.getElementById("pass1").value,
-
-                        var posting = $.post("/BackEnd/editPassword/", {
-                            Password: Password,
-                        });
-
-                    posting.done(function(data) {
-                        // alert("ID is " + data[0].UserID);
-                        // obj = jQuery.parseJSON(data);
-                        if (data.UserID != null) {
-                            alert("userID not null");
-                            document.cookie = data.UserID + "," + data.UserName + "," + Password + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
-                            location.replace('/account_page.htm');
-                        }
+                    var $editPass = $(this),
+                        oldPassword = oldPass,
+                        newPassword = newPass,
+                        UserID = id3;
+                    var posting = $.post("/BackEnd/editPassWord/", {
+                        oldPassword: oldPass,
+                        newPassword: newPass,
+                        UserID: UserID
                     });
+                    posting.done(function(data) {
+                        alert(oldPass);
+                        alert(newPass);
+                        alert("returning to accout page");
+                        location.replace('/account_page.htm');
+                    });
+                });
+                posting.done(function(data) {
+                    alert("returning to accout page");
+                    location.replace('/account_page.htm');
                 });
             </script>
 
