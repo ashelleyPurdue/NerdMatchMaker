@@ -75,11 +75,12 @@ var editPassword = function(){
 //only works if no error is assumed to happen
 var isSuccess = function(){
   if(success){
-    console.log("test case"+i+" success");
+    console.log("test case"+(i-1)+" success");
     success = false;
     return true;
   }
   else{
+	console.log("test case "+(i-1)+" failed");
     console.error(error);
     return false;
   }
@@ -93,7 +94,7 @@ var loginFailure = function(){
   }
   else{
     if(error === "User name or password is incorrect"){
-      console.log("Test"+ (i)+ " is a success");
+      console.log("Test"+ (i-1)+ " is a success");
       return true;
     }
     else{
@@ -108,7 +109,7 @@ var isRepeatUserName = function(){
   }
   else{
     if(error === "UserName already exist"){
-      console.log("Test"+ (i)+ " is a success");
+      console.log("Test"+ (i-1)+ " is a success");
       return true;
     }
     else{
@@ -210,6 +211,7 @@ function addUserPrefTest3_afterFirst(){
 function notSuccess(){
 	//Success should be set to false.
 	if(success){
+	console.log("Test " + (i-1) + " failed");
     console.log("Error should not have passed");
   }
   else{
@@ -272,7 +274,7 @@ var successGetPrefs = function(){
     console.log("Test case "+(i-1)+" passed"); 
   }
   else{
-    console.log("Test case failed"); 
+    console.log("Test case " + (i-1) + " failed"); 
   }
   return true;
 }

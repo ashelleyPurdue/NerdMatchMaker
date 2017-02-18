@@ -121,6 +121,7 @@ var loginEmptySet = function(res,callback) {
 };
 
 var genSQLError = function(err, json, res, callback, con){
+  console.log("Sending from genSQLError");
   res.send({Error:-2});
 };
 
@@ -288,3 +289,4 @@ exports.addUserPref = addUserPref;
 exports.getUserPref = getUserPref;
 exports.getPrefsSuccess = getPrefsSuccess;
 exports.loginWithID = loginWithID;
+exports.genSuccess = genSuccess;
