@@ -53,7 +53,7 @@
                         document.getElementById("pass1").style.borderColor = "#E34234";
                         document.getElementById("pass2").style.borderColor = "#E34234";
                         ok = false;
-                    } else if (oldPass == dummyUser.Password) {
+                    } else if (oldPass != dummyUser.Password) {
                         document.getElementById("oldPass").style.borderColor = "E34234";
 
                     } else {

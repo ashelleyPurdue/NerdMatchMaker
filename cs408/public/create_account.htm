@@ -78,8 +78,9 @@
                         // obj = jQuery.parseJSON(data);
                         if (data.UserID != null) {
                             // alert("userID not null");
-                            document.cookie = data[0].UserID + "," + UserName + "," + Password + "," + Birthday + "," + Gender + "," + GenderInto + "," + "path=/";
+                            document.cookie = data.UserID + "," + data.UserName + "," + data.Password + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
+
                         }
                     });
                 });
