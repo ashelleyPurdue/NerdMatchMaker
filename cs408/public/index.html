@@ -52,7 +52,12 @@
                 // alert("userID not null");
                 document.cookie = data.UserID + "," + data.UserName + "," + data.Password + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
                 location.replace('/account_page.htm');
-            }
+            }  else {
+                if (data.Error === -1)
+                    alert("Username or Password is incorrect, Please Try Again");
+                else if (data.Error === -2)
+                    alert("Sorry, server issues");
+                }
         });
     });
 </script>

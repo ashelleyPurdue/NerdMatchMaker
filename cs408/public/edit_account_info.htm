@@ -80,6 +80,11 @@
                             // alert("userID not null");
                             document.cookie = data[0].UserID + "," + UserName + "," + Password + "," + Birthday + "," + Gender + "," + GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
+                        } else {
+                            if (data.Error === -1)
+                                alert("Invalid Old Password");
+                            else if (data.Error === -2)
+                                alert("Sorry, server issues");
                         }
                     });
                 });
@@ -119,7 +124,9 @@
                       UserID: UserID
                     });
                     posting.done(function(data) {
-                        alert("Preference Sent");
+                            if (data.Error === -2)
+                                alert("Sorry, server issues");
+                        }
                     });
                 });
             </script>
