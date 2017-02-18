@@ -288,3 +288,4 @@ exports.addUserPref = addUserPref;
 exports.getUserPref = getUserPref;
 exports.getPrefsSuccess = getPrefsSuccess;
 exports.loginWithID = loginWithID;
+exports.genSuccess = genSuccess;
