@@ -46,12 +46,15 @@
         });
 
         posting.done(function(data) {
-            alert("ID is " + data.UserID);
+            //alert("ID is " + data.UserID);
             // obj = jQuery.parseJSON(data);
             if (data.UserID != null) {
                 // alert("userID not null");
                 document.cookie = data.UserID + "," + data.UserName + "," + data.Password + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
                 location.replace('/account_page.htm');
+            } else {
+                alert("Username and/or password are not valid.")
+
             }
         });
     });
