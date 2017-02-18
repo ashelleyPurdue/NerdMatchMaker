@@ -28,7 +28,7 @@
     </script>
 
 
-    <form id="getAnID" action="/BackEnd/editPassword/" onsubmit="return myFunction()" method="post">
+    <form id="passChange">
         <div class="container">
 
             <label><b>Enter old password</b></label>
@@ -42,8 +42,9 @@
 
 
             <script>
-                function myFunction() {
-                    var oldPass = document.getElementByID('oldPass').value;
+
+                $("#passChange").submit(function(event) {
+                	var oldPass = document.getElementByID('oldPass').value;
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
@@ -53,33 +54,32 @@
                         document.getElementById("pass1").style.borderColor = "#E34234";
                         document.getElementById("pass2").style.borderColor = "#E34234";
                         ok = false;
-                    } else if (oldPass != dummyUser.Password) {
-                        document.getElementById("oldPass").style.borderColor = "E34234";
-
-                    } else {
-                        // alert("Passwords Match!!!");
-                    }
-                    return ok;
-                }
-                $("#getAnID").submit(function(event) {
+                        return ok;
+                    } 
 
                     event.preventDefault();
 
-
                     var $form = $(this),
-                        Password = document.getElementById("pass1").value,
+                    	oldPassword = oldPass,
+                        newPassword = pass1;
 
                         var posting = $.post("/BackEnd/editPassword/", {
-                            Password: Password,
+                        	oldPassword: oldPassword,
+                            newPassword: newPassword
                         });
 
                     posting.done(function(data) {
-                        alert("ID is " + data[0].UserID);
+                        // alert("ID is " + data[0].UserID);
                         // obj = jQuery.parseJSON(data);
                         if (data.UserID != null) {
-                            // alert("userID not null");
-                            document.cookie = data[0].UserID + "," + UserName + "," + Password + "," + Birthday + "," + Gender + "," + GenderInto + "," + "path=/";
+                            alert("userID not null");
+                            document.cookie = data.UserID + "," + data.UserName + "," + Password + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
+                        } else {
+                            if (data.Error === -1)
+                                alert("Invalid Old Password");
+                            else if (data.Error === -2)
+                                alert("Sorry, server issues");
                         }
                     });
                 });
@@ -90,43 +90,44 @@
         </div>
     </form>
 
- 	<form id="addPref">
- 	
-            <label><b>Add Preferences</b></label>
-            <input id="add" type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
+    <form id="addPref">
+
+        <label><b>Add Preferences</b></label>
+        <input id="add" type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
         <!--add send info to server with name and userid-->
 
         <button type="submit">Submit New Preference</button>
 
-            <script>
-                $("#addPref").submit(function(event) {
-                    
-		    var add = document.getElementById("add").value;
-                    var dCookie = document.cookie;
-                    var id1 = JSON.stringify(dCookie.split(';', 1));
-					alert(id1);    
-					var id2 = id1.substring(2, id1.length - 2);
-                    alert(id2);
-                    var id3 = id2.substring(7);
-                    alert(id3);
-                    event.preventDefault();
-                    var $addpref = $(this),
+        <script>
+            $("#addPref").submit(function(event) {
+
+                var add = document.getElementById("add").value;
+                var dCookie = document.cookie;
+                var id1 = JSON.stringify(dCookie.split(';', 1));
+                var id2 = id1.substring(2, id1.length - 2);
+                var id3 = id2.substring(7);
+                event.preventDefault();
+
+                var $addpref = $(this),
                     Name = add,
                     UserID = id3;
-                    var posting = $.post("/BackEnd/addUserPref/", {
-                      Name: Name,
-                      UserID: UserID
-                    });
-                    posting.done(function(data) {
-                        alert("Preference Sent");
-                    });
+
+                var posting = $.post("/BackEnd/addUserPref/", {
+                    Name: Name,
+                    UserID: UserID
                 });
-            </script>
+                
+                posting.done(function(data) {
+                    if (data.Error === -2)
+                        alert("Sorry, server issues");
+                });
+            });
+        </script>
 
     </form>
 
-    <form id= "removePref">
+    <form id="removePref">
 
         <label><b>Remove Preferences</b></label>
         <input type="text" placeholder="Type one prefernce at a time to remove and hit submit" name="" required>
