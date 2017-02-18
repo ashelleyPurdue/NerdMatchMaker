@@ -1,17 +1,20 @@
 <head>
     <link rel="stylesheet" type="text/css" href="login.css">
+    <title>Log in</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
 </head>
-<form action="/BackEnd/login/" method="post">
+<form>
     <div class="imgcontainer">
         <img src="to-do.jpg" alt="login_to_account" class="login">
     </div>
 
     <div class="container">
         <label><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="UserName" required>
+        <input id="Username" type="text" placeholder="Enter Username" name="UserName" required>
 
         <label><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="Password" required>
+        <input id="Password" type="password" placeholder="Enter Password" name="Password" required>
 
         <button type="submit">Login</button>
         <input type="checkbox" checked="checked"> Remember me
@@ -23,3 +26,34 @@
         <span class="newact"> <a href="/create_account.htm">Dont't have an account?</a></span>
     </div>
 </form>
+
+
+<script>
+    $("form").submit(function(event) {
+
+        var user = document.getElementById("Username").value;
+        var pass = document.getElementById("Password").value;
+       
+        event.preventDefault();
+
+        var $form = $(this),
+            UserName = user,
+            Password = pass;
+
+        var posting = $.post("/BackEnd/login/", {
+            UserName: UserName,
+            Password: Password
+        });
+
+        posting.done(function(data) {
+            alert("ID is " + data.UserID);
+            // obj = jQuery.parseJSON(data);
+            if (data.UserID != null) {
+                // alert("userID not null");
+                document.cookie = data.UserID + "," + data.UserName + "," + data.Password + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
+                location.replace('/account_page.htm');
+            }
+        });
+    });
+    
+</script>
