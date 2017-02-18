@@ -105,8 +105,8 @@
 		    var add = document.getElementById("add").value;
                     var dCookie = document.cookie;
                     var id1 = JSON.stringify(dCookie.split(';', 1));
-			alert(id1);    
-		var id2 = id1.substring(7);
+					alert(id1);    
+					var id2 = id1.substring(2, id1.length - 2);
                     alert(id2);
                     event.preventDefault();
                     var $addpref = $(this),
