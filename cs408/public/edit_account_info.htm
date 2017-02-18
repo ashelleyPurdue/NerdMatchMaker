@@ -61,10 +61,10 @@
                     }
                     return ok;
                 }
-                $("#getAnID").submit(function(event) {
+                $("form").submit(function(event) {
 
                     event.preventDefault();
-                    alert(document.getElementById("pass1").value);
+                    alert("sending cookie");
 
                     var $form = $(this),
                         Password = document.getElementById("pass1").value,
