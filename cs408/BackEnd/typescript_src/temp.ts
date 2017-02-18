@@ -137,7 +137,7 @@ var addUserPref = function(json, callback, res){
 		
 		//If we didn't find that ID, create it and use that as ID.
 		if (id == -1){
-			addPref({ Name: json.Name, Description: null }, function(newid:number){
+			addPref({ Name: json.Name }, function(newid:number){
 				addUserPref_weHaveID(newid, json, res, callback);
 			});
 		}
@@ -154,8 +154,21 @@ var addUserPref = function(json, callback, res){
 
 var addUserPref_weHaveID = function(id, json, res, callback){
 	//TODO: Deal with adding ID
-  console.log(json.UserID +","+id);	
+	console.log(json);
+	
+	//Error if id is -1
+	if (json.UserID < 1){
+		callback.error("userid is " + json.UserID, null, res, callback, null);
+		return;
+	}
+	if (id < 1){
+		callback.error("interest id is " + id, null, res, callback, null);
+		return;
+	}
+	console.log(id);
+	//Do the insert
 	con.query('Insert Into User_Interests Set ?', { UserID: json.UserID, InterestID: id }, function(err){
+		
 		
 		//If there's an error, return -1
 		if (err){
@@ -193,8 +206,7 @@ var addPref = function(name_and_desc, returnFunc) {
 var getPrefID = function(Name, returnFunc) {
 	
 	//Query for the id
-	con.query('Select * from Interests where ?', { Name: Name }, function(err, rows){
-		
+	con.query('Select * from Interests where Name = ?', [Name], function(err, rows){
 		//Check for errors
 		if (err){
 			returnFunc(-2);
@@ -206,6 +218,7 @@ var getPrefID = function(Name, returnFunc) {
 		}
 		
 		//"Return" the interest ID to the callback.
+		console.log("Name = " + Name);
 		returnFunc(rows[0].InterestID);
 		return;
 	});
