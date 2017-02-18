@@ -101,22 +101,19 @@
 
             <script>
                 $("#addPref").submit(function(event) {
-                    alert("Hello world");
+                    
 		    var add = document.getElementById("add").value;
                     var dCookie = document.cookie;
                     var id = dCookie.split(';', 1);
-                    
+                    alert(id);
                     event.preventDefault();
-
-                    var $#addpref = $(this),
+                    var $addpref = $(this),
                     Name = add,
                     UserID = id;
-
                     var posting = $.post("/BackEnd/addUserPref/", {
                       Name: Name,
                       UserID: UserID
                     });
-
                     posting.done(function(data) {
                         alert("Preference Sent");
                     });
