@@ -2,12 +2,30 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="create_account.css">
-    <title>Account Homepage</title>
+    <title>Edit Account Info</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 
 <body>
 
     <h1>Edit Account Information</h1>
+
+    <script>
+        // alert(document.cookie);
+        var testCookie = document.cookie;
+        var partsOfCookie = testCookie.split(',');
+        // alert(partsOfCookie[1]);
+        var dummyUser = ({
+            UserName: partsOfCookie[1],
+            Password: partsOfCookie[2],
+            Picture: null,
+            Birthday: partsOfCookie[3],
+            Gender: partsOfCookie[4],
+            GenderInto: partsOfCookie[5],
+            Location: null,
+            InARelationship: false
+        });
+    </script>
 
 
     <form action="/BackEnd/editPassword/" onsubmit="return myFunction()" method="post">
@@ -29,16 +47,42 @@
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
+
                     if (pass1 != pass2) {
                         //alert("Passwords Do not match");
                         document.getElementById("pass1").style.borderColor = "#E34234";
                         document.getElementById("pass2").style.borderColor = "#E34234";
                         ok = false;
+                    } else if (oldPass == dummyUser.Password) {
+                        document.getElementById("oldPass").style.borderColor = "E34234";
+
                     } else {
                         // alert("Passwords Match!!!");
                     }
                     return ok;
                 }
+                $("form").submit(function(event) {
+
+                    event.preventDefault();
+
+
+                    var $form = $(this),
+                        Password = document.getElementById("pass1").value,
+
+                        var posting = $.post("/BackEnd/editPassword/", {
+                            Password: Password,
+                        });
+
+                    posting.done(function(data) {
+                        alert("ID is " + data[0].UserID);
+                        // obj = jQuery.parseJSON(data);
+                        if (data[0].UserID != null) {
+                            // alert("userID not null");
+                            document.cookie = data[0].UserID + "," + UserName + "," + Password + "," + Birthday + "," + Gender + "," + GenderInto + "," + "path=/";
+                            location.replace('/account_page.htm');
+                        }
+                    });
+                });
             </script>
 
 
@@ -51,9 +95,9 @@
             <label><b>Add Preferences</b></label>
             <input id="add" type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
-            <!--add send info to server with name and userid-->
+        <!--add send info to server with name and userid-->
 
-            <button type="submit">Submit New Preference</button>
+        <button type="submit">Submit New Preference</button>
 
             <script>
                 $("#addPref").submit(function(event) {
@@ -82,12 +126,12 @@
 
     <form id= "removePref">
 
-            <label><b>Remove Preferences</b></label>
-            <input type="text" placeholder="Type one prefernce at a time to remove and hit submit" name="" required>
+        <label><b>Remove Preferences</b></label>
+        <input type="text" placeholder="Type one prefernce at a time to remove and hit submit" name="" required>
 
-            <!--add send info to server with name of remove preference and userid-->
+        <!--add send info to server with name of remove preference and userid-->
 
-            <button type="submit">Remove Preference</button>
+        <button type="submit">Remove Preference</button>
     </form>
 
 
