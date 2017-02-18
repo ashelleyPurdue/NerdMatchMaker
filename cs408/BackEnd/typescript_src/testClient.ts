@@ -148,7 +148,7 @@ let createLogin2: TestCase = {
     url: 'http://localhost:3000/BackEnd/login/',
     method: 'POST',
     headers: headers,
-    form: {'UserName': 'temp3', 'Password': 'abcd1234'}
+    form: {'UserName': 'temp0', 'Password': 'abcd1234'}
   },
 
   requestFunction: function(error, response, body){
@@ -212,7 +212,7 @@ let createLogin4: TestCase = {
       body = JSON.parse( body );
       console.log(body);
       //checks to see if error
-      if ((body.Error != null && body.Error > 0)){
+      if ((body.Error != null && body.Error === -1)){
         success("test5");
       }
       else{
@@ -232,7 +232,7 @@ let editPassWord1: TestCase = {
     url: 'http://localhost:3000/BackEnd/editPassword/',
     method: 'POST',
     headers: headers,
-    form: {'UserName': 'temp6', 'oldPassword': 'abcd1234',newPassword: '1234abcd'}
+    form: {'UserID': '1', 'oldPassword': 'abcd1234',newPassword: '1234abcd'}
   },
 
   requestFunction: function(error, response, body){
@@ -240,7 +240,7 @@ let editPassWord1: TestCase = {
       body = JSON.parse( body );
       console.log(body);
       //checks to see if error
-      if ((body.UserID != null && body.UserID > 0)){
+      if ((body.success != null && body.success === 0)){
         success("test6");
       }
       else{
@@ -253,6 +253,116 @@ let editPassWord1: TestCase = {
   }
 };
 testCases.push(editPassWord1);
+//Test if login with given userName and new password
+let createLogin5: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/login/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserName': 'temp0', 'Password': '1234abcd'}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.UserID != null && body.UserID > 0)){
+        success("test7");
+      }
+      else{
+        failure("test7", "Failed with logining in with create User")
+      }
+    }
+    else{
+      failure("test7", "error number " + error);
+    }
+  }
+};
+testCases.push(createLogin5);
+
+//Test editPassword for user in database
+let editPassWord2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/editPassword/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserID': '-1', 'oldPassword': 'abcd1234',newPassword: '1234abcd'}
+  },
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.Error != null && body.Error < 0)){
+        success("test8");
+      }
+      else{
+        failure("test8", "no error raised for invalid id");
+      }
+    }
+    else{
+      failure("test8", "error number " + error);
+    }
+  }
+};
+
+testCases.push(editPassWord2);
+
+//Test editPassword with bad password
+let editPassWord3: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/editPassword/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserID': '1', 'oldPassword': 'abcd1234',newPassword: '1234abcd'}
+  },
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.Error != null && body.Error < 0)){
+        success("test9");
+      }
+      else{
+        failure("test9", "Error changing password with invalid password");
+      }
+    }
+    else{
+      failure("test9", "error number " + error);
+    }
+  }
+};
+testCases.push(editPassWord3);
+
+//Test login with alreay in database userName and password
+let createLogin6: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/login/',
+    method: 'POST',
+    headers: headers,
+    form: {'UserName': 'temp0', 'Password': 'abcd1234'}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+      console.log(body);
+      //checks to see if error
+      if ((body.Error != null && body.Error === -1)){
+        success("test10");
+      }
+      else{
+        failure("test10", "Edit password did not change password")
+      }
+    }
+    else{
+      failure("test10", "error number " + error);
+    }
+  }
+};
+testCases.push(createLogin6);
 //TODO test login after this to make sure changes work
 let addUserPrefsTest0: TestCase = {
 	options: {
