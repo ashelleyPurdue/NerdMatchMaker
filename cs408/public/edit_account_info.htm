@@ -28,7 +28,7 @@
     </script>
 
 
-    <form onsubmit="return myFunction()">
+    <form id="passChange">
         <div class="container">
 
             <label><b>Enter old password</b></label>
@@ -42,8 +42,9 @@
 
 
             <script>
-                function myFunction() {
-                    var oldPass = document.getElementByID('oldPass').value;
+
+                $("#passChange").submit(function(event) {
+                	var oldPass = document.getElementByID('oldPass').value;
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
@@ -53,24 +54,18 @@
                         document.getElementById("pass1").style.borderColor = "#E34234";
                         document.getElementById("pass2").style.borderColor = "#E34234";
                         ok = false;
-                    } else if (oldPass != dummyUser.Password) {
-                        document.getElementById("oldPass").style.borderColor = "E34234";
-
-                    } else {
-                        // alert("Passwords Match!!!");
-                    }
-                    return ok;
-                }
-                $("form").submit(function(event) {
+                        return ok;
+                    } 
 
                     event.preventDefault();
-                    alert("sending cookie");
 
                     var $form = $(this),
-                        Password = document.getElementById("pass1").value,
+                    	oldPassword = oldPass,
+                        newPassword = pass1;
 
                         var posting = $.post("/BackEnd/editPassword/", {
-                            Password: Password,
+                        	oldPassword: oldPassword,
+                            newPassword: newPassword
                         });
 
                     posting.done(function(data) {
