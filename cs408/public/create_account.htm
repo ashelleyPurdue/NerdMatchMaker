@@ -8,7 +8,7 @@
 
 <body>
 
-    <h1>Create a new Acccount</h1>
+    <h1>Create a new Account</h1>
 
     <form onsubmit="return passWordsMatch">
         <div class="container">
@@ -76,9 +76,9 @@
                     posting.done(function(data) {
                         alert("ID is " + data.UserID);
                         // obj = jQuery.parseJSON(data);
-                        if (data[0].UserID != null) {
+                        if (data.UserID != null) {
                             // alert("userID not null");
-                            document.cookie = data.UserID + "," + UserName + "," + Password + "," + Gender + "," + GenderInto + "," + "path=/";
+                            document.cookie = data[0].UserID + "," + UserName + "," + Password + "," + Birthday + "," + Gender + "," + GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
                         }
                     });
