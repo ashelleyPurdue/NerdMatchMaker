@@ -104,12 +104,16 @@
 
                 var add = document.getElementById("add").value;
                 var dCookie = document.cookie;
-                var id = dCookie.split(';', 1);
-                alert(id);
+                var id1 = JSON.stringify(dCookie.split(';', 1));
+                alert(id1);
+                var id2 = id1.substring(2, id1.length - 2);
+                alert(id2);
+                var id3 = id2.substring(7);
+                alert(id3);
                 event.preventDefault();
                 var $addpref = $(this),
                     Name = add,
-                    UserID = id;
+                    UserID = id3;
                 var posting = $.post("/BackEnd/addUserPref/", {
                     Name: Name,
                     UserID: UserID
@@ -117,6 +121,9 @@
                 posting.done(function(data) {
                     alert("Preference Sent");
                 });
+            });
+            posting.done(function(data) {
+                alert("Preference Sent");
             });
         </script>
 
