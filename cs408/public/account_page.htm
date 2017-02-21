@@ -13,14 +13,13 @@
         // alert(document.cookie);
         var testCookie = document.cookie;
         var partsOfCookie = testCookie.split(',');
-        alert(partsOfCookie[1]);
+        // alert(partsOfCookie[1]);
         var dummyUser = ({
             UserName: partsOfCookie[1],
-            Password: partsOfCookie[2],
             Picture: null,
-            Birthday: partsOfCookie[3],
-            Gender: partsOfCookie[4],
-            GenderInto: partsOfCookie[5],
+            Birthday: partsOfCookie[2],
+            Gender: partsOfCookie[3],
+            GenderInto: partsOfCookie[4],
             Location: null,
             InARelationship: false
         });
