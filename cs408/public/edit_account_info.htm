@@ -17,135 +17,134 @@
         // alert(partsOfCookie[1]);
         var dummyUser = ({
             UserName: partsOfCookie[1],
-            Password: partsOfCookie[2],
             Picture: null,
-            Birthday: partsOfCookie[3],
-            Gender: partsOfCookie[4],
-            GenderInto: partsOfCookie[5],
+            Birthday: partsOfCookie[2],
+            Gender: partsOfCookie[3],
+            GenderInto: partsOfCookie[4],
             Location: null,
             InARelationship: false
         });
-	alert(dummyUser.Password);
     </script>
 
-        <form id="passChange">
-            <div class="container">
+    <form id="passChange">
+        <div class="container">
 
-                <label><b>Enter old password</b></label>
-                <input id="oldPass" type="password" placeholder="Enter old Password" name="oldPassword" required>
+            <label><b>Enter old password</b></label>
+            <input id="oldPass" type="password" placeholder="Enter old Password" name="oldPassword" required>
 
-                <label><b>Enter new password</b></label>
-                <input id="pass1" type="password" placeholder="Enter new Password" name="newPassword" required>
+            <label><b>Enter new password</b></label>
+            <input id="pass1" type="password" placeholder="Enter new Password" name="newPassword" required>
 
-                <label><b>Re-enter new password</b></label>
-                <input id="pass2" type="password" placeholder="Enter new Password again" required>
+            <label><b>Re-enter new password</b></label>
+            <input id="pass2" type="password" placeholder="Enter new Password again" required>
 
 
             <script>
-
                 $("#passChange").submit(function(event) {
-	              
-		    var oldPass = document.getElementById("oldPass").value;
+
+                    var oldPass = document.getElementById("oldPass").value;
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
-                	var dCookie = document.cookie;
-               	 var id1 = JSON.stringify(dCookie.split(',', 1));
-			
-              	 	 var id2 = id1.substring(2, id1.length - 2);
+                    var dCookie = document.cookie;
+                    var id1 = JSON.stringify(dCookie.split(',', 1));
+
+                    var id2 = id1.substring(2, id1.length - 2);
 
                     if (pass1 != pass2) {
                         //alert("Passwords Do not match");
                         document.getElementById("pass1").style.borderColor = "#E34234";
                         document.getElementById("pass2").style.borderColor = "#E34234";
                         ok = false;
-			alert("passwords do not match");
+                        alert("passwords do not match");
                         return ok;
-                    } 
-			
-	
+                    }
+
+
                     event.preventDefault();
 
-			
+
                     var $passChange = $(this),
-			UserID = id2,
-                    	oldPassword = oldPass,
+                        UserID = id2,
+                        oldPassword = oldPass,
                         newPassword = pass1;
 
-                        var posting = $.post("/BackEnd/editPassword/", {
-				UserID: UserID,
-                        	oldPassword: oldPassword,
-                            newPassword: newPassword
-                        });
-		alert(oldPass);
-
-                        posting.done(function(data) {
-                            // alert("ID is " + data[0].UserID);
-                            // obj = jQuery.parseJSON(data);
-                            if (data.UserID != null) {
-                                alert("userID not null");
-                                document.cookie = data.UserID + "," + data.UserName + "," + Password + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
-                                location.replace('/account_page.htm');
-                            } else {
-                                if (data.Error === -1)
-                                    alert("Invalid Old Password");
-                                else if (data.Error === -2)
-                                    alert("Sorry, server issues");
-                            }
-
-                        });
+                    var posting = $.post("/BackEnd/editPassword/", {
+                        UserID: UserID,
+                        oldPassword: oldPassword,
+                        newPassword: newPassword
                     });
-                </script>
+                    alert(oldPass);
+
+                    posting.done(function(data) {
+                        // alert("ID is " + data[0].UserID);
+                        // obj = jQuery.parseJSON(data);
+                        if (data.UserID != null) {
+                            alert("userID not null");
+                            document.cookie = data.UserID + "," + data.UserName + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
+                            location.replace('/account_page.htm');
+                        } else {
+                            if (data.Error === -1)
+                                alert("Invalid Old Password");
+                            else if (data.Error === -2)
+                                alert("Sorry, server issues");
+                        }
+
+                    });
+                });
+            </script>
 
 
-                <button type="submit">Submit Password Change</button>
-            </div>
-        </form>
+            <button type="submit">Submit Password Change</button>
+        </div>
+    </form>
 
-        <form id="addPref">
 
-            <label><b>Add Preferences</b></label>
-            <input id="add" type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
-            <!--add send info to server with name and userid-->
+    <form id="addPref">
 
-            <button type="submit">Submit New Preference</button>
+        <label><b>Add Preferences</b></label>
+        <input id="add" type="text" placeholder="Enter one preference you would like to add and hit submit" name="Name" required>
 
-            <script>
-                $("#addPref").submit(function(event) {
+        <!--add send info to server with name and userid-->
+
+        <button type="submit">Submit New Preference</button>
+
+        <script>
+            $("#addPref").submit(function(event) {
                 var add = document.getElementById("add").value;
                 var dCookie = document.cookie;
                 var id1 = JSON.stringify(dCookie.split(',', 1));
                 var id2 = id1.substring(2, id1.length - 2);
                 event.preventDefault();
-		alert(id2);
+                alert(id2);
                 var $addpref = $(this),
                     Name = add,
                     UserID = id2;
 
-                    var posting = $.post("/BackEnd/addUserPref/", {
-                        Name: Name,
-                        UserID: UserID
-                    });
-
-                    posting.done(function(data) {
-                        if (data.Error === -2)
-                            alert("Sorry, server issues");
-                    });
+                var posting = $.post("/BackEnd/addUserPref/", {
+                    Name: Name,
+                    UserID: UserID
                 });
-            </script>
 
-        </form>
+                posting.done(function(data) {
+                    if (data.Error === -2)
+                        alert("Sorry, server issues");
+                });
+            });
+        </script>
 
-        <form id="removePref">
+    </form>
 
-            <label><b>Remove Preferences</b></label>
-            <input type="text" placeholder="Type one prefernce at a time to remove and hit submit" name="" required>
+    <form id="removePref">
 
-            <!--add send info to server with name of remove preference and userid-->
+        <label><b>Remove Preferences</b></label>
+        <input type="text" placeholder="Type one prefernce at a time to remove and hit submit" name="" required>
 
-            <button type="submit">Remove Preference</button>
-        </form>
+        <!--add send info to server with name of remove preference and userid-->
+
+        <button type="submit">Remove Preference</button>
+    </form>
 
 
 </body>
