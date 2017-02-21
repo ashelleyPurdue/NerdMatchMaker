@@ -8,6 +8,9 @@ var error;
 var success;
 var tempID;
 var ret;
+
+var finishedTestAll:bool = false;
+
 var testAll = function(){
     //Runs all test cases.  Prints a message each time one of them fails.
     if (i != 0) {
@@ -19,6 +22,14 @@ var testAll = function(){
     }
     if (i >= allTests.length) {
         console.log("we are done");
+		
+		//Force an exception to happen if we're running this again.
+		if (finishedTestAll){
+			let crashMeBaby = null;
+			crashMeBaby.bogusMethod();
+		}
+		finishedTestAll = true;
+		
         return;
     }
     allTests[i++].fun();
@@ -94,7 +105,7 @@ var loginFailure = function(){
   }
   else{
     if(error === "User name or password is incorrect"){
-      console.log("Test"+ (i-1)+ " is a success");
+      console.log("Test "+ (i-1)+ " is a success");
       return true;
     }
     else{
@@ -109,7 +120,7 @@ var isRepeatUserName = function(){
   }
   else{
     if(error === "UserName already exist"){
-      console.log("Test"+ (i-1)+ " is a success");
+      console.log("Test "+ (i-1)+ " is a success");
       return true;
     }
     else{
@@ -215,7 +226,7 @@ function notSuccess(){
     console.log("Error should not have passed");
   }
   else{
-    console.log("test case "+(i-1)+"passed");
+    console.log("test case "+(i-1)+" passed");
   }
   return !success;
 }
@@ -346,6 +357,7 @@ allTests.push({fun: getPrefTest, check: successGetPrefsEmpty});
 allTests.push({fun: addUserPrefTest0, check: isSuccess});
 allTests.push({fun: addUserPrefTest1, check: notSuccess});
 allTests.push({fun: addUserPrefTest2, check: notSuccess});
+allTests.push({fun: addUserPrefTest3, check: notSuccess});
 
 //getUserPref
 allTests.push({fun: getUserPrefTest0, check: isSuccess});

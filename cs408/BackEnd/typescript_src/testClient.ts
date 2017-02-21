@@ -369,6 +369,7 @@ testCases.push(createLogin6);
 function addUserPref_requestFunction(testName: string, error, response, body){
 		
 		//Fail if error
+		console.log("adduserPref request function");
 		if (error){
 			failure(testName, "error number " + error);
 			return;
