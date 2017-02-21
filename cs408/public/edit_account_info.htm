@@ -74,14 +74,15 @@
                         oldPassword: oldPassword,
                         newPassword: newPassword
                     });
-                    alert(oldPass);
+                    alert(typeof(oldPass));
+                    alert(typeof(pass1));
+                    alert(typeof(id2));
 
                     posting.done(function(data) {
-                        // alert("ID is " + data[0].UserID);
+                        alert("Password Changed");
                         // obj = jQuery.parseJSON(data);
                         if (data.UserID != null) {
                             alert("userID not null");
-                            document.cookie = data.UserID + "," + data.UserName + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
                         } else {
                             if (data.Error === -1)
@@ -99,7 +100,15 @@
         </div>
     </form>
 
+    <div class="container">
+        <h1>Edit Preferences</h1>
+        <h3>Current Preferences</h3>
 
+        <label id="getPref"></label>
+        <script>
+            document.getElementById("getPref").innerHTML = 'users prefs will be shown here';
+        </script>
+    </div>
 
     <form id="addPref">
 
@@ -130,11 +139,15 @@
                 posting.done(function(data) {
                     if (data.Error === -2)
                         alert("Sorry, server issues");
+                    else {
+                        alert("Preference added");
+                    }
                 });
             });
         </script>
 
     </form>
+
 
     <form id="removePref">
 
