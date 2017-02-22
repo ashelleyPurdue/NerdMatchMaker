@@ -25,15 +25,11 @@ Create Table User_Interests(
 	FOREIGN KEY (InterestID) REFERENCES Interests(InterestID),
 	UNIQUE(UserID,InterestID)
 );
-Create Table BlockedUsers(
-	UserID_Blocking int Not Null,
-	UserID_Blocked int Not Null,
-	FOREIGN KEY (UserID_Blocking) REFERENCES User(UserID),
-	FOREIGN KEY (UserID_Blocked) REFERENCES User(UserID)
-);
 Create Table Matches(
 	UserID1 int Not Null,
 	UserID2 int Not Null,
+	IsBlocked boolean default false,
+	BlockingID int Null,
 	FOREIGN KEY (UserID1) REFERENCES User(UserID),
 	FOREIGN KEY (UserID2) REFERENCES User(UserID)
 );
