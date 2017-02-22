@@ -377,11 +377,8 @@ exports.getUserPref = getUserPref;
 exports.getPrefsSuccess = getPrefsSuccess;
 exports.loginWithID = loginWithID;
 exports.genSuccess = genSuccess;
-<<<<<<< HEAD
 exports.insertMessage = insertMessage;
 exports.getMessages = getMessages;
 exports.blockUser = blockUser;
 exports.getMatches = getMatches;
-=======
 */
->>>>>>> 18900d9f84e00a4bb8d6c775ed9a4070bdb1dbad
