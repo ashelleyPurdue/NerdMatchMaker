@@ -333,11 +333,7 @@ var blockUser = function(json,callback,res){
 //returns list of users and userIDs of matches
 var getMatches = function(json,callback,res){
         con.query("Select * from Matches where (UserID1 = ? OR UserID2 = ?) AND IsBlocked = false", 
-<<<<<<< HEAD
 				  	[json.UserID1],function (err, rows) {
-=======
-				  	[json.UserID1], function (err, rows) {
->>>>>>> 906e923bcd694fc611cb2c9d7fb5d3fa47b4735f
         if (err) {
             callback.error(err, json, res, callback, con);
         }
