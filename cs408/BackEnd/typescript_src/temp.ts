@@ -319,7 +319,7 @@ export var insertMessage = function(json,callback,res){
 };
 
 export var getMessages = function(json,callback,res){
-	con.query("Select * from Message where (UserID1 = ? AND UserID2 = ?) OR (UserID1 = ? AND UserID2 = ?) sort by MessageID",[json.UserID1,json.UserID2,json.UserID2,json.UserID1],function(err,rows){
+	con.query("Select * from Messages where (UserID1 = ? AND UserID2 = ?) OR (UserID1 = ? AND UserID2 = ?) order by MessageID",[json.UserID1,json.UserID2,json.UserID2,json.UserID1],function(err,rows){
     	if (err) {
             callback.error(err, json, res, callback, con);
         } else {
@@ -331,7 +331,7 @@ export var getMessages = function(json,callback,res){
 //give it json of {UserID1:,UserID2}
 //returns {Error:}
 export var blockUser = function(json,callback,res){
-    con.query("UPDATE Matches Set IsBlocked=true,BlockingID=? where (UserID1 = ? AND UserID2 = ?) OR (UserID2 = ? AND UserID1 = ?)",
+    con.query("UPDATE Matches Set IsBlocked=true,BlockingID= ? where (UserID1 = ? AND UserID2 = ?) OR (UserID2 = ? AND UserID1 = ?)",
 		[json.UserID1,json.UserID1,json.UserID2,json.UserID1,json.UserID2],function(err,rows){
     	if (err) {
             callback.error(err, json, res, callback, con);
@@ -345,13 +345,14 @@ export var blockUser = function(json,callback,res){
 //returns list of users and userIDs of matches
 export var getMatches = function(json,callback,res){
         con.query("Select * from Matches where (UserID1 = ? OR UserID2 = ?) AND IsBlocked = false", 
-				  	[json.UserID1],function (err, rows) {
-        if (err) {
-            callback.error(err, json, res, callback, con);
-        }
-        else {
-            callback.success(rows, json, res, callback);
-        }
+				  	[json.UserID1,json.UserID1],function (err, rows) {
+        	//console.log("Rows for "+json.UserID1+"="+rows);
+			if (err) {
+            	callback.error(err, json, res, callback, con);
+        	}
+        	else {
+            	callback.success(rows, json, res, callback);
+        	}
     });
 };
 
