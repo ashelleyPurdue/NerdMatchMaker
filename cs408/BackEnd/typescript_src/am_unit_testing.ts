@@ -22,7 +22,7 @@ var testAll = function(){
     }
     if (i >= allTests.length) {
         console.log("we are done");
-		
+		sqlFile.con.end();
 		//Force an exception to happen if we're running this again.
 		if (finishedTestAll){
 			let crashMeBaby = null;
@@ -431,6 +431,51 @@ var getMessagesSuccess2 = function(rows, json, res, callback){
     }
     callback.main();
 }
+//end checking for messages
+//check for adding Messages
+var addMessageTest = function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll,Empty:emptyAddMessage};
+    sqlFile.insertMessage({UserID1:3,UserID2:1,Message:"I will see you soon"},callback,null);	
+}
+var addMessageTest2 = function(){
+	let callback = {error: genericErrorTest, success: successFailureTest , main: testAll,Empty:emptyTest};
+    sqlFile.insertMessage({UserID1:9,UserID2:1,Message:"I will see you soon"},callback,null);	
+}
+var emptyAddMessage = function(res,callback){
+	success = false;
+	error = "should allowed those two to talk"
+	callback.main();
+}
+var addMessageTest3 = function(){
+	let callback = {error: genericErrorTest, success: successFailureTest , main: testAll,Empty:emptyTest};
+    sqlFile.insertMessage({UserID1:9,UserID2:8,Message:"I will see you soon"},callback,null);	
+}
+var successFailureTest = function(rows, json, res, callback){
+	success = false;
+	error = "Should not allowed to contact someone of that is not matched or blocked";
+}
+//Called if a success in creating an account
+var emptyTest = function (res, callback) {
+    success = true;
+    callback.main();
+};
+var getMessagesTest4 = function(){
+    let callback = {error: genericErrorTest, success: getMessagesSuccess4 , main: testAll};
+    sqlFile.getMessages({UserID1:1,UserID2:3},callback,null);    
+}
+var getMessagesSuccess4 = function(rows, json, res, callback){
+    if(rows.length != 1){
+        success = false;
+        error = "wrong length of rows in getting messages"
+    }
+    else if(rows[0].Message == null || rows[0].Message !== "I will see you soon"){
+        error = "Did not get right message for row 0"
+    }
+    else{
+        success = true;   
+    }
+    callback.main();
+}
 /*
 //tests going through creating basic users
 allTests.push({fun:createAccount_basic,check:isSuccess});
@@ -506,6 +551,10 @@ allTests.push({fun:getMatchesTest3,check:isSuccess});
 allTests.push({fun:getMessagesTest,check:isSuccess});
 allTests.push({fun:getMessagesTest2,check:isSuccess});
 allTests.push({fun:getMessagesTest3,check:isSuccess});
+allTests.push({fun:addMessageTest,check:isSuccess});
+allTests.push({fun:addMessageTest2,check:isSuccess});
+allTests.push({fun:addMessageTest3,check:isSuccess});
+allTests.push({fun:getMessagesTest4,check:isSuccess});
 //check for blocking works correct
 
 //File entry point.

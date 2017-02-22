@@ -298,7 +298,7 @@ export var getPrefsSuccess = function(rows, json, res, callback) {
 export var insertMessage = function(json,callback,res){
 	//add check method to check if they are a match or not
 	con.query("Select * from Matches where ((UserID1 = ? AND UserID2 = ?) OR (UserID2 = ? AND UserID1 = ?)) AND IsBlocked = false ",
-		[json.UserID1,json.UserID1,json.UserID2,json.UserID1,json.UserID2],function(err,rows){
+		[json.UserID1,json.UserID2,json.UserID1,json.UserID2],function(err,rows){
 		if(err){
 			callback.error(err, json, res, callback, con);
 		}
