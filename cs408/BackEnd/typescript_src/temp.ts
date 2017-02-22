@@ -284,6 +284,72 @@ var getPrefs = function(json, callback, res) {
 var getPrefsSuccess = function(rows, json, res, callback) {
   res.send(rows);
 };
+//give it json of {UserID_1:,UserID_2,Message}
+//returns {Error:}
+var insertMessage = function(json,callback,res){
+	//add check method to check if they are a match or not
+	con.query(`Select * from Matches as m 
+		Join BlockedUsers as b 
+		on (b.UserID_Blocking = m.UserID_two AND b.UserID_Blocked = m.UserID_one) OR  (b.UserID_Blocking = m.UserID_one AND b.UserID_Blocked = m.UserID_two)
+		where (m.UserID_one = ? AND m.UserID_two = ?) OR (m.UserID_one = ? AND m.UserID_two = ?)`,[json.UserID1,json.UserID2,json.UserID2,json.UserID1],function(err,rows){
+		if(err){
+			
+		}
+		else if(rows.length == 0){
+			
+		}
+		else{
+			con.query(`Insert Into Message (UserID1,UserID2,Message)
+				Values(?,?,?)`,[json.UserID1,json.UserID2,json.Message],function(err,rows){
+				if (err) {
+            		callback.error(err, json, res, callback, con);
+        		} else {
+            		callback.success(rows, json, res, callback);
+        		}
+			});
+		}
+		
+	});
+
+};
+
+var getMessages = function(json,callback,res){
+	con.query(`Select * from Message where (UserID1 = ? AND UserID2 = ?) OR (UserID1 = ? AND UserID2 = ? sort by MessageID`),[json.UserID1,json.UserID2,json.UserID2,json.UserID1],function(err,rows){
+    	if (err) {
+            callback.error(err, json, res, callback, con);
+        } else {
+            callback.success(rows, json, res, callback);
+        }
+    });
+};
+//give it json of {UserID1:,UserID2}
+//returns {Error:}
+var blockUser = function(json,callback,res){
+    con.query(`Insert into BlockedUsers VALUES (?,?)`,[json.UserID1,json.UserID2],function(err,rows){
+    	if (err) {
+            callback.error(err, json, res, callback, con);
+        } else {
+            callback.success(rows, json, res, callback);
+        }
+    });
+};
+//give it json of {UserID}
+//returns list of users and userIDs of matches
+var getMatches = function(json,callback,res){
+    con.query(`Select * from Matches as u 
+        Join BlockedUsers as b on (b.UserID_Blocking = u.UserID_two AND b.UserID_Blocked = u.UserID_one) OR  (b.UserID_Blocking = u.UserID_one AND b.UserID_Blocked = u.UserID_two)
+        where (u.UserID_one = ? And (u.UserID_two != b.UserID_Blocking AND u.UserID_two != b.UserID_Blocked)) 
+        or ((u.UserID_two = ? And (u.UserID_one != b.UserID_Blocking AND u.UserID_one != b.UserID_Blocked)))`,[json.UserID1,json.UserID2],function(err,rows){
+    	if (err) {
+            callback.error(err, json, res, callback, con);
+        } else {
+            callback.success(rows, json, res, callback);
+        }
+    });
+};
+
+exports.insertMessage = insertMessage;
+exports.getMessages = getMessages;
 exports.createAccount = createAccount;
 exports.createCon = createCon;
 exports.login = login;

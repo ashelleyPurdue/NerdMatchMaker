@@ -7,4 +7,6 @@ npm install express
 npm link body-parser
 npm install mysql
 npm install request
+npm install socket.io
+npm install hashtable
 echo "NPM packages updated."

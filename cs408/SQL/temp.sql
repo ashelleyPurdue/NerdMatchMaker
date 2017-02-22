@@ -44,10 +44,13 @@ Create Table UserLanguage(
 	FOREIGN Key (LanguageID) REFERENCES Language(LanguageID)
 );
 Create Table Messages(
+	MessageID int Primary Key AUTO_INCREMENT,
 	UserID1 int Not Null,
 	UserID2 int Not Null,
 	Message_Title varchar(100),
 	Message varchar(500) Not Null,
+	UserID1_Read boolean Default true,
+	UserID2_Read boolean Default false,
 	FOREIGN KEY (UserID1) REFERENCES User(UserID),
 	FOREIGN KEY (UserID2) REFERENCES User(UserID)
 );
