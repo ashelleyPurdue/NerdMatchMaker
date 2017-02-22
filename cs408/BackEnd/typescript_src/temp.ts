@@ -309,7 +309,7 @@ var insertMessage = function(json,callback,res){
 };
 //TODO test this function over command line
 var getMessages = function(json,callback,res){
-	con.query(`Select * from Message where (UserID1 = ? AND UserID2 = ?) OR (UserID1 = ? AND UserID2 = ? sort by MessageID`),[json.UserID1,json.UserID2,json.UserID2,json.UserID1],function(err,rows){
+	con.query(`Select * from Message where (UserID1 = ? AND UserID2 = ?) OR (UserID1 = ? AND UserID2 = ? sort by MessageID`,[json.UserID1,json.UserID2,json.UserID2,json.UserID1],function(err,rows){
     	if (err) {
             callback.error(err, json, res, callback, con);
         } else {
@@ -333,7 +333,7 @@ var blockUser = function(json,callback,res){
 //returns list of users and userIDs of matches
 var getMatches = function(json,callback,res){
         con.query("Select * from Matches where (UserID1 = ? OR UserID2 = ?) AND IsBlocked = false", 
-				  	[json.UserID1]function (err, rows) {
+				  	[json.UserID1], function (err, rows) {
         if (err) {
             callback.error(err, json, res, callback, con);
         }
