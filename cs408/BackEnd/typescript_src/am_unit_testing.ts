@@ -1,4 +1,4 @@
-import sqlFile = require("./temp.js");
+import sqlFile = require("./temp");
 var con = sqlFile.createCon();
 var i = 0;
 var userID = 0;
@@ -9,7 +9,7 @@ var success;
 var tempID;
 var ret;
 
-var finishedTestAll:bool = false;
+var finishedTestAll:boolean = false;
 
 var testAll = function(){
     //Runs all test cases.  Prints a message each time one of them fails.
