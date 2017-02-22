@@ -36,6 +36,7 @@ app.post("/BackEnd/getPrefs/",function(req,res){
 });
 
 app.post("/BackEnd/addUserPref/", function(req, res){
+	console.log("addUserPref");
 	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
 	sqlFile.addUserPref(req.body, callback, res);
 });

@@ -76,10 +76,11 @@ var editPassword = function(json,res,callback){
   return 0;
 };
 var genSuccess = function(rows,json,res,callback){
+  console.log("genSuccess");
   res.send({success:0});
 };
 var loginForEdPassSuc = function(rows,json,res,callback){
-  console.log("printing login json"+json);
+  //console.log("printing login json"+json);
   var call = {error:genSQLError,success:genSuccess};
   editPassword(json,res,call);
 }
@@ -121,7 +122,7 @@ var loginEmptySet = function(res,callback) {
 };
 
 var genSQLError = function(err, json, res, callback, con){
-  console.log("Sending from genSQLError");
+  console.log("genSQLError");
   res.send({Error:-2});
 };
 
@@ -140,6 +141,7 @@ var addUserPref = function(json, callback, res){
 			addPref({ Name: json.Name }, function(newid:number){
 				addUserPref_weHaveID(newid, json, res, callback);
 			});
+			return;
 		}
 		//If there was an SQL error, then "return" that there was an SQL error.
 		else if (id == -2){
@@ -154,8 +156,6 @@ var addUserPref = function(json, callback, res){
 
 var addUserPref_weHaveID = function(id, json, res, callback){
 	//TODO: Deal with adding ID
-	console.log(json);
-	
 	//Error if id is -1
 	if (json.UserID < 1){
 		callback.error("userid is " + json.UserID, null, res, callback, null);
@@ -204,7 +204,6 @@ var addPref = function(name_and_desc, returnFunc) {
 //takes Name of pref and returns Id of pref, if -1 does not exist, if -2 sql error
 //The "return value" is actually going to be the first argument of callback.
 var getPrefID = function(Name, returnFunc) {
-	
 	//Query for the id
 	con.query('Select * from Interests where Name = ?', [Name], function(err, rows){
 		//Check for errors
@@ -218,7 +217,6 @@ var getPrefID = function(Name, returnFunc) {
 		}
 		
 		//"Return" the interest ID to the callback.
-		console.log("Name = " + Name);
 		returnFunc(rows[0].InterestID);
 		return;
 	});
@@ -259,7 +257,7 @@ var getUserPref = function(json, callback, res){
 	}
 	
 	//Do the query
-	con.query('Select * from Interests Where UserID = ?', json.UserID, function(err, res) {
+	con.query('Select * from User_Interests Where UserID = ?', json.UserID, function(err, rows) {
         if (err) {
             callback.error(err, json, res, callback, con);
         } else {
