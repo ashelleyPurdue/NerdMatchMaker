@@ -1,10 +1,11 @@
-const http = require('http');
-//const url = require('url');
-const path = require('path');
-const fs = require('fs'); 
-const express = require('express');
-const bodyParser =  require("body-parser");
-const sqlFile = require("../BackEnd/temp.js");
+import http = require('http');
+//import url = require('url');
+import path = require('path');
+import fs = require('fs'); 
+import express = require('express');
+import bodyParser =  require("body-parser");
+import sqlFile = require("../BackEnd/temp.js");
+
 //TODO make in prop files
 const port = 3000;
 const url = 'localhost'
