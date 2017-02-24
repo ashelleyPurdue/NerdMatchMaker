@@ -355,7 +355,20 @@ export var getMatches = function(json,callback,res){
         	}
     });
 };
+export var sendRows = function(rows, json, res, callback){
+	res.send(rows);
+}
 
+export var setAge = function(json,callback,res){
+	con.query("Update User Set minAge = ?, maxAge = ? where UserID = ?",[json.minAge,json.maxAge,json.UserID],function(err,rows){
+		if (err) {
+            	callback.error(err, json, res, callback);
+        	}
+        	else {
+            	callback.success(rows, json, res, callback);
+        	}
+	});
+}
 /*
 exports.insertMessage = insertMessage;
 exports.getMessages = getMessages;

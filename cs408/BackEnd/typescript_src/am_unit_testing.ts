@@ -476,7 +476,20 @@ var getMessagesSuccess4 = function(rows, json, res, callback){
     }
     callback.main();
 }
-/*
+//end test messages
+var testAddMinAge = function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
+	sqlFile.setAge({UserID:1,minAge:18},callback,null);
+}
+var testAddMaxAge = function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
+	sqlFile.setAge({UserID:2,maxAge:21},callback,null);
+}	
+var testAddAge = function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
+	sqlFile.setAge({UserID:3,maxAge:40,minAge:30},callback,null);
+}	
+
 //tests going through creating basic users
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
@@ -541,7 +554,7 @@ allTests.push({fun: getUserPrefTest5, check: notSuccess});
 
 //getAllUserPref
 allTests.push({fun: getPrefTest, check: successGetPrefs});
-*/
+
 //check for getmatches works right
 allTests.push({fun:getMatchesTest,check:isSuccess});
 allTests.push({fun:getMatchesTest2,check:isSuccess});
@@ -555,6 +568,9 @@ allTests.push({fun:addMessageTest,check:isSuccess});
 allTests.push({fun:addMessageTest2,check:isSuccess});
 allTests.push({fun:addMessageTest3,check:isSuccess});
 allTests.push({fun:getMessagesTest4,check:isSuccess});
+allTests.push({fun:testAddMinAge,check:isSuccess});
+allTests.push({fun:testAddMaxAge,check:isSuccess});
+allTests.push({fun:testAddAge,check:isSuccess});
 //check for blocking works correct
 
 //File entry point.

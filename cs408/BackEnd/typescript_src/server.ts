@@ -46,6 +46,28 @@ app.post("/BackEnd/getUserPref/", function(req, res){
 	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
 	sqlFile.getUserPref(req.body, callback, res);
 });
+
+app.post("/BackEnd/setAge/", function(req, res){
+	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
+	sqlFile.setAge(req.body, callback, res);
+});
+
+app.post("/BackEnd/blockUser/", function(req, res){
+	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
+	sqlFile.blockUser(req.body, callback, res);
+});
+
+app.get("/BackEnd/getMatches/", function(req, res){
+	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
+	sqlFile.getMatches(req.body, callback, res);
+});
+
+app.get("/BackEnd/getMessages/", function(req, res){
+	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
+	sqlFile.getMessages(req.body, callback, res);
+});
+
+
 //sets default http server
 app.use(express.static(__dirname + '/../public'));
 console.log(__dirname + '/../public');

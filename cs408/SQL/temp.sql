@@ -7,7 +7,9 @@ Create Table User(
 	Gender varchar(2) Not Null,
 	GenderInto varchar(2) Not Null,
 	loc varchar(45),
-	InARelationship boolean DEFAULT false
+	InARelationship boolean DEFAULT false,
+	minAge int,
+	maxAge int
 );
 Create Table Interests(
 	InterestID int Primary Key AUTO_INCREMENT,
