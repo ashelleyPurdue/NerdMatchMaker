@@ -5,6 +5,10 @@ import fs = require('fs');
 import express = require('express');
 import bodyParser =  require("body-parser");
 import sqlFile = require("./temp");
+import io = require('socket.io');
+import HashTable = require('hashtable');
+//needs to contain {socket:,userID:} turn into a hash table with id being the key
+var allClients = new HashTable();
 
 //TODO make in prop files
 const port = 3000;
@@ -69,11 +73,50 @@ app.get("/BackEnd/getMessages/", function(req, res){
 
 
 //sets default http server
-app.use(express.static(__dirname + '/../public'));
-console.log(__dirname + '/../public');
+app.use(express.static(__dirname + '/public'));
+console.log(__dirname + '/public');
 // start server on the specified port and binding host
-app.listen(port, url, function() {
+var server = app.listen(port, url, function() {
   // print a message when the server starts listening
   console.log("server starting on " + url + " on port " + port );
+});
+//socket io part
+//app.listen(3000);
+var socket = io.listen(server);
+
+socket.on('connection', function(client) {
+   var userID;
+   var sendSuccess = function (rows, json, res, callback) {
+	  var socket2 = allClients.get(json.UserID2); 
+
+      if(socket2 != null){
+        socket2.emit('message',{UserID:userID,Message:json.Message});
+      }
+	  client.emit('success',{success:0});
+   }
+   var sendError = function(err, json, res, callback, con){
+	   client.emit('err',{Error:-2});
+	   console.log(err);
+   }
+   var sendEmpty = function(){
+		client.emit('err',{Error:-1,err:"User does not exist or can not chat with user"});   
+   }
+   client.on('disconnect', function() {
+      console.log('Got disconnect!');
+      if(userID != null){
+        allClients.remove(userID);
+      }
+   });
+   client.on("hello",function(data){
+    userID = data.UserID;
+    allClients.put(data.UserID,client); 
+   });
+   client.on("send",function(data){
+	if(data.UserID != null){
+	  //TODO change to make deal with sending error and success with messages
+	  let callback = {success:sendSuccess,error:sendError,Empty:sendEmpty};
+      sqlFile.insertMessage({UserID1:userID,UserID2:data.UserID,Message:data.Message},callback,null);
+    }
+   });
 });
 

@@ -9,4 +9,5 @@ npm install mysql
 npm install request
 npm install socket.io
 npm install hashtable
+npm install socket.io-client
 echo "NPM packages updated."

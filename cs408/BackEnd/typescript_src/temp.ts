@@ -369,30 +369,3 @@ export var setAge = function(json,callback,res){
         	}
 	});
 }
-/*
-exports.insertMessage = insertMessage;
-exports.getMessages = getMessages;
-exports.createAccount = createAccount;
-//exports.createCon = createCon;
-exports.login = login;
-exports.editPassword = editPassword;
-exports.con = con;
-exports.success = success;
-exports.error = error;
-exports.createAccountCallback = createAccountCallback;
-exports.createAccountError = createAccountError;
-exports.loginTest = loginTest;
-exports.loginEmptySet = loginEmptySet;
-exports.genSQLError = genSQLError;
-exports.getPrefs = getPrefs;
-exports.loginForEdPassSuc = loginForEdPassSuc;
-exports.addUserPref = addUserPref;
-exports.getUserPref = getUserPref;
-exports.getPrefsSuccess = getPrefsSuccess;
-exports.loginWithID = loginWithID;
-exports.genSuccess = genSuccess;
-exports.insertMessage = insertMessage;
-exports.getMessages = getMessages;
-exports.blockUser = blockUser;
-exports.getMatches = getMatches;
-*/

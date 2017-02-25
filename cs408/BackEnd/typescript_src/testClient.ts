@@ -612,7 +612,7 @@ let getMatches1: TestCase = {
   }
 };
 //TODO clear it to get rid of any previous erros
-//testCases =[];
+testCases =[];
 testCases.push(getMatches1);
 let getMatches2: TestCase = {
   options: {
@@ -761,7 +761,8 @@ let getMatches4: TestCase = {
 
   requestFunction: function(error, response, body){
     if (!error){
-      body = JSON.parse( body );
+	  body = JSON.parse( body );
+	  console.log(body);
 	  if(body.length != 1){
         failure("test16","wrong length of rows in getting matches");
       }
@@ -790,7 +791,8 @@ let getMessages: TestCase = {
 
   requestFunction: function(error, response, body){
     if (!error){
-      body = JSON.parse( body );
+      console.log(body);
+	  body = JSON.parse( body );
 	  if(body.length != 3){
         failure("test17","wrong length of rows in getting matches");
       }
