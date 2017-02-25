@@ -1,0 +1,69 @@
+/* Bordered form */
+
+form {
+    border: 3px solid #f1f1f1;
+}
+
+
+/* Full-width inputs */
+
+input[type=text],
+input[type=password] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    /* border: 1px solid #ccc; */
+    box-sizing: border-box;
+}
+
+
+/* Center the Login image inside this container */
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+
+/* Set a style for all buttons */
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    display: block;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+}
+
+
+/* Login image */
+
+img.login {
+    width: 15%;
+    border-radius: 50%;
+}
+
+
+/* Add padding to containers */
+
+.container {
+    padding: 16px;
+}
+
+
+/* The "Forgot password" text */
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+span.newact {
+    float: right;
+    padding-top: 16px;
+    padding-right: 16px;
+}
