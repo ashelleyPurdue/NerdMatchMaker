@@ -1,4 +1,4 @@
-import sqlFile = require("./temp");
+import sqlFile = require("./sql");
 var con = sqlFile.createCon();
 var i = 0;
 var userID = 0;

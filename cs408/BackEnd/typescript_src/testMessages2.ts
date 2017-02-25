@@ -4,7 +4,6 @@ import path = require('path');
 import fs = require('fs'); 
 import express = require('express');
 import bodyParser =  require("body-parser");
-import sqlFile = require("./temp");
 import io = require('socket.io-client');
 import HashTable = require('hashtable');
 var socket = io.connect('http://localhost:3000', {reconnect: true});

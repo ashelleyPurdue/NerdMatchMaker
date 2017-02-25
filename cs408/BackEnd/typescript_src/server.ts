@@ -4,7 +4,7 @@ import path = require('path');
 import fs = require('fs'); 
 import express = require('express');
 import bodyParser =  require("body-parser");
-import sqlFile = require("./temp");
+import sqlFile = require("./sql");
 import io = require('socket.io');
 import HashTable = require('hashtable');
 //needs to contain {socket:,userID:} turn into a hash table with id being the key
