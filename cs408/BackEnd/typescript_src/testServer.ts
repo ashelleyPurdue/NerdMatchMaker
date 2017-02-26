@@ -284,6 +284,38 @@ app.get("/BackEnd/getMessages/", function(req, res){
 	console.log("Congrats, correct json object!");
 	res.send("Congrats, correct json object!");
 });
+app.get("/BackEnd/getUserLanguage/", function(req, res){
+	if (req.body.UserID != null){
+		delete req.body.UserID;
+	}
+	else{
+		console.log("No UserID in json");
+		res.send("No UserID in json");
+		return;
+	}
+	console.log("Congrats, correct json object!");
+	res.send("Congrats, correct json object!");
+});
+app.post("/BackEnd/getUserLanguage/", function(req, res){
+	if (req.body.UserID != null){
+		delete req.body.UserID;
+	}
+	else{
+		console.log("No UserID in json");
+		res.send("No UserID in json");
+		return;
+	}
+	if (req.body.Name != null){
+		delete req.body.Name;
+	}
+	else{
+		console.log("No Name in json");
+		res.send("No Name in json");
+		return;
+	}
+	console.log("Congrats, correct json object!");
+	res.send("Congrats, correct json object!");
+});
 var checkGender = function(gender) {
     return (gender === "M" || gender === "F" || gender === "MF");
 };

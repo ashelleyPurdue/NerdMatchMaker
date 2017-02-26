@@ -17,7 +17,7 @@ Create Table Interests(
 	Description varchar(200)
 );
 Create Table Language(
-	LanguageID int PRIMARY Key,
+	LanguageID int PRIMARY Key AUTO_INCREMENT,
 	Name varchar(30) Not Null
 );
 Create Table User_Interests(

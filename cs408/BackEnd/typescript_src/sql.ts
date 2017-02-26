@@ -266,7 +266,7 @@ export var getUserPref = function(json, callback, res){
 	}
 	
 	//Do the query
-	con.query('Select * from User_Interests Where UserID = ?', json.UserID, function(err, rows) {
+	con.query('Select * from User_Interests as u Join Interests as i on i.InterestID = u.InterestID  Where UserID = ?', json.UserID, function(err, rows) {
         if (err) {
             callback.error(err, json, res, callback, con);
         } else {
@@ -328,11 +328,25 @@ export var getMessages = function(json,callback,res){
     });
 };
 
+//give it json of {UserID:,InARelationship:}
+//returns {Error:}
+export var changeRelationStatus = function(json,callback,res){
+    console.log(json);
+	con.query("UPDATE User Set InARelationship = ? where UserID = ?",
+		[json.InARelationship,json.UserID],function(err,rows){
+		if (err) {
+            callback.error(err, json, res, callback, con);
+        } else {
+            callback.success(rows, json, res, callback);
+        }
+    });
+};
+
+
 //give it json of {UserID1:,UserID2}
 //returns {Error:}
 export var blockUser = function(json,callback,res){
-    con.query("UPDATE Matches Set IsBlocked=true,BlockingID= ? where (UserID1 = ? AND UserID2 = ?) OR (UserID2 = ? AND UserID1 = ?)",
-		[json.UserID1,json.UserID1,json.UserID2,json.UserID1,json.UserID2],function(err,rows){
+    con.query("UPDATE Matches Set IsBlocked=true,BlockingID= ? where (UserID1 = ? AND UserID2 = ?) OR (UserID2 = ? AND UserID1 = ?)",	[json.UserID1,json.UserID1,json.UserID2,json.UserID1,json.UserID2],function(err,rows){
     	if (err) {
             callback.error(err, json, res, callback, con);
         } else {
@@ -369,3 +383,139 @@ export var setAge = function(json,callback,res){
         	}
 	});
 }
+/* Beginning of addUserPref saga */
+
+//Give it {UserID:num,Name: "Name"}
+//Adds user Language to UserID 
+//if Language does not exist it will add it to the list
+//getLang will return list of Languages.
+//callback is an object that is used to communicate with the testing framework.
+export var addUserLan = function(json, callback, res){
+	getLanID(json.Name, function(id:number){
+		
+		//If we didn't find that ID, create it and use that as ID.
+		if (id == -1){
+			addLan({ Name: json.Name }, function(newid:number){
+				addUserLan_weHaveID(newid, json, res, callback);
+			});
+			return;
+		}
+		//If there was an SQL error, then "return" that there was an SQL error.
+		else if (id == -2){
+			callback.error(null, null, res, callback);
+			return;
+		}
+		
+		//We did find the ID, so use it.
+		addUserLan_weHaveID(id, json, res, callback);
+	});
+};
+
+export var addUserLan_weHaveID = function(id, json, res, callback){
+	//TODO: Deal with adding ID
+	//Error if id is -1
+	if (json.UserID < 1){
+		callback.error("userid is " + json.UserID, null, res, callback, null);
+		return;
+	}
+	if (id < 1){
+		callback.error("interest id is " + id, null, res, callback, null);
+		return;
+	}
+	console.log(id);
+	//Do the insert
+	con.query('Insert Into UserLanguage Set ?', { UserID: json.UserID, LanguageID: id }, function(err){
+		
+		
+		//If there's an error, return -1
+		if (err){
+			callback.error(err, null, res, callback, null);
+			return;
+		}
+		
+		//No errors, so "return" 0.
+		callback.success(null, null, res, callback);
+		return;
+	});
+}
+
+//Add a preference with {Name:"Not Null",Description:"Null"}
+//returns id if no error or -1 if error
+//The "return value" is actualy going to be the first argument of calback.
+export var addLan = function(name_and_desc, returnFunc) {
+	con.query('Insert into Language(Name) Values(?)', name_and_desc.Name, function(err, rows){
+		console.log(name_and_desc.Name);
+		//Check for errors
+		if (err){
+			console.log("error in adding Language");
+			returnFunc(-2);
+			return;
+		}
+		console.log("ID is added suc");
+		//"Return" the prefID that we just added.
+		//It will call callback for us.
+		getLanID(name_and_desc.Name, returnFunc);
+		return;
+	});
+};
+
+//takes Name of pref and returns Id of pref, if -1 does not exist, if -2 sql error
+//The "return value" is actually going to be the first argument of callback.
+export var getLanID = function(Name, returnFunc) {
+	//Query for the id
+	con.query('Select * from Language where Name = ?', [Name], function(err, rows){
+		//Check for errors
+		if (err){
+			returnFunc(-2);
+			return;
+		}
+		if (rows.length == 0){
+			returnFunc(-1);
+			return;
+		}
+		
+		//"Return" the interest ID to the callback.
+		returnFunc(rows[0].LanguageID);
+		return;
+	});
+	
+};
+/* End of addUserLan saga */
+export var getUserLan = function(json, callback, res){
+	//Gets a list of all prefs for the given user
+	
+	//Check if UserID is invalid
+	if (json == null)
+	{
+		console.log("json is null");
+		callback.error(-1, json, res, callback, con);
+		return;
+	}
+	
+	if (json.UserID == null){
+		console.log("UserID is null");
+		callback.error(-1, json, res, callback, con);
+		return;
+	}
+	
+	if (json.UserID <= 0){
+		console.log("UserID " + json.UserID + " <= 0");
+		callback.error(-1, json, res, callback, con);
+		return;
+	}
+
+	if (isNaN(json.UserID)){
+		console.log("UserID " + json.UserID + " is not a number.");
+		callback.error(-1, json, res, callback, con);
+		return;
+	}
+	
+	//Do the query
+	con.query('Select * from UserLanguage as u Join Language as l on l.LanguageID = u.LanguageID  Where UserID = ?', json.UserID, function(err, rows) {
+        if (err) {
+            callback.error(err, json, res, callback, con);
+        } else {
+            callback.success(rows, json, res, callback);
+        }
+    });
+};

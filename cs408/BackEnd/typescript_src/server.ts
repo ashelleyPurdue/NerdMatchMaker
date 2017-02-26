@@ -71,6 +71,20 @@ app.get("/BackEnd/getMessages/", function(req, res){
 	sqlFile.getMessages(req.body, callback, res);
 });
 
+app.post("/BackEnd/inARelationship/", function(req, res){
+	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
+	sqlFile.changeRelationStatus(req.body, callback, res);
+});
+
+app.get("/BackEnd/getUserLanguage/", function(req, res){
+	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
+	sqlFile.getUserLan(req.body, callback, res);
+});
+
+app.post("/BackEnd/addUserLanguage/", function(req, res){
+	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
+	sqlFile.addUserLan(req.body, callback, res);
+});
 
 //sets default http server
 app.use(express.static(__dirname + '/public'));

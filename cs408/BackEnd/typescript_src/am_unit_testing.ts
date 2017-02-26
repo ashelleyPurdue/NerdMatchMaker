@@ -488,8 +488,48 @@ var testAddMaxAge = function(){
 var testAddAge = function(){
 	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
 	sqlFile.setAge({UserID:3,maxAge:40,minAge:30},callback,null);
+}
+var testInARel = function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
+	sqlFile.changeRelationStatus({UserID:1,InARelationship:true}
+,callback,null);
 }	
-
+var testInARel2 = function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
+	sqlFile.changeRelationStatus({UserID:2,InARelationship:false}
+,callback,null);
+}	
+var testInARel3= function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
+	sqlFile.changeRelationStatus({UserID:3,InARelationship:true}
+,callback,null);
+};	
+var testInARel4= function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
+	sqlFile.changeRelationStatus({UserID:3,InARelationship:false}, callback ,null);
+};	
+var addLan= function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
+	sqlFile.addUserLan({UserID:3,Name:"English"}, callback ,null);
+};	
+var getLan= function(){
+	let callback = {error: genericErrorTest, success: getLanSuccess , main: testAll};
+	sqlFile.getUserLan({UserID:3}, callback ,null);
+};
+var getLanSuccess = function(rows, json, res, callback){
+	if(rows.length != 1){
+        success = false;
+        error = "wrong length of rows in getting Language"
+    }
+    else if(rows[0].Name == null || rows[0].Name !== "English"){
+        error = "Did not get right English for row 0"
+		success = false;
+    }
+    else{
+        success = true;   
+    }
+    callback.main();
+}
 //tests going through creating basic users
 allTests.push({fun:createAccount_basic,check:isSuccess});
 allTests.push({fun:createAccount_basic,check:isSuccess});
@@ -571,7 +611,12 @@ allTests.push({fun:getMessagesTest4,check:isSuccess});
 allTests.push({fun:testAddMinAge,check:isSuccess});
 allTests.push({fun:testAddMaxAge,check:isSuccess});
 allTests.push({fun:testAddAge,check:isSuccess});
+allTests.push({fun:testInARel,check:isSuccess});
+allTests.push({fun:testInARel2,check:isSuccess});
+allTests.push({fun:testInARel3,check:isSuccess});
+allTests.push({fun:testInARel4,check:isSuccess});
+allTests.push({fun:addLan,check:isSuccess});
+allTests.push({fun:getLan,check:isSuccess});
 //check for blocking works correct
-
 //File entry point.
 testAll();
