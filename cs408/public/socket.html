@@ -26,12 +26,12 @@
     </form>
     <script>
       var socket = io.connect();
-
       $("form").submit(function(event) {
 	//$( "#button1" ).prop( "disabled", true );        
 	var user = document.getElementById("UserID").value;       
 	event.preventDefault();
-	socket.emit("hello",{UserID:user});
+		  socket.emit("hello",{UserID:user});
+	
        });
 
       $("#send").submit(function(event) {

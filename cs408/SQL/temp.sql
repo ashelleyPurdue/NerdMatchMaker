@@ -9,7 +9,8 @@ Create Table User(
 	loc varchar(45),
 	InARelationship boolean DEFAULT false,
 	minAge int,
-	maxAge int
+	maxAge int,
+	age int
 );
 Create Table Interests(
 	InterestID int Primary Key AUTO_INCREMENT,
