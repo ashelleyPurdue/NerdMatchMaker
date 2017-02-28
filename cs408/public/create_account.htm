@@ -63,8 +63,8 @@
                         Birthday = document.getElementById("Birthday").value,
                         Gender,
                         GenderInto,
-                        minAge = document.getElementById("minAge"),
-                        maxAge = document.getElementById("maxAge");
+                        minAge = document.getElementById("minAge").value,
+                        maxAge = document.getElementById("maxAge").value;
 
                     var posting = $.post("/BackEnd/createUser/", {
                         UserName: UserName,
@@ -76,6 +76,7 @@
                         minAge: minAge,
                         maxAge: maxAge
                     });
+                    alert("posted to server");
 
                     posting.done(function(data) {
                         alert("ID is " + data.UserID);
@@ -128,8 +129,8 @@
 
             <div>
                 <label>
-                <input id="minAge" type="text" name="minAge" placeholder="Minimum Match Age"/></label>
-                <input id="maxAge" type="text" name="maxAge" placeholder="Maximum Match Age" /></label>
+                <input id="minAge" type="number" name="minAge" placeholder="Minimum Match Age"/></label>
+                <input id="maxAge" type="number" name="maxAge" placeholder="Maximum Match Age" /></label>
             </div>
             <label><b>Location (Optional)</b></label>
             <input type="text" placeholder="Enter Location" name="loc">
