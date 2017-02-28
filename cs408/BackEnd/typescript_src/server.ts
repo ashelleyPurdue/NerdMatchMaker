@@ -87,7 +87,7 @@ app.post("/BackEnd/addUserLanguage/", function(req, res){
 });
 
 //sets default http server
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '../public'));
 console.log(__dirname + '/public');
 // start server on the specified port and binding host
 var server = app.listen(port, url, function() {
