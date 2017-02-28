@@ -62,7 +62,9 @@
                         Password = document.getElementById("pass1").value,
                         Birthday = document.getElementById("Birthday").value,
                         Gender,
-                        GenderInto;
+                        GenderInto,
+                        minAge = document.getElementById("minAge"),
+                        maxAge = document.getElementById("maxAge");
 
                     var posting = $.post("/BackEnd/createUser/", {
                         UserName: UserName,
@@ -70,7 +72,9 @@
                         Password: Password,
                         Birthday: Birthday,
                         Gender: Gender,
-                        GenderInto: GenderInto
+                        GenderInto: GenderInto,
+                        minAge: minAge,
+                        maxAge: maxAge
                     });
 
                     posting.done(function(data) {
@@ -119,6 +123,14 @@
 
             </div>
 
+
+            <label><b>Age Range Interested In</b></label>
+
+            <div>
+                <label>
+                <input id="minAge" type="text" name="minAge" placeholder="Minimum Match Age"/></label>
+                <input id="maxAge" type="text" name="maxAge" placeholder="Maximum Match Age" /></label>
+            </div>
             <label><b>Location (Optional)</b></label>
             <input type="text" placeholder="Enter Location" name="loc">
 
