@@ -3,19 +3,28 @@
 <head>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    <title>Messages From
 </head>
+<script>
+    // alert(document.cookie);
+    var testCookie = document.cookie;
+    var partsOfCookie = testCookie.split(',');
+    // alert(partsOfCookie[1]);
+    var dummyUser = ({
+        UserID: partsOfCookie[0],
+        UserName: partsOfCookie[1]
+    });
+</script>
 
 <body>
-    <form id="reg">
-        <div>
-            <label><b>UserID</b></label>
-            <input id="UserID" type="text" placeholder="Enter UserID" name="UserID" required>
-            <!--<label><b>Password</b></label>
-        <input id="Password" type="password" placeholder="Enter Password" name="Password" required>-->
-
-            <button id="button1" type="submit">Login</button>
-        </div>
-    </form>
+    <div>
+        <label>Your Converstation With </label>
+        <label id="matchedUser"></label>
+        <script>
+            // filled matchedUser with UserName of who messages are being sent to
+            // document.getElementById("UserName").innerHTML = dummyUser.UserName;
+        </script>
+    </div>
     <form id="send">
         <div>
             <label><b>UserID</b></label>

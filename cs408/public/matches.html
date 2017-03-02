@@ -7,9 +7,12 @@
 
 <body>
 
-    <h1>Account Homepage</h1>
+    <h1>Matches</h1>
+
+
 
     <script>
+        // call ajax to use API calls for getMatches
         // alert(document.cookie);
         var testCookie = document.cookie;
         var partsOfCookie = testCookie.split(',');
@@ -25,37 +28,7 @@
         });
     </script>
 
-    <div>
-        <label>User Name</br></label>
-        <label id="UserName"></label>
-        <script>
-            document.getElementById("UserName").innerHTML = dummyUser.UserName;
-        </script>
-    </div>
 
-    <div>
-        <label>Birthday</br></label>
-        <label id="Birthday"></label>
-        <script>
-            document.getElementById("Birthday").innerHTML = dummyUser.Birthday;
-        </script>
-    </div>
-
-    <div>
-        <label>Gender</br></label>
-        <label id="Gender"></label>
-        <script>
-            document.getElementById("Gender").innerHTML = dummyUser.Gender;
-        </script>
-    </div>
-
-    <div>
-        <label>Gender Interested In</br></label>
-        <label id="GenderInto"></label>
-        <script>
-            document.getElementById("GenderInto").innerHTML = dummyUser.GenderInto;
-        </script>
-    </div>
     <!--
     <label><b>Relationship Stauts</b></label>
     <input id="InARelationship" type="text" required>
