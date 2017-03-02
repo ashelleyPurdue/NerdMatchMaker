@@ -325,11 +325,11 @@ var getMatchesSuccess1 = function(rows, json, res, callback){
         success = false;
         error = "wrong length of rows in getting matches"
     }
-    else if(rows[0].UserID2 == null || rows[0].UserID2 != 2){
+    else if(rows[0].UserID == null || rows[0].UserID != 2){
         success = false;
         error = "wrong enrty in 1 in getting matches"
     }
-    else if(rows[rows.length-1].UserID2 == null || rows[rows.length-1].UserID2 != 8){
+    else if(rows[rows.length-1].UserID == null || rows[rows.length-1].UserID != 8){
         success = false;
         error = "wrong enrty in 9 in getting matches"
     }
@@ -344,11 +344,11 @@ var getMatchesSuccess2 = function(rows, json, res, callback){
         success = false;
         error = "wrong length of rows in getting matches"
     }
-    else if(rows[0].UserID1 == null || rows[0].UserID1 != 1){
+    else if(rows[0].UserID == null || rows[0].UserID != 1){
         success = false;
         error = "wrong enrty in 1 in getting matches"
     }
-    else if(rows[rows.length -1].UserID2 == null || rows[rows.length -1].UserID2 != 4){
+    else if(rows[rows.length -1].UserID == null || rows[rows.length -1].UserID != 4){
         success = false;
         error = "wrong enrty in 2 in getting matches"
     }
@@ -370,11 +370,11 @@ var getMatchesSuccess3 = function(rows, json, res, callback){
         success = false;
         error = "wrong length of rows in getting matches"
     }
-    else if(rows[0].UserID2 == null || rows[0].UserID2 != 3){
+    else if(rows[0].UserID == null || rows[0].UserID != 3){
         success = false;
         error = "wrong enrty in 1 in getting matches"
     }
-    else if(rows[rows.length-1].UserID2 == null || rows[rows.length-1].UserID2 != 8){
+    else if(rows[rows.length-1].UserID == null || rows[rows.length-1].UserID != 8){
         success = false;
         error = "wrong enrty in 9 in getting matches"
     }

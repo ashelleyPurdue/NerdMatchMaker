@@ -100,6 +100,8 @@ export var login = function(json, res, callback) {
         } else if (rows.length == 0) {
             callback.Empty(res,callback);
         } else {
+			console.log(rows);
+			delete rows[0].Password;
             callback.success(rows, json, res, callback);
         }
     });
@@ -191,7 +193,7 @@ export var addUserPref_weHaveID = function(id, json, res, callback){
 	});
 }
 
-//Add a preference with {Name:"Not Null",Description:"Null"}
+//Add a preference with {Name:"Not Nulllo",Description:"Null"}
 //returns id if no error or -1 if error
 //The "return value" is actualy going to be the first argument of calback.
 export var addPref = function(name_and_desc, returnFunc) {
@@ -358,8 +360,8 @@ export var blockUser = function(json,callback,res){
 //give it json of {UserID}
 //returns list of users and userIDs of matches
 export var getMatches = function(json,callback,res){
-        con.query("Select * from Matches where (UserID1 = ? OR UserID2 = ?) AND IsBlocked = false", 
-				  	[json.UserID1,json.UserID1],function (err, rows) {
+        con.query("Select U.UserID,U.UserName from Matches as M join User as U on (U.UserID = M.UserID1 And U.UserID != ?) Or (U.UserID = M.UserID2 And U.UserID != ?) where (M.UserID1 = ? OR M.UserID2 = ?) AND IsBlocked = false", 
+				  	[json.UserID1,json.UserID1,json.UserID1,json.UserID1],function (err, rows) {
         	//console.log("Rows for "+json.UserID1+"="+rows);
 			if (err) {
             	callback.error(err, json, res, callback, con);

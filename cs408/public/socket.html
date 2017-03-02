@@ -28,7 +28,6 @@
     </form>
     <script>
         var socket = io.connect();
-
         $("form").submit(function(event) {
             //$( "#button1" ).prop( "disabled", true );        
             var user = document.getElementById("UserID").value;
@@ -36,6 +35,7 @@
             socket.emit("hello", {
                 UserID: user
             });
+
         });
 
         $("#send").submit(function(event) {

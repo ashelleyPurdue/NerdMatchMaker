@@ -595,10 +595,10 @@ let getMatches1: TestCase = {
 	  if(body.length != 6){
        	failure("test11","wrong length of rows in getting matches");
       }
-      else if(body[0].UserID2 == null || body[0].UserID2 != 2){
+      else if(body[0].UserID == null || body[0].UserID != 2){
 		failure("test11","wrong enrty in 1 in getting matches");
       }
-      else if(body[body.length-1].UserID2 == null || body[body.length-1].UserID2 != 8){
+      else if(body[body.length-1].UserID == null || body[body.length-1].UserID != 8){
         failure("test11", "wrong enrty in 9 in getting matches");
       }
       else{
@@ -628,10 +628,10 @@ let getMatches2: TestCase = {
 	  if(body.length != 2){
         failure("test12","wrong length of rows in getting matches");
       }
-      else if(body[0].UserID2 == null || body[0].UserID1 != 1){
+      else if(body[0].UserID == null || body[0].UserID != 1){
 		failure("test12","wrong enrty in 1 in getting matches");
       }
-      else if(body[body.length-1].UserID2 == null || body[body.length-1].UserID2 != 4){
+      else if(body[body.length-1].UserID == null || body[body.length-1].UserID != 4){
         failure("test12", "wrong enrty in 2 in getting matches");
       }
       else{
@@ -734,10 +734,10 @@ let getMatches3: TestCase = {
 	  if(body.length != 4){
        	failure("test15","wrong length of rows in getting matches");
       }
-      else if(body[0].UserID2 == null || body[0].UserID2 != 3){
+      else if(body[0].UserID == null || body[0].UserID != 3){
 		failure("test15","wrong enrty in 1 in getting matches");
       }
-      else if(body[body.length-1].UserID2 == null || body[body.length-1].UserID2 != 7){
+      else if(body[body.length-1].UserID == null || body[body.length-1].UserID != 7){
         failure("test15", "wrong enrty in 9 in getting matches");
       }
       else{
@@ -766,7 +766,7 @@ let getMatches4: TestCase = {
 	  if(body.length != 1){
         failure("test16","wrong length of rows in getting matches");
       }
-      else if(body[body.length-1].UserID2 == null || body[body.length-1].UserID2 != 4){
+      else if(body[body.length-1].UserID == null || body[body.length-1].UserID != 4){
         failure("test16", "wrong enrty in 2 in getting matches");
       }
       else{
