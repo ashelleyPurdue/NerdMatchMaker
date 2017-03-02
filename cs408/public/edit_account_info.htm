@@ -44,7 +44,7 @@
             <script>
 
                 $("#passChange").submit(function(event) {
-                	var oldPass = document.getElementByID('oldPass').value;
+                	var oldPass = document.getElementByID("oldPass").value;
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
@@ -59,7 +59,7 @@
 
                     event.preventDefault();
 
-                    var $form = $(this),
+                    var $passChange = $(this),
                     	oldPassword = oldPass,
                         newPassword = pass1;
 
