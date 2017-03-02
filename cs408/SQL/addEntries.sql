@@ -10,33 +10,32 @@ insert into interests(name) values("reading");
 insert into interests(name) values("science");
 insert into interests(name) values("fantasy");
 insert into interests(name) values("sci-fi");
-insert into interests(name) values("anime");
 
 /* Add male test users */
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp0","abcd1234","02/07/1995","M","F");
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp1","abcd1234","02/07/1995","M","F");
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp2","1234abcd","02/07/1995","M","F");
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp3","1234abcd","02/07/1995","M","F");
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp4","1234abcd","02/07/1995","M","F");
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp5","1234abcd","02/07/1995","M","F");
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp6","1234abcd","02/07/1995","M","F");
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp7","1234abcd","02/07/1995","M","F");
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp8","1234abcd","02/07/1995","M","F");
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
-Values("temp9","1234abcd","02/07/1995","M","F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp0", "abcd1234", 1995, 02, 07, "M", "F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp1", "abcd1234", 1995, 02, 07, "M", "F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp2", "abcd1234", 1995, 02, 07, "M", "F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp3", "abcd1234", 1995, 02, 07, "M", "F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp4", "abcd1234", 1995, 02, 07, "M", "F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp5", "abcd1234", 1995, 02, 07, "M", "F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp6", "abcd1234", 1995, 02, 07, "M", "F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp7", "abcd1234", 1995, 02, 07, "M", "F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp8", "abcd1234", 1995, 02, 07, "M", "F");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("temp9", "abcd1234", 1995, 02, 07, "M", "F");
 
 /* Add female test users */
-Insert INTO User(UserName, Password, Birthday, Gender, GenderInto)
-Values("Princess", "1234abcd", "02/07/1995", "F", "M");
+Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
+Values("Princess", "1234abcd", 1995, 02, 07, "F", "M");
 
 /* Add matches so we can test messages */
 Insert Into Matches
