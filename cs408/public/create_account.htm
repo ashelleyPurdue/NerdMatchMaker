@@ -62,7 +62,9 @@
                         Password = document.getElementById("pass1").value,
                         Birthday = document.getElementById("Birthday").value,
                         Gender,
-                        GenderInto;
+                        GenderInto,
+                        minAge = document.getElementById("minAge").value,
+                        maxAge = document.getElementById("maxAge").value;
 
                     var posting = $.post("/BackEnd/createUser/", {
                         UserName: UserName,
@@ -70,15 +72,18 @@
                         Password: Password,
                         Birthday: Birthday,
                         Gender: Gender,
-                        GenderInto: GenderInto
+                        GenderInto: GenderInto,
+                        minAge: minAge,
+                        maxAge: maxAge
                     });
+                    alert("posted to server");
 
                     posting.done(function(data) {
                         alert("ID is " + data.UserID);
                         // obj = jQuery.parseJSON(data);
                         if (data.UserID != null) {
                             // alert("userID not null");
-                            document.cookie = data.UserID + "," + data.UserName + "," + data.Password + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
+                            document.cookie = data.UserID + "," + data.UserName + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
 
                         } else {
@@ -119,6 +124,14 @@
 
             </div>
 
+
+            <label><b>Age Range Interested In</b></label>
+
+            <div>
+                <label>
+                <input id="minAge" type="number" name="minAge" placeholder="Minimum Match Age"/></label>
+                <input id="maxAge" type="number" name="maxAge" placeholder="Maximum Match Age" /></label>
+            </div>
             <label><b>Location (Optional)</b></label>
             <input type="text" placeholder="Enter Location" name="loc">
 

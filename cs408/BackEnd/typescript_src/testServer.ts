@@ -112,12 +112,12 @@ app.post("/BackEnd/login/", function(req, res) {
     }
 });
 app.post("/BackEnd/editPassword/", function(req, res) {
-    console.log(res.body);
-    if (req.body.UserName != null) {
-        delete req.body.UserName;
+    console.log(req.body);
+    if (req.body.UserID != null) {
+        delete req.body.UserID;
     } else {
-        console.log("No UserName in json");
-        res.send("No UserName in json");
+        console.log("No UserID in json");
+        res.send("No UserID in json");
         return;
     }
     if (req.body.oldPassword != null) {
@@ -205,7 +205,117 @@ app.post("/BackEnd/getUserPref/", function(req, res){
 	}
 });
 
+app.post("/BackEnd/setAge/", function(req, res){
+	if (req.body.UserID != null){
+		delete req.body.UserID;
+	}
+	else{
+		console.log("No UserID in json");
+		res.send("No UserID in json");
+		return;
+	}
+	if (req.body.minAge != null){
+		delete req.body.minAge;
+	}
+	else{
+		console.log("No minAge in json not that it is required");
+	}
+	if (req.body.maxAge != null){
+		delete req.body.maxAge;
+	}
+	else{
+		console.log("No maxAge in json not that it is required");
+	}
+	console.log("Congrats, correct json object!");
+	res.send("Congrats, correct json object!");
+});
 
+app.post("/BackEnd/blockUser/", function(req, res){
+	if (req.body.UserID1 != null){
+		delete req.body.UserID1;
+	}
+	else{
+		console.log("No UserID1 in json");
+		res.send("No UserID1 in json");
+		return;
+	}
+	if (req.body.UserID2 != null){
+		delete req.body.UserID2;
+	}
+	else{
+		console.log("No UserID2 in json");
+		res.send("No UserID2 in json");
+		return;
+	}
+	console.log("Congrats, correct json object!");
+	res.send("Congrats, correct json object!");
+});
+
+app.get("/BackEnd/getMatches/", function(req, res){
+	if (req.body.UserID1 != null){
+		delete req.body.UserID1;
+	}
+	else{
+		console.log("No UserID1 in json");
+		res.send("No UserID1 in json");
+		return;
+	}
+	console.log("Congrats, correct json object!");
+	res.send("Congrats, correct json object!");
+});
+
+app.get("/BackEnd/getMessages/", function(req, res){
+	if (req.body.UserID1 != null){
+		delete req.body.UserID1;
+	}
+	else{
+		console.log("No UserID1 in json");
+		res.send("No UserID1 in json");
+		return;
+	}
+	if (req.body.UserID2 != null){
+		delete req.body.UserID2;
+	}
+	else{
+		console.log("No UserID2 in json");
+		res.send("No UserID2 in json");
+		return;
+	}
+	console.log("Congrats, correct json object!");
+	res.send("Congrats, correct json object!");
+});
+app.get("/BackEnd/getUserLanguage/", function(req, res){
+	if (req.body.UserID != null){
+		delete req.body.UserID;
+	}
+	else{
+		console.log("No UserID in json");
+		res.send("No UserID in json");
+		return;
+	}
+	console.log("Congrats, correct json object!");
+	res.send("Congrats, correct json object!");
+});
+app.post("/BackEnd/getUserLanguage/", function(req, res){
+	if (req.body.UserID != null){
+		delete req.body.UserID;
+	}
+	else{
+		console.log("No UserID in json");
+		res.send("No UserID in json");
+		return;
+	}
+	if (req.body.Name != null){
+		delete req.body.Name;
+	}
+	else{
+		console.log("No Name in json");
+		res.send("No Name in json");
+		return;
+	}
+	console.log("Congrats, correct json object!");
+	res.send("Congrats, correct json object!");
+});
 var checkGender = function(gender) {
     return (gender === "M" || gender === "F" || gender === "MF");
 };

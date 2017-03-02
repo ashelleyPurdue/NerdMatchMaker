@@ -17,16 +17,14 @@
         // alert(partsOfCookie[1]);
         var dummyUser = ({
             UserName: partsOfCookie[1],
-            Password: partsOfCookie[2],
             Picture: null,
-            Birthday: partsOfCookie[3],
-            Gender: partsOfCookie[4],
-            GenderInto: partsOfCookie[5],
+            Birthday: partsOfCookie[2],
+            Gender: partsOfCookie[3],
+            GenderInto: partsOfCookie[4],
             Location: null,
             InARelationship: false
         });
     </script>
-
 
     <form id="passChange">
         <div class="container">
@@ -42,38 +40,47 @@
 
 
             <script>
-
                 $("#passChange").submit(function(event) {
-                	var oldPass = document.getElementByID("oldPass").value;
+                    var oldPass = document.getElementById("oldPass").value;
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
+                    var dCookie = document.cookie;
+                    var id1 = JSON.stringify(dCookie.split(',', 1));
+
+                    var id2 = id1.substring(2, id1.length - 2);
 
                     if (pass1 != pass2) {
                         //alert("Passwords Do not match");
                         document.getElementById("pass1").style.borderColor = "#E34234";
                         document.getElementById("pass2").style.borderColor = "#E34234";
                         ok = false;
+                        alert("passwords do not match");
                         return ok;
-                    } 
+                    }
+
 
                     event.preventDefault();
 
                     var $passChange = $(this),
-                    	oldPassword = oldPass,
+                        UserID = id2,
+                        oldPassword = oldPass,
                         newPassword = pass1;
 
-                        var posting = $.post("/BackEnd/editPassword/", {
-                        	oldPassword: oldPassword,
-                            newPassword: newPassword
-                        });
+                    var posting = $.post("/BackEnd/editPassword/", {
+                        UserID: UserID,
+                        oldPassword: oldPassword,
+                        newPassword: newPassword
+                    });
+                    alert(typeof(oldPass));
+                    alert(typeof(pass1));
+                    alert(typeof(id2));
 
                     posting.done(function(data) {
-                        // alert("ID is " + data[0].UserID);
+                        alert("Password Changed");
                         // obj = jQuery.parseJSON(data);
                         if (data.UserID != null) {
                             alert("userID not null");
-                            document.cookie = data.UserID + "," + data.UserName + "," + Password + "," + data.Birthday + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
                             location.replace('/account_page.htm');
                         } else {
                             if (data.Error === -1)
@@ -81,6 +88,7 @@
                             else if (data.Error === -2)
                                 alert("Sorry, server issues");
                         }
+
                     });
                 });
             </script>
@@ -89,6 +97,16 @@
             <button type="submit">Submit Password Change</button>
         </div>
     </form>
+
+    <div class="container">
+        <h1>Edit Preferences</h1>
+        <h3>Current Preferences</h3>
+
+        <label id="getPref"></label>
+        <script>
+            document.getElementById("getPref").innerHTML = 'users prefs will be shown here';
+        </script>
+    </div>
 
     <form id="addPref">
 
@@ -101,31 +119,33 @@
 
         <script>
             $("#addPref").submit(function(event) {
-
                 var add = document.getElementById("add").value;
                 var dCookie = document.cookie;
-                var id1 = JSON.stringify(dCookie.split(';', 1));
+                var id1 = JSON.stringify(dCookie.split(',', 1));
                 var id2 = id1.substring(2, id1.length - 2);
-                var id3 = id2.substring(7);
                 event.preventDefault();
-
+                alert(id2);
                 var $addpref = $(this),
                     Name = add,
-                    UserID = id3;
+                    UserID = id2;
 
                 var posting = $.post("/BackEnd/addUserPref/", {
                     Name: Name,
                     UserID: UserID
                 });
-                
+
                 posting.done(function(data) {
                     if (data.Error === -2)
                         alert("Sorry, server issues");
+                    else {
+                        alert("Preference added");
+                    }
                 });
             });
         </script>
 
     </form>
+
 
     <form id="removePref">
 

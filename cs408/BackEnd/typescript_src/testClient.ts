@@ -369,6 +369,7 @@ testCases.push(createLogin6);
 function addUserPref_requestFunction(testName: string, error, response, body){
 		
 		//Fail if error
+		console.log("adduserPref request function");
 		if (error){
 			failure(testName, "error number " + error);
 			return;
@@ -579,5 +580,659 @@ let addUserPrefs_invalidForm5: TestCase = {
 };
 testCases.push(addUserPrefs_invalidForm5);
 
+//test get matches
+let getMatches1: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMatches/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 6){
+       	failure("test11","wrong length of rows in getting matches");
+      }
+      else if(body[0].UserID == null || body[0].UserID != 2){
+		failure("test11","wrong enrty in 1 in getting matches");
+      }
+      else if(body[body.length-1].UserID == null || body[body.length-1].UserID != 8){
+        failure("test11", "wrong enrty in 9 in getting matches");
+      }
+      else{
+      	//checks to see if error
+      	success("test11");
+      }
+    }
+    else{
+      failure("test11", "error number " + error);
+    }
+  }
+};
+
+
+testCases.push(getMatches1);
+let getMatches2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMatches/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:2}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 2){
+        failure("test12","wrong length of rows in getting matches");
+      }
+      else if(body[0].UserID == null || body[0].UserID != 1){
+		failure("test12","wrong enrty in 1 in getting matches");
+      }
+      else if(body[body.length-1].UserID == null || body[body.length-1].UserID != 4){
+        failure("test12", "wrong enrty in 2 in getting matches");
+      }
+      else{
+      	//checks to see if error
+      	success("test12");
+      }
+    }
+    else{
+      failure("test12", "error number " + error);
+    }
+  }
+};
+testCases.push(getMatches2);
+
+let setBlocks: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/blockUser/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID1:2,UserID2:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test13");
+	  }
+	  else{
+		  failure("test13", "Error in blocking user");
+	  }
+    }
+    else{
+      failure("test13", "error number " + error);
+    }
+  }
+};
+testCases.push(setBlocks);
+
+let setBlocks2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/blockUser/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID1:8,UserID2:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test14");
+	  }
+	  else{
+		  failure("test14", "Error in blocking user");
+	  }
+    }
+    else{
+      failure("test14", "error number " + error);
+    }
+  }
+};
+testCases.push(setBlocks2);
+
+let setBlocks3: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/blockUser/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID1:9,UserID2:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test14");
+	  }
+	  else{
+		  failure("test14", "Error in blocking user");
+	  }
+    }
+    else{
+      failure("test14", "error number " + error);
+    }
+  }
+};
+testCases.push(setBlocks3);
+let getMatches3: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMatches/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 4){
+       	failure("test15","wrong length of rows in getting matches");
+      }
+      else if(body[0].UserID == null || body[0].UserID != 3){
+		failure("test15","wrong enrty in 1 in getting matches");
+      }
+      else if(body[body.length-1].UserID == null || body[body.length-1].UserID != 7){
+        failure("test15", "wrong enrty in 9 in getting matches");
+      }
+      else{
+      	//checks to see if error
+      	success("test15");
+      }
+    }
+    else{
+      failure("test15", "error number " + error);
+    }
+  }
+};
+testCases.push(getMatches3);
+let getMatches4: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMatches/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:2}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+	  body = JSON.parse( body );
+	  console.log(body);
+	  if(body.length != 1){
+        failure("test16","wrong length of rows in getting matches");
+      }
+      else if(body[body.length-1].UserID == null || body[body.length-1].UserID != 4){
+        failure("test16", "wrong enrty in 2 in getting matches");
+      }
+      else{
+      	//checks to see if error
+      	success("test16");
+      }
+    }
+    else{
+      failure("test16", "error number " + error);
+    }
+  }
+};
+testCases.push(getMatches4);
+
+let getMessages: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMessages/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:2,UserID2:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      console.log(body);
+	  body = JSON.parse( body );
+	  if(body.length != 3){
+        failure("test17","wrong length of rows in getting matches");
+      }
+      else if(body[0].Message == null || body[0].Message !== "Hello"){
+        failure("test17", "wrong enrty in 0 in getting messages");
+      }
+      else if(body[1].Message == null || body[1].Message !== "World"){
+        failure("test17", "wrong enrty in 1 in getting messages");
+      }
+      else if(body[2].Message == null || body[2].Message !== "GoodBye"){
+        failure("test17", "wrong enrty in 2 in getting messages");
+      }
+      else{
+      	//checks to see if error
+      	success("test17");
+      }
+    }
+    else{
+      failure("test17", "error number " + error);
+    }
+  }
+};
+testCases.push(getMessages);
+let getMessages2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMessages/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:1,UserID2:2}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 3){
+        failure("test18","wrong length of rows in getting matches");
+      }
+      else if(body[0].Message == null || body[0].Message !== "Hello"){
+        failure("test18", "wrong enrty in 0 in getting messages");
+      }
+      else if(body[1].Message == null || body[1].Message !== "World"){
+        failure("test18", "wrong enrty in 1 in getting messages");
+      }
+      else if(body[2].Message == null || body[2].Message !== "GoodBye"){
+        failure("test18", "wrong enrty in 2 in getting messages");
+      }
+      else{
+      	//checks to see if error
+      	success("test18");
+      }
+    }
+    else{
+      failure("test18", "error number " + error);
+    }
+  }
+};
+testCases.push(getMessages2);
+let getMessages3: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMessages/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:2,UserID2:3}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 1){
+        failure("test19","wrong length of rows in getting matches");
+      }
+      else if(body[0].Message == null || body[0].Message !== "I will miss you"){
+        failure("test18", "wrong enrty in 0 in getting messages");
+      }
+      else{
+      	//checks to see if error
+      	success("test19");
+      }
+    }
+    else{
+      failure("test19", "error number " + error);
+    }
+  }
+};
+testCases.push(getMessages3);
+
+let getMessages4: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMessages/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:4,UserID2:5}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 0){
+        failure("test20","wrong length of rows in getting matches");
+      }
+      else{
+      	//checks to see if error
+      	success("test20");
+      }
+    }
+    else{
+      failure("test20", "error number " + error);
+    }
+  }
+};
+testCases.push(getMessages4);
+
+
+let setAge: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/setAge/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test21");
+	  }
+	  else{
+		  failure("test21", "Error in adding age prefs");
+	  }
+    }
+    else{
+      failure("test21", "error number " + error);
+    }
+  }
+};
+testCases.push(setAge);
+
+let setAge2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/setAge/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:2,maxAge:55}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test22");
+	  }
+	  else{
+		  failure("test22", "Error in adding age prefs");
+	  }
+    }
+    else{
+      failure("test22", "error number " + error);
+    }
+  }
+};
+testCases.push(setAge2);
+
+let setAge3: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/setAge/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:3,minAge:35}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test23");
+	  }
+	  else{
+		  failure("test23", "Error in adding age prefs");
+	  }
+    }
+    else{
+      failure("test23", "error number " + error);
+    }
+  }
+};
+testCases.push(setAge3);
+
+let setAge4: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/setAge/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:4,minAge:20,maxAge:60}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test24");
+	  }
+	  else{
+		  failure("test24", "Error in adding age prefs");
+	  }
+    }
+    else{
+      failure("test24", "error number " + error);
+    }
+  }
+};
+testCases.push(setAge4);
+let rel: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/inARelationship/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:1,InARelationship:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test25");
+	  }
+	  else{
+		  failure("test25", "Error in updating relationship status");
+	  }
+    }
+    else{
+      failure("test25", "error number " + error);
+    }
+  }
+};
+testCases.push(rel);
+let rel2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/inARelationship/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:1,InARelationship:0}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test26");
+	  }
+	  else{
+		  failure("test26", "Error in updating relationship status");
+	  }
+    }
+    else{
+      failure("test26", "error number " + error);
+    }
+  }
+};
+testCases.push(rel2);
+let rel3: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/inARelationship/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:2,InARelationship:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test27");
+	  }
+	  else{
+		  failure("test27", "Error in updating relationship status");
+	  }
+    }
+    else{
+      failure("test27", "error number " + error);
+    }
+  }
+};
+testCases.push(rel3);
+let rel4: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/inARelationship/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:3,InARelationship:0}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test28");
+	  }
+	  else{
+		  failure("test28", "Error in updating relationship status");
+	  }
+    }
+    else{
+      failure("test28", "error number " + error);
+    }
+  }
+};
+testCases.push(rel3);
+let addLan: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/addUserLanguage/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:1,Name:"Spanish"}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test29");
+	  }
+	  else{
+		  failure("test29", "Error in updating relationship status");
+	  }
+    }
+    else{
+      failure("test29", "error number " + error);
+    }
+  }
+};
+testCases.push(addLan);
+
+let addLan2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/addUserLanguage/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:1,Name:"English"}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test30");
+	  }
+	  else{
+		  failure("test30", "Error in updating relationship status");
+	  }
+    }
+    else{
+      failure("test30", "error number " + error);
+    }
+  }
+};
+testCases.push(addLan2);
+
+let addLan3: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/addUserLanguage/',
+    method: 'POST',
+    headers: headers,
+    form: {UserID:2,Name:"English"}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.success != null && body.success == 0){
+		  success("test31");
+	  }
+	  else{
+		  failure("test31", "Error in updating Language status");
+	  }
+    }
+    else{
+      failure("test31", "error number " + error);
+    }
+  }
+};
+testCases.push(addLan3);
+
+let getLanguage: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getUserLanguage/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 2){
+        	failure("test32","wrong length of rows in getting Language");
+    	}
+    	else if(body[0].Name == null || body[0].Name !== "Spanish"){
+       		failure("test32", "Error in getting row 0 for Lan");
+  	 	}
+		else if(body[0].Name == null || body[1].Name !== "English"){
+			failure("test32", "Error in getting row 1 for Lan");
+		}
+    	else{
+        	success("test32");  
+    	}
+    }
+    else{
+      failure("test32", "error number " + error);
+    }
+  }
+};
+testCases.push(getLanguage);
+
+let getLanguage2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getUserLanguage/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID:2}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 1){
+        failure("test33","wrong length of rows in getting Language");
+    	}
+		else if(body[0].Name == null || body[0].Name !== "English"){
+			failure("test33", "Error in getting row 1 for Lan");
+		}
+    	else{
+        	success("test33");  
+    	}
+    }
+    else{
+      failure("test33", "error number " + error);
+    }
+  }
+};
+testCases.push(getLanguage2);
 //File entry point
 nextTest();
