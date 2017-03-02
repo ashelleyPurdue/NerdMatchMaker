@@ -72,10 +72,7 @@
                         oldPassword: oldPassword,
                         newPassword: newPassword
                     });
-                    alert(typeof(oldPass));
-                    alert(typeof(pass1));
-                    alert(typeof(id2));
-
+                    
                     posting.done(function(data) {
                         alert("Password Changed");
                         // obj = jQuery.parseJSON(data);
@@ -124,7 +121,7 @@
                 var id1 = JSON.stringify(dCookie.split(',', 1));
                 var id2 = id1.substring(2, id1.length - 2);
                 event.preventDefault();
-                alert(id2);
+              
                 var $addpref = $(this),
                     Name = add,
                     UserID = id2;
