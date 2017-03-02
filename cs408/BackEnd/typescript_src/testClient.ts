@@ -1234,5 +1234,28 @@ let getLanguage2: TestCase = {
   }
 };
 testCases.push(getLanguage2);
+
+let getMatches0: TestCase = {
+	
+	options: {
+		url: 'http://localhost:3000/BackEnd/getMatches/',
+		method: 'GET',
+		headers: headers,
+		form: {UserID:2}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+		console.log(body);
+		success("getMatches0");
+    }
+    else{
+		failure("getMatches0", "error number " + error);
+    }
+  }
+	
+};
+testCases.push(getMatches0);
+
 //File entry point
 nextTest();
