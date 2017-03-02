@@ -37,6 +37,20 @@ Values("temp9", "abcd1234", 1995, 02, 07, "M", "F");
 Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
 Values("Princess", "1234abcd", 1995, 02, 07, "F", "M");
 
+/* Give the males interests */
+insert into user_interests(userid, interestid) values(1, 1);
+insert into user_interests(userid, interestid) values(2, 2);
+insert into user_interests(userid, interestid) values(3, 3);
+insert into user_interests(userid, interestid) values(4, 4);
+insert into user_interests(userid, interestid) values(5, 5);
+insert into user_interests(userid, interestid) values(6, 6);
+insert into user_interests(userid, interestid) values(7, 7);
+insert into user_interests(userid, interestid) values(8, 8);
+insert into user_interests(userid, interestid) values(9, 9);
+
+/* Give the females interests */
+insert into user_interests(userid, interestid) values(10, 1);
+
 /* Add matches so we can test messages */
 Insert Into Matches
 Values(1,2,false,null);
