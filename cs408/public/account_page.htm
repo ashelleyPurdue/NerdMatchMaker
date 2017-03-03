@@ -99,13 +99,29 @@
     </form>
 
 
-    <!--
-    <label><b>Relationship Stauts</b></label>
-    <input id="InARelationship" type="text" required>
-    <script>
-        var elem = document.getElementById("InARelationship").value = dummyUser.InARelationship;
-    </script>
--->
+    <form id="logout">
+
+        <button type="submit">Logout</button>
+
+        <script>
+            $("#logout").submit(function(event) {
+                alert("logging out");
+                event.preventDefault();
+                // document.cookie("testCookie", null);
+                //document.removeCookie("testCookie");
+
+                testCookie = null;
+                document.cookie = null;
+                alert("cookie removed");
+                if (testCookie != null) {
+                    alert("logout failed");
+                } else {
+                    location.replace('/index.html');
+                }
+            });
+        </script>
+
+    </form>
 
     <div class="container" style="background-color:#f1f1f1">
         <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
@@ -114,6 +130,13 @@
 
 
 </body>
+
+
+<script>
+    var delete_cookie = function(name) {
+        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    };
+</script>
 
 
 

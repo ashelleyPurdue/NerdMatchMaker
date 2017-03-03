@@ -72,7 +72,7 @@
                         oldPassword: oldPassword,
                         newPassword: newPassword
                     });
-                    
+
                     posting.done(function(data) {
                         alert("Password Changed");
                         // obj = jQuery.parseJSON(data);
@@ -121,7 +121,7 @@
                 var id1 = JSON.stringify(dCookie.split(',', 1));
                 var id2 = id1.substring(2, id1.length - 2);
                 event.preventDefault();
-              
+
                 var $addpref = $(this),
                     Name = add,
                     UserID = id2;
@@ -143,5 +143,35 @@
 
     </form>
 </body>
+
+
+
+<form id="logout">
+
+    <button type="submit">Logout</button>
+
+    <script>
+        $("#logout").submit(function(event) {
+            alert("logging out");
+            event.preventDefault();
+            // document.cookie("testCookie", null);
+            //document.removeCookie("testCookie");
+
+            testCookie = null;
+            document.cookie = null;
+            alert("cookie removed");
+            if (testCookie != null) {
+                alert("logout failed");
+            } else {
+                location.replace('/index.html');
+            }
+        });
+    </script>
+
+
+    <div class="container" style="background-color:#f1f1f1">
+        <span class="newact"> <a href="/account_page.htm">Account Homepage</a></span>
+    </div>
+
 
 </html>
