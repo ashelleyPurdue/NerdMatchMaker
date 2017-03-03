@@ -93,7 +93,7 @@ let createCase1: TestCase = {
     url: 'http://localhost:3000/BackEnd/createUser/',
     method: 'POST',
     headers: headers,
-    form: {'UserName': 'xxx', 'Password': 'yyy',Picture:null,Birthday:"02/07/1995",Gender: "M",GenderInto:"M",loc:null}
+    form: {'UserName': 'xxx', 'Password': 'yyy',Picture:null,Birthday_year:1995,Birthday_month:2,Birthday_day:7,Gender: "M",GenderInto:"M",loc:null}
   },
 
   requestFunction: function(error, response, body){

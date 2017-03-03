@@ -371,6 +371,46 @@ export var getMatches = function(json,callback,res){
         	}
     });
 };
+
+export function updateMatches(json, callback, res){
+	//Updates the matches table with all matches
+	//Two users are matched if:
+	//	They have a certain amount of shared interests/preferences
+	//	Their preferred genders line up
+	//	Their age ranges line up
+	
+	//TODO: Include age range
+	//TODO: Find an alternative to dropping the table
+	let query:string = `
+		DROP TABLE matches;
+		CREATE TABLE matches(UserIDA int(11), UserIDB int(11));
+
+		INSERT INTO matches
+			SELECT ui1.UserID, ui2.UserID
+				FROM user_interests AS ui1, user_interests AS ui2, user AS u1, user AS u2
+				WHERE ui1.UserID <> ui2.UserID
+					AND ui1.UserID < ui2.UserID
+					AND ui1.InterestID = ui2.InterestID
+					AND u1.UserID = ui1.UserID
+					AND u2.UserID = ui2.UserID
+					AND u1.Gender = u2.GenderInto
+					AND u2.Gender = u1.GenderInto
+		;
+	`;
+	
+	con.query(query, [], function(err, rows){
+		
+		//Catch sql errors
+		if (err){
+			callback.error(err, json, res, callback);
+			return;
+		}
+		
+		//TODO: Filter them out by making them have a certain amount of shared interests
+		callback.success(rows, json, res, callback);
+	});
+}
+
 export var sendRows = function(rows, json, res, callback){
 	res.send(rows);
 }
