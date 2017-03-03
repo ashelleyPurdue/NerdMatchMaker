@@ -252,8 +252,9 @@ app.post("/BackEnd/blockUser/", function(req, res){
 });
 
 app.get("/BackEnd/getMatches/", function(req, res){
-	if (req.body.UserID1 != null){
-		delete req.body.UserID1;
+	console.log(req.query);
+	if (req.query.UserID != null){
+		delete req.body.UserID;
 	}
 	else{
 		console.log("No UserID1 in json");

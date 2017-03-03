@@ -360,13 +360,16 @@ export var blockUser = function(json,callback,res){
 //give it json of {UserID}
 //returns list of users and userIDs of matches
 export var getMatches = function(json,callback,res){
+		console.log(json);
         con.query("Select U.UserID,U.UserName,U.Picture from Matches as M join User as U on (U.UserID = M.UserID1 And U.UserID != ?) Or (U.UserID = M.UserID2 And U.UserID != ?) where (M.UserID1 = ? OR M.UserID2 = ?) AND IsBlocked = false", 
 				  	[json.UserID1,json.UserID1,json.UserID1,json.UserID1],function (err, rows) {
         	//console.log("Rows for "+json.UserID1+"="+rows);
 			if (err) {
+				console.log("Error in getting Matches");
             	callback.error(err, json, res, callback, con);
         	}
         	else {
+				console.log("Success in getting Matches");
             	callback.success(rows, json, res, callback);
         	}
     });

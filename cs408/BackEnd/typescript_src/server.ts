@@ -62,8 +62,9 @@ app.post("/BackEnd/blockUser/", function(req, res){
 });
 
 app.get("/BackEnd/getMatches/", function(req, res){
+	console.log(req.query)
 	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
-	sqlFile.getMatches(req.body, callback, res);
+	sqlFile.getMatches(req.query, callback, res);
 });
 
 app.get("/BackEnd/getMessages/", function(req, res){

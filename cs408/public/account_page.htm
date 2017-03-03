@@ -73,16 +73,16 @@
                 event.preventDefault();
 
                 var $getMatches = $(this),
-                    UserID = dummyUser.UserID;
+                    UserID1 = dummyUser.UserID;
 
                 var getting = $.get("/BackEnd/getMatches/", {
-                        UserID: UserID
+                        UserID1: UserID1
                     })
                     // location.replace('/matches.html');
                     // alert("going to matches");
                 getting.done(function(data) {
                     // location.replace('/matches.html');
-                    alert(data[0]);
+                    alert(data);
                     if (data.UserID != null) {
                         alert("userID not null");
                         alert(data[0]);
