@@ -97,7 +97,15 @@
             </script>
 
             <label><b>Birthday (MM/DD/YYYY) </b></label>
-            <input id="Birthday" type="text" placeholder="Enter Birthdate" name="Birthday" required>
+            <div>
+            	<input id="Birthday1" type="number" placeholder="Month" name="Birthday" required>
+            	<input id="Birthday2" type="number" placeholder="Day" name="Birthday" required>
+            	<input id="Birthday3" type="number" placeholder="Year" name="Birthday" required>
+            </div>
+
+			 <br>
+
+            </br>
 
             <label><b>Gender (M, F, or Other)</b></label>
 
@@ -124,16 +132,28 @@
 
             </div>
 
+            <br>
+
+            </br>
 
             <label><b>Age Range Interested In</b></label>
 
             <div>
                 <label>
-                <input id="minAge" type="number" name="minAge" placeholder="Minimum Match Age"/></label>
-                <input id="maxAge" type="number" name="maxAge" placeholder="Maximum Match Age" /></label>
+                <input id="minAge" type="number" name="minAge" placeholder="Minimum"/></label>
+                <input id="maxAge" type="number" name="maxAge" placeholder="Maximum" /></label>
             </div>
+
+            <br>
+
+            </br>
+
             <label><b>Location (Optional)</b></label>
-            <input type="text" placeholder="Enter Location" name="loc">
+          	  <input type="text" placeholder="Enter Location" name="loc">
+
+          	<br>
+
+            </br>
 
             <button type="submit">Login</button>
 
