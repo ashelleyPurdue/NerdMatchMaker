@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="account_page.css">
     <title>Account Homepage</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 
 <body>
@@ -15,6 +16,7 @@
         var partsOfCookie = testCookie.split(',');
         // alert(partsOfCookie[1]);
         var dummyUser = ({
+            UserID: partsOfCookie[0],
             UserName: partsOfCookie[1],
             Picture: null,
             Birthday: partsOfCookie[2],
@@ -56,6 +58,44 @@
             document.getElementById("GenderInto").innerHTML = dummyUser.GenderInto;
         </script>
     </div>
+
+
+
+    <form id="getMatches">
+
+        <button type="submit">Matches</button>
+
+        <script>
+            $("#getMatches").submit(function(event) {
+
+                event.preventDefault();
+
+                var $getMatches = $(this),
+                    UserID = dummyUser.UserID;
+
+                var getting = $.get("/BackEnd/getMatches/", {
+                        UserID: UserID
+                    })
+                    // location.replace('/matches.html');
+                    // alert("going to matches");
+                getting.done(function(data) {
+                    // location.replace('/matches.html');
+                    if (data.UserID != null) {
+                        alert("userID not null");
+                        alert(data[0]);
+                        location.replace('/matches.html');
+                    } else if (data.Error === -2)
+                        alert("Sorry, server issues");
+                    else {
+                        alert("No Matches");
+                    }
+                });
+            });
+        </script>
+
+    </form>
+
+
     <!--
     <label><b>Relationship Stauts</b></label>
     <input id="InARelationship" type="text" required>
@@ -66,6 +106,7 @@
 
     <div class="container" style="background-color:#f1f1f1">
         <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
+
     </div>
 
 
