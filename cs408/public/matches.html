@@ -1,23 +1,26 @@
 <html>
 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
 <head>
     <link rel="stylesheet" type="text/css" href="account_page.css">
-    <title>Account Homepage</title>
+    <title>Matches</title>
 </head>
 
 <body>
 
     <h1>Matches</h1>
 
-
+    <div ng-app="myApp" ng-controller="myCtrl">
+        {{userName + " " + mathchedUserName}}
+    </div>
 
     <script>
-        // call ajax to use API calls for getMatches
-        // alert(document.cookie);
         var testCookie = document.cookie;
         var partsOfCookie = testCookie.split(',');
         // alert(partsOfCookie[1]);
         var dummyUser = ({
+            UserId: partsOfCookie[0],
             UserName: partsOfCookie[1],
             Picture: null,
             Birthday: partsOfCookie[2],
@@ -26,16 +29,31 @@
             Location: null,
             InARelationship: false
         });
+
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function($scope) {
+            $scope.userName = "UserName:";
+            $scope.mathchedUserName = dummyUser.UserName;
+
+            /*
+            $scope.myObj = {
+                "User Name": "joe",
+                "Country": "Germany",
+                "City": "Berlin"
+            }
+            */
+
+        });
+
+        var matchArray = getMatches(dummyUser.UserId);
+        alert(matchArray[0]);
+
+        // call ajax to use API calls for getMatches
+        // alert(document.cookie);
     </script>
 
 
-    <!--
-    <label><b>Relationship Stauts</b></label>
-    <input id="InARelationship" type="text" required>
-    <script>
-        var elem = document.getElementById("InARelationship").value = dummyUser.InARelationship;
-    </script>
--->
+
 
     <div class="container" style="background-color:#f1f1f1">
         <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
