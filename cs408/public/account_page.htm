@@ -82,10 +82,16 @@
                     // alert("going to matches");
                 getting.done(function(data) {
                     // location.replace('/matches.html');
-                    alert(data);
-                    if (data.UserID != null) {
+                    alert(data[0].UserName);
+                    if (data[0].UserID != null) {
                         alert("userID not null");
-                        alert(data[0]);
+                        i = 0;
+                        while (data[i] != null) {
+                            document.cookie = testCookie + "," + data[i];
+                            i++;
+                        }
+                        alert("all users added");
+                        // alert(data[i]);
                         location.replace('/matches.html');
                     } else if (data.Error === -2)
                         alert("Sorry, server issues");

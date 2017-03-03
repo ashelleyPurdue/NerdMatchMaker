@@ -20,15 +20,20 @@
         var partsOfCookie = testCookie.split(',');
         // alert(partsOfCookie[1]);
         var dummyUser = ({
-            UserId: partsOfCookie[0],
+            UserID: partsOfCookie[0],
             UserName: partsOfCookie[1],
             Picture: null,
-            Birthday: partsOfCookie[2],
-            Gender: partsOfCookie[3],
-            GenderInto: partsOfCookie[4],
+            Birthday_year: partsOfCookie[2],
+            Birthday_month: partsOfCookie[3],
+            Birthday_day: partsOfCookie[4],
+            Gender: partsOfCookie[5],
+            GenderInto: partsOfCookie[6],
             Location: null,
-            InARelationship: false
+            InARelationship: false,
+            matches: partsOfCookie[8]
         });
+        var matchArray = dummyUser.matches.split(',');
+        alert("matches are " + matchArray[0]);
 
         var app = angular.module("myApp", []);
         app.controller("myCtrl", function($scope) {
@@ -46,7 +51,7 @@
         });
 
         var matchArray = getMatches(dummyUser.UserId);
-        alert(matchArray[0]);
+        // alert(matchArray[0]);
 
         // call ajax to use API calls for getMatches
         // alert(document.cookie);
