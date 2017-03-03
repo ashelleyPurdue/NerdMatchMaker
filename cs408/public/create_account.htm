@@ -164,6 +164,32 @@
 
             </br>
 
+            <label><b>Add a profile picture (Optional)</b></label>
+             <input type='file' onchange="readURL(this);" />
+             <img id="profilePicture" src="#"/>  
+
+            <script>
+                 function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#profilePicture')
+                            .attr('src', e.target.result)
+                            .width(250)
+                            .height(250);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            </script>   
+
+            <br>
+
+            </br>
+
+
             <button type="submit">Login</button>
 
         </div>

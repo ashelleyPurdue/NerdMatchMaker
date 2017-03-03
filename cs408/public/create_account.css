@@ -25,6 +25,12 @@ input[type=number] {
     box-sizing: border-box;
 }
 
+input[type=file] {
+    display: block;
+    box-sizing: border-box;
+}
+
+
 
 
 /* Center the Login image inside this container */
