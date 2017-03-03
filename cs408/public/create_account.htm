@@ -60,7 +60,9 @@
                     var $form = $(this),
                         UserName = document.getElementById("userName").value,
                         Password = document.getElementById("pass1").value,
-                        Birthday = document.getElementById("Birthday").value,
+                        Birthday_year = document.getElementById("Birthday_year").value,
+                        Birthday_month = document.getElementById("Birthday_month").value,
+                        Birthday_day = document.getElementById("Birthday_day").value,
                         Gender,
                         GenderInto,
                         minAge = document.getElementById("minAge").value,
@@ -97,7 +99,10 @@
             </script>
 
             <label><b>Birthday (MM/DD/YYYY) </b></label>
-            <input id="Birthday" type="text" placeholder="Enter Birthdate" name="Birthday" required>
+            <input id="Birthday_month" type="text" placeholder="Month" name="Birthday_month" required>
+            <input id="Birthday_day" type="text" placeholder="Day" name="Birthday_day" required>
+            <input id="Birthday_year" type="text" placeholder="Year" name="Birthday_year" required>
+
 
             <label><b>Gender (M, F, or Other)</b></label>
 
