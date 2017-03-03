@@ -360,16 +360,37 @@ export var blockUser = function(json,callback,res){
 //give it json of {UserID}
 //returns list of users and userIDs of matches
 export var getMatches = function(json,callback,res){
-        con.query("Select U.UserID,U.UserName,U.Picture from Matches as M join User as U on (U.UserID = M.UserID1 And U.UserID != ?) Or (U.UserID = M.UserID2 And U.UserID != ?) where (M.UserID1 = ? OR M.UserID2 = ?) AND IsBlocked = false", 
-				  	[json.UserID1,json.UserID1,json.UserID1,json.UserID1],function (err, rows) {
-        	//console.log("Rows for "+json.UserID1+"="+rows);
-			if (err) {
-            	callback.error(err, json, res, callback, con);
-        	}
-        	else {
-            	callback.success(rows, json, res, callback);
-        	}
-    });
+	//Two users are matched if:
+	//	They have a certain amount of shared interests/preferences
+	//	Their preferred genders line up
+	//	Their age ranges line up
+	
+	//Get all matches that only have at least one interest in common
+	//TODO: Include age range
+	let query:string = `
+		SELECT ui1.UserID, ui2.UserID, u1.Gender, u1.GenderInto, u2.Gender, u2.GenderInto
+			FROM user_interests AS ui1, user_interests AS ui2, user AS u1, user AS u2
+			WHERE ui1.UserID = ?
+				AND ui1.UserID <> ui2.UserID
+				AND ui1.InterestID = ui2.InterestID
+				AND u1.UserID = ui1.UserID
+				AND u2.UserID = ui2.UserID
+				AND u1.Gender = u2.GenderInto
+				AND u2.Gender = u1.GenderInto
+		;
+	`;
+	
+	con.query(query, [json.UserID], function(err, rows){
+		
+		//Catch sql errors
+		if (err){
+			callback.error(err, json, res, callback);
+			return;
+		}
+		
+		//TODO: Filter them out by making them have a certain amount of shared interests
+		callback.success(rows, json, res, callback);
+	});
 };
 export var sendRows = function(rows, json, res, callback){
 	res.send(rows);
