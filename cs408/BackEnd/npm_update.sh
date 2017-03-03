@@ -8,6 +8,6 @@ npm link body-parser
 npm install mysql
 npm install request
 npm install socket.io
-npm install hashtable
+npm install hashtable --python=2.7
 npm install socket.io-client
 echo "NPM packages updated."
