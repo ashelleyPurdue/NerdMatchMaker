@@ -49,7 +49,7 @@ insert into User_Interests(userid, interestid) values(8, 8);
 insert into User_Interests(userid, interestid) values(9, 9);
 
 /* Give the females interests */
-insert into User_Interests(userid, interestid) values(10, 1);
+insert into User_Interests(userid, interestid) values(11, 1);
 
 /* Add matches so we can test messages */
 Insert Into Matches
