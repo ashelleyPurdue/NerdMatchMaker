@@ -6,10 +6,10 @@ import express = require('express');
 import bodyParser =  require("body-parser");
 import sqlFile = require("./sql");
 import io = require('socket.io');
-import HashTable = require('hashtable');
+//import HashTable = require('hashtable');
 //needs to contain {socket:,userID:} turn into a hash table with id being the key
-var allClients = new HashTable();
-
+//var allClients = new HashTable();
+var allClients = []
 //TODO make in prop files
 const port = 3000;
 const url = 'localhost'
@@ -101,8 +101,15 @@ var socket = io.listen(server);
 socket.on('connection', function(client) {
    var userID;
    var sendSuccess = function (rows, json, res, callback) {
-	  var socket2 = allClients.get(json.UserID2); 
-
+	  //var socket2 = allClients.get(json.UserID2); 
+	   var socket2 = null;
+	   for (var i = 0; i < allClients.length; i++){
+  			// look for the entry with a matching `code` value
+  			if (allClients[i].UserID == json.UserID2){
+				socket2 = allClients[i].client;
+				console.log("Found "+allClients[i].UserID);
+  			}
+		}
       if(socket2 != null){
         socket2.emit('message',{UserID:userID,Message:json.Message});
       }
@@ -118,12 +125,18 @@ socket.on('connection', function(client) {
    client.on('disconnect', function() {
       console.log('Got disconnect!');
       if(userID != null){
-        allClients.remove(userID);
+        for (var i = 0; i < allClients.length; i++){
+  			// look for the entry with a matching `code` value
+  			if (allClients[i].UserID == userID){
+				allClients.splice( i, 1 )
+  			}
+		}
       }
    });
    client.on("hello",function(data){
     userID = data.UserID;
-    allClients.put(data.UserID,client); 
+	   allClients[allClients.length] = {UserID:data.UserID,client:client}
+    //allClients.push({data.UserID:client); 
    });
    client.on("send",function(data){
 	if(data.UserID != null){
