@@ -1,4 +1,4 @@
-Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
+Insert INTO User(UserName,Password, Birthday_year, Birthday_month, ,Birthday_day,Gender, GenderInto)
 Values("temp0","abcd1234","02/07/1995","M","F");
 Insert INTO User(UserName,Password,Birthday,Gender,GenderInto)
 Values("temp1","abcd1234","02/07/1995","M","F");
