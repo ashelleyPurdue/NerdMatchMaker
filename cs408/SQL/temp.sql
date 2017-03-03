@@ -36,7 +36,8 @@ Create Table Matches(
 	IsBlocked boolean default false,
 	BlockingID int Null,
 	FOREIGN KEY (UserID1) REFERENCES User(UserID),
-	FOREIGN KEY (UserID2) REFERENCES User(UserID)
+	FOREIGN KEY (UserID2) REFERENCES User(UserID),
+	Unique(UserID1,UserID2)
 );
 Create Table UserLanguage(
 	UserID int Not Null,
