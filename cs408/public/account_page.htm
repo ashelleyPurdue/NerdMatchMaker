@@ -19,9 +19,11 @@
             UserID: partsOfCookie[0],
             UserName: partsOfCookie[1],
             Picture: null,
-            Birthday: partsOfCookie[2],
-            Gender: partsOfCookie[3],
-            GenderInto: partsOfCookie[4],
+            Birthday_year: partsOfCookie[2],
+            Birthday_month: partsOfCookie[3],
+            Birthday_day: partsOfCookie[4],
+            Gender: partsOfCookie[5],
+            GenderInto: partsOfCookie[6],
             Location: null,
             InARelationship: false
         });
@@ -39,7 +41,7 @@
         <label>Birthday</br></label>
         <label id="Birthday"></label>
         <script>
-            document.getElementById("Birthday").innerHTML = dummyUser.Birthday;
+            document.getElementById("Birthday").innerHTML = dummyUser.Birthday_month + "/" + dummyUser.Birthday_day + "/" + dummyUser.Birthday_year;
         </script>
     </div>
 
@@ -80,6 +82,7 @@
                     // alert("going to matches");
                 getting.done(function(data) {
                     // location.replace('/matches.html');
+                    alert(data[0]);
                     if (data.UserID != null) {
                         alert("userID not null");
                         alert(data[0]);
