@@ -134,6 +134,7 @@ export var loginEmptySet = function(res,callback) {
 
 export var genSQLError = function(err, json, res, callback, con){
   console.log("genSQLError");
+  console.log(" error: " + err);
   res.send({Error:-2});
 };
 
@@ -173,6 +174,7 @@ export var addUserPref_weHaveID = function(id, json, res, callback){
 		return;
 	}
 	if (id < 1){
+		console.log("interest id is " + id);
 		callback.error("interest id is " + id, null, res, callback, null);
 		return;
 	}
