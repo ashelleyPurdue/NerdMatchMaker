@@ -60,6 +60,7 @@ function failure(testName: string, message: string){
 }
 
 //Test cases
+
 let createCase0: TestCase = {
 	options: {
 		url: 'http://localhost:3000/BackEnd/createUser/',
@@ -364,7 +365,6 @@ let createLogin6: TestCase = {
 };
 testCases.push(createLogin6);
 //TODO test login after this to make sure changes work
-
 //addUserPref test cases
 function addUserPref_requestFunction(testName: string, error, response, body){
 		
@@ -580,6 +580,7 @@ let addUserPrefs_invalidForm5: TestCase = {
 };
 testCases.push(addUserPrefs_invalidForm5);
 
+
 //test get matches
 let getMatches1: TestCase = {
   options: {
@@ -599,7 +600,7 @@ let getMatches1: TestCase = {
 		failure("test11","wrong enrty in 1 in getting matches");
       }
       else if(body[body.length-1].UserID == null || body[body.length-1].UserID != 8){
-        failure("test11", "wrong enrty in 9 in getting matches");
+        failure("test11", "wrong enrty in 9 in getting matches; expected 6, but got " + body.length);
       }
       else{
       	//checks to see if error
@@ -626,7 +627,7 @@ let getMatches2: TestCase = {
     if (!error){
       body = JSON.parse( body );
 	  if(body.length != 2){
-        failure("test12","wrong length of rows in getting matches");
+        failure("test12","wrong length of rows in getting matches; expected 2, but got " + body.length);
       }
       else if(body[0].UserID == null || body[0].UserID != 1){
 		failure("test12","wrong enrty in 1 in getting matches");
@@ -732,7 +733,7 @@ let getMatches3: TestCase = {
     if (!error){
       body = JSON.parse( body );
 	  if(body.length != 4){
-       	failure("test15","wrong length of rows in getting matches");
+       	failure("test15","wrong length of rows in getting matches; expected 4, but got " + body.length);
       }
       else if(body[0].UserID == null || body[0].UserID != 3){
 		failure("test15","wrong enrty in 1 in getting matches");
@@ -1256,6 +1257,7 @@ let getMatches0: TestCase = {
 	
 };
 testCases.push(getMatches0);
+
 
 //File entry point
 nextTest();

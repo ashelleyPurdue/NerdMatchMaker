@@ -134,6 +134,7 @@ export var loginEmptySet = function(res,callback) {
 
 export var genSQLError = function(err, json, res, callback, con){
   console.log("genSQLError");
+  console.log(" error: " + err);
   res.send({Error:-2});
 };
 
@@ -173,6 +174,7 @@ export var addUserPref_weHaveID = function(id, json, res, callback){
 		return;
 	}
 	if (id < 1){
+		console.log("interest id is " + id);
 		callback.error("interest id is " + id, null, res, callback, null);
 		return;
 	}
@@ -383,42 +385,19 @@ export function updateMatches(json, callback, res){
 	//	Their age ranges line up
 	
 	let query:string = `
-		CREATE TEMPORARY TABLE defaultBlockedInfo(
-			IsBlocked tinyint(1),
-			BlockingID int(11)
-		);
-
-		INSERT INTO defaultBlockedInfo VALUES (0, 0);
-
-		INSERT IGNORE INTO matches
-			SELECT ui1.UserID, ui2.UserID, defaultBlockedInfo.IsBlocked, defaultBlockedInfo.BlockingID
-				FROM user_interests AS ui1, user_interests AS ui2, user AS u1, user AS u2, defaultBlockedInfo
-				WHERE ui1.UserID <> ui2.UserID
-					AND ui1.UserID < ui2.UserID
-					AND ui1.InterestID = ui2.InterestID
-					AND u1.UserID = ui1.UserID
-					AND u2.UserID = ui2.UserID
-					AND u1.Gender = u2.GenderInto
-					AND u2.Gender = u1.GenderInto
-					AND u2.age >= u1.minAge
-					AND u2.age <= u1.maxAge
-					AND u1.age >= u2.minAge
-					AND u1.age <= u2.maxAge
-		;
-
-		DROP TABLE defaultBlockedInfo;
+		CALL update_matches_procedure();
 	`;
 	
 	con.query(query, [], function(err, rows){
 		
 		//Catch sql errors
 		if (err){
-			callback.error(err, json, res, callback);
+			console.log("sql error " + err);
 			return;
 		}
 		
 		//TODO: Filter them out by making them have a certain amount of shared interests
-		callback.success(rows, json, res, callback);
+		return;
 	});
 }
 

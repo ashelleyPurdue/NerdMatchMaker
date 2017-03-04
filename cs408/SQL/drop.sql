@@ -1,8 +1,8 @@
-drop Table Matches;
-drop Table Messages;
-drop Table UserLanguage;
-drop Table User_Interests;
-drop Table Interests;
-drop Table Language;
-drop table User;
+drop Table if exists Matches;
+drop Table if exists Messages;
+drop Table if exists UserLanguage;
+drop Table if exists User_Interests;
+drop Table if exists Interests;
+drop Table if exists Language;
+drop table if exists User;
 
