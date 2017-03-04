@@ -95,7 +95,69 @@
         </div>
     </form>
 
-    <div class="container">
+    <form>
+
+        <h1>Change Profile Picture<h1>
+
+        <input type='file' onchange="readURL(this);" />
+        <img id="profilePicture" src="#"/>  
+
+            <script>
+                 function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#profilePicture')
+                            .attr('src', e.target.result)
+                            .width(250)
+                            .height(250);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            </script>
+
+            <script>
+                $("#picChange").submit(function(event) {
+
+                    var dCookie = document.cookie;
+                    var id1 = JSON.stringify(dCookie.split(',', 1));
+                    var id2 = id1.substring(2, id1.length - 2);
+                    var picValue = document.getElementById("profilePicture").value;
+
+                    event.preventDefault();
+
+                    var $picChange = $(this),
+                        UserID = id2,
+                        Picture = picValue;
+
+                    var posting = $.post("/BackEnd/editPicture/", {
+                        UserID: UserID,
+                        Picture: Picture
+                    });
+
+                    posting.done(function(data) {
+                        alert("Picture sent");
+                        // obj = jQuery.parseJSON(data);
+                        if (data.UserID != null) {
+                            location.replace('/account_page.htm');
+                        } else {
+                            if (data.Error === -1)
+                                alert("Picture is null");
+                            else if (data.Error === -2)
+                                alert("Sorry, server issues");
+                        }
+
+                    });
+                });
+            </script>
+
+
+        <button type="submit">Change Profile Picture</button>
+    </form>
+
         <h1>Edit Preferences</h1>
         <h3>Current Preferences</h3>
 
@@ -103,7 +165,8 @@
         <script>
             document.getElementById("getPref").innerHTML = 'users prefs will be shown here';
         </script>
-    </div>
+
+
 
     <form id="addPref">
 

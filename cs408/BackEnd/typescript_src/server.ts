@@ -82,7 +82,7 @@ app.post("/BackEnd/inARelationship/", function(req, res){
 
 app.get("/BackEnd/getUserLanguage/", function(req, res){
 	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
-	sqlFile.getUserLan(req.body, callback, res);
+	sqlFile.getUserLan(req.query, callback, res);
 });
 
 app.post("/BackEnd/addUserLanguage/", function(req, res){
@@ -90,6 +90,14 @@ app.post("/BackEnd/addUserLanguage/", function(req, res){
 	sqlFile.addUserLan(req.body, callback, res);
 });
 
+app.post("/BackEnd/addUserLanguage/", function(req, res){
+	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
+	sqlFile.addUserLan(req.body, callback, res);
+});
+app.post("/BackEnd/editPicture/", function(req, res){
+	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
+	sqlFile.editPicture(req.body, callback, res);
+});
 //sets default http server
 app.use(express.static(__dirname + '/../public'));
 console.log(__dirname + '/../public');
