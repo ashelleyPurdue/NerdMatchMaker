@@ -60,7 +60,7 @@ function failure(testName: string, message: string){
 }
 
 //Test cases
-/*
+
 let createCase0: TestCase = {
 	options: {
 		url: 'http://localhost:3000/BackEnd/createUser/',
@@ -365,7 +365,6 @@ let createLogin6: TestCase = {
 };
 testCases.push(createLogin6);
 //TODO test login after this to make sure changes work
-*/
 //addUserPref test cases
 function addUserPref_requestFunction(testName: string, error, response, body){
 		
@@ -581,7 +580,7 @@ let addUserPrefs_invalidForm5: TestCase = {
 };
 testCases.push(addUserPrefs_invalidForm5);
 
-/*
+
 //test get matches
 let getMatches1: TestCase = {
   options: {
@@ -1258,7 +1257,7 @@ let getMatches0: TestCase = {
 	
 };
 testCases.push(getMatches0);
-*/
+
 
 //File entry point
 nextTest();
