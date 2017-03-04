@@ -1,6 +1,7 @@
 <html>
 
 <head>
+	<link rel="stylesheet" type="text/css" href="user_chat.css">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
     <title>Messages From </title>
@@ -17,23 +18,22 @@
 </script>
 
 <body>
-    <div>
-        <label>Your Converstation With </label>
-        <label id="matchedUser"></label>
-        <script>
-            // filled matchedUser with UserName of who messages are being sent to
-            // document.getElementById("UserName").innerHTML = dummyUser.UserName;
-        </script>
-    </div>
+
+	    <div>	     
+	       <label>Chatroom</label> 
+	        <br>
+	        </br>
+	        <div id="chatbox"></div>
+	        <script>
+	            // filled matchedUser with UserName of who messages are being sent to
+	            // document.getElementById("UserName").innerHTML = dummyUser.UserName;
+	        </script>
+	    </div>
     <form id="send">
-        <div>
-            <label><b>UserID</b></label>
-            <input id="UserID_chat" type="text" placeholder="Enter UserID to chat with" name="UserID" required>
-            <!--<label><b>Password</b></label>
-        <input id="Password" type="password" placeholder="Enter Password" name="Password" required>-->
-            <input id="message" type="text" placeholder="Enter message" name="UserID" required>
-            <button id="button2" type="submit">Login</button>
-        </div>
+    	<div>
+         	<input id="message" type="text" placeholder="Enter message" name="messageBox" required>
+            </div>
+            <button id="button2" type="submit">Send</button>
     </form>
     <script>
         var socket = io.connect();
