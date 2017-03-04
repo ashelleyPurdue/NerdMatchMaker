@@ -382,15 +382,17 @@ export function updateMatches(json, callback, res){
 	//	Their preferred genders line up
 	//	Their age ranges line up
 	
-	//TODO: Include age range
-	//TODO: Find an alternative to dropping the table
 	let query:string = `
-		DROP TABLE matches;
-		CREATE TABLE matches(UserIDA int(11), UserIDB int(11));
+		CREATE TEMPORARY TABLE defaultBlockedInfo(
+			IsBlocked tinyint(1),
+			BlockingID int(11)
+		);
 
-		INSERT INTO matches
-			SELECT ui1.UserID, ui2.UserID
-				FROM user_interests AS ui1, user_interests AS ui2, user AS u1, user AS u2
+		INSERT INTO defaultBlockedInfo VALUES (0, 0);
+
+		INSERT IGNORE INTO matches
+			SELECT ui1.UserID, ui2.UserID, defaultBlockedInfo.IsBlocked, defaultBlockedInfo.BlockingID
+				FROM user_interests AS ui1, user_interests AS ui2, user AS u1, user AS u2, defaultBlockedInfo
 				WHERE ui1.UserID <> ui2.UserID
 					AND ui1.UserID < ui2.UserID
 					AND ui1.InterestID = ui2.InterestID
@@ -398,7 +400,13 @@ export function updateMatches(json, callback, res){
 					AND u2.UserID = ui2.UserID
 					AND u1.Gender = u2.GenderInto
 					AND u2.Gender = u1.GenderInto
+					AND u2.age >= u1.minAge
+					AND u2.age <= u1.maxAge
+					AND u1.age >= u2.minAge
+					AND u1.age <= u2.maxAge
 		;
+
+		DROP TABLE defaultBlockedInfo;
 	`;
 	
 	con.query(query, [], function(err, rows){
