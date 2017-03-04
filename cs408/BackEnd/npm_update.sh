@@ -10,4 +10,5 @@ npm install request
 npm install socket.io
 npm install hashtable --python=2.7
 npm install socket.io-client
+npm install --save multer
 echo "NPM packages updated."

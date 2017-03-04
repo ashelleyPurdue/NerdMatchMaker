@@ -4,13 +4,14 @@
     <link rel="stylesheet" type="text/css" href="create_account.css">
     <title>Create an Account</title>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
 <body>
 
     <h1>Create A New Account</h1>
 
-    <form onsubmit="return passWordsMatch">
+    <form onsubmit="return passWordsMatch" id = "createUser">
         <div class="container">
             <label><b>Username</b></label>
             <input id="userName" type="text" placeholder="Enter Username" name="UserName" required>
@@ -37,8 +38,8 @@
                     return ok;
                 }
 
-                $("form").submit(function(event) {
-
+                $("createUser").submit(function(event) {
+					console.log("called");
                     event.preventDefault();
 
                     if (document.getElementById('Gender0').checked) {
@@ -57,7 +58,7 @@
                         GenderInto = document.getElementById('GenderInto').value;
                     }
 
-                    var $form = $(this),
+                    var $createUser= $(this),
                         UserName = document.getElementById("userName").value,
                         Password = document.getElementById("pass1").value,
                         Birthday_year = document.getElementById("Birthday_year").value,
@@ -163,26 +164,40 @@
             <br>
 
             </br>
+			<label><b>Add a profile picture (Optional)</b></label>
+			<div>
+                <label>
+                <input id="Link" type="url" name="Picture Url " placeholder="Add picture Url here or upload photo"/></label>
+            </div>
+    	</form>
 
-            <label><b>Add a profile picture (Optional)</b></label>
-             <input type='file' onchange="readURL(this);" />
-             <img id="profilePicture" src="#"/>  
+            
+			<form id="uploadForm"
+         		enctype="multipart/form-data">
+      			<input type="file" name="userPhoto" />
+      			<input type="submit" value="Upload Image" name="upload"> 
+      		<span id = "status"></span> 
+    		</form>
+             <!--<input type='file' onchange="readURL(this);" />
+             <img id="profilePicture" src="#"/> --> 
 
             <script>
-                 function readURL(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
+				 //$(document).ready(function() {
 
-                        reader.onload = function (e) {
-                            $('#profilePicture')
-                            .attr('src', e.target.result)
-                            .width(250)
-                            .height(250);
-                        };
-
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                }
+				 $('#uploadForm').submit(function(event) {
+					event.preventDefault();
+					 alert("hello world");
+					 $.ajax({
+						type: 'POST',
+						url: '/BackEnd/file_upload',
+						data: { file: $(this).file.value},
+						success: function(response) {
+							$("#status").empty().text(response);
+							alert(response);  
+						 }
+					 });
+					 return false;
+				 });
             </script>   
 
             <br>
@@ -193,9 +208,6 @@
             <button type="submit">Login</button>
 
         </div>
-
-    </form>
-
 
 </body>
 

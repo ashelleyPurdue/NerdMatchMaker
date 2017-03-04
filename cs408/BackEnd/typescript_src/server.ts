@@ -6,10 +6,11 @@ import express = require('express');
 import bodyParser =  require("body-parser");
 import sqlFile = require("./sql");
 import io = require('socket.io');
+import multer  = require('multer')
 //import HashTable = require('hashtable');
 //needs to contain {socket:,userID:} turn into a hash table with id being the key
 //var allClients = new HashTable();
-var allClients = []
+var allClients = [];
 //TODO make in prop files
 const port = 3000;
 const url = 'localhost'
@@ -17,7 +18,49 @@ var con = sqlFile.createCon();
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+//handles uploading an image
 
+
+app.post('/BackEnd/file_upload',function(req,res){
+	var url;
+	var storage =   multer.diskStorage({
+  		destination: function (req, file, callback) {
+    		callback(null, '../public/Images/');
+  		},
+  		filename: function (req, file, callback) {
+	  		url =file.fieldname + '-' + Date.now()
+    		callback(null, url);
+  		}
+	});
+	var upload = multer({ storage : storage}).single("userPhoto");
+	upload(req,res,function(err) {
+        if(err) {
+			console.log(err);
+            return res.end("Error uploading file.");
+        }
+		url = "Images/"+url;
+		console.log("Images/"+url);
+        res.end(url);
+    });
+});
+
+// File input field name is simply 'file'
+/*app.post('/BackEnd/file_upload', upload.single('file'), function(req, res) {
+  //var file = __dirname + '/' + req.file.filename;
+  console.log(req.body);
+	 console.log(req.file);
+  /*fs.rename(req.file.path, file, function(err) {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      res.json({
+        message: 'File uploaded successfully',
+        filename: req.file.filename
+      });
+    }
+  });
+});*/
 app.post("/BackEnd/createUser/",function(req,res){
   console.log(req.body);
   var callback = {success:sqlFile.createAccountCallback,error:sqlFile.createAccountError};
