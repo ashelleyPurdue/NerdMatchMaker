@@ -56,3 +56,36 @@ Create Table Messages(
 	FOREIGN KEY (UserID1) REFERENCES User(UserID),
 	FOREIGN KEY (UserID2) REFERENCES User(UserID)
 );
+
+DROP PROCEDURE IF EXISTS update_matches_procedure;
+DELIMITER //
+CREATE PROCEDURE update_matches_procedure()
+BEGIN
+
+	CREATE TEMPORARY TABLE defaultBlockedInfo(
+		IsBlocked tinyint(1),
+		BlockingID int(11)
+	);
+
+	INSERT INTO defaultBlockedInfo VALUES (0, 0);
+
+	INSERT IGNORE INTO matches
+		SELECT ui1.UserID, ui2.UserID, defaultBlockedInfo.IsBlocked, defaultBlockedInfo.BlockingID
+			FROM user_interests AS ui1, user_interests AS ui2, user AS u1, user AS u2, defaultBlockedInfo
+			WHERE ui1.UserID <> ui2.UserID
+				AND ui1.UserID < ui2.UserID
+				AND ui1.InterestID = ui2.InterestID
+				AND u1.UserID = ui1.UserID
+				AND u2.UserID = ui2.UserID
+				AND u1.Gender = u2.GenderInto
+				AND u2.Gender = u1.GenderInto
+				AND u2.age >= u1.minAge
+				AND u2.age <= u1.maxAge
+				AND u1.age >= u2.minAge
+				AND u1.age <= u2.maxAge
+	;
+
+	DROP TABLE defaultBlockedInfo;
+
+END//
+DELIMITER ;
