@@ -1,16 +1,3 @@
-/* Add default interests */
-insert into Interests(name) values("anime");
-insert into Interests(name) values("gaming");
-insert into Interests(name) values("drawing");
-insert into Interests(name) values("music");
-insert into Interests(name) values("math");
-insert into Interests(name) values("programming");
-insert into Interests(name) values("engineering");
-insert into Interests(name) values("reading");
-insert into Interests(name) values("science");
-insert into Interests(name) values("fantasy");
-insert into Interests(name) values("sci-fi");
-
 /* Add male test users */
 Insert INTO User(UserName, Password, Birthday_Year, Birthday_Month, Birthday_Day, Gender, GenderInto)
 Values("temp0", "abcd1234", 1995, 02, 07, "M", "F");
