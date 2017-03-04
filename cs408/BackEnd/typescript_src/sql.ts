@@ -525,6 +525,21 @@ export var getLanID = function(Name, returnFunc) {
 	});
 	
 };
+/*this function with allow user to edit the users picture return 0 if works,-2 sql error
+give {UserID: id,Picture: link}
+*/
+/*need to call login first to check that password is correct if not user can just change password*/
+export function editPicture(json,res,callback){
+  con.query('Update User Set Picture = ? where UserID = ?',[json.Picture,json.UserID],function(err,row){
+    if(err){
+      callback.error(err,json,res,callback,con);  
+    }
+    else{
+      callback.success(row,json,res,callback);
+    }
+  });
+  return 0;
+}
 /* End of addUserLan saga */
 export var getUserLan = function(json, callback, res){
 	//Gets a list of all prefs for the given user
