@@ -7,14 +7,29 @@
     <title>Messages From </title>
 </head>
 <script>
-    // alert(document.cookie);
+	// alert(document.cookie);
     var testCookie = document.cookie;
     var partsOfCookie = testCookie.split(',');
     // alert(partsOfCookie[1]);
     var dummyUser = ({
-        UserID: partsOfCookie[0],
-        UserName: partsOfCookie[1]
+        UserID: 1,//partsOfCookie[0],
+        UserName: "Alex"//partsOfCookie[1]
     });
+	var contact = ({
+		UserID: 2,
+		UserName: "Steve"
+	});
+
+	$.ajax({
+		type : 'GET',
+		url: '/BackEnd/getMessages/',
+		data: {UserID1: dummyUser.UserID, UserID2: contact.UserID},
+		success: function(data,status){
+			
+		}
+	});
+	
+	
 </script>
 
 <body>
