@@ -15,7 +15,7 @@ var allClients = [];
 const port = 3000;
 const url = 'localhost'
 
-const UPDATE_MATCHES_INTERVAL: number = 30000;	//Matches will be updated after this number of milliseconds
+const UPDATE_MATCHES_INTERVAL: number = 30000000000000000000;	//Matches will be updated after this number of milliseconds
 
 var con = sqlFile.createCon();
 var app = express();
@@ -114,8 +114,9 @@ app.get("/BackEnd/getMatches/", function(req, res){
 });
 
 app.get("/BackEnd/getMessages/", function(req, res){
+	console.log(req.query);
 	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
-	sqlFile.getMessages(req.body, callback, res);
+	sqlFile.getMessages(req.query, callback, res);
 });
 
 app.post("/BackEnd/inARelationship/", function(req, res){
@@ -149,7 +150,7 @@ var server = app.listen(port, url, function() {
   // print a message when the server starts listening
   console.log("server starting on " + url + " on port " + port );
 });
-
+/*
 //Set the timer for updating matches
 onUpdateMatchesTimer();
 
@@ -163,7 +164,7 @@ function onUpdateMatchesTimer(){
 	
 	//Set this to happen again on a timer
 	setInterval(onUpdateMatchesTimer, UPDATE_MATCHES_INTERVAL);
-}
+}*/
 
 //socket io part
 //app.listen(3000);
