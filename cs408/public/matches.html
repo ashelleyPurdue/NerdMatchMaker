@@ -1,6 +1,7 @@
 <html>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 
 <head>
     <link rel="stylesheet" type="text/css" href="account_page.css">
@@ -14,48 +15,58 @@
     <div ng-app="myApp" ng-controller="myCtrl">
         {{userName + " " + mathchedUserName}}
     </div>
-
     <script>
+        // alert(document.cookie);
         var testCookie = document.cookie;
         var partsOfCookie = testCookie.split(',');
         // alert(partsOfCookie[1]);
         var dummyUser = ({
-            UserID: partsOfCookie[0],
-            UserName: partsOfCookie[1],
-            Picture: null,
-            Birthday_year: partsOfCookie[2],
-            Birthday_month: partsOfCookie[3],
-            Birthday_day: partsOfCookie[4],
-            Gender: partsOfCookie[5],
-            GenderInto: partsOfCookie[6],
-            Location: null,
-            InARelationship: false,
-            matches: partsOfCookie[8]
+            UserID: partsOfCookie[0], //partsOfCookie[0],
+            UserName: partsOfCookie[1] //partsOfCookie[1]
         });
-        var matchArray = dummyUser.matches.split(',');
-        alert("matches are " + matchArray[0]);
 
-        var app = angular.module("myApp", []);
-        app.controller("myCtrl", function($scope) {
-            $scope.userName = "UserName:";
-            $scope.mathchedUserName = dummyUser.UserName;
 
-            /*
-            $scope.myObj = {
-                "User Name": "joe",
-                "Country": "Germany",
-                "City": "Berlin"
+        $.ajax({
+            type: 'GET',
+            url: '/BackEnd/getMatches/',
+            data: {
+                UserID1: dummyUser.UserID
+            },
+            success: function(data, status) {
+                for (var i = 0; i < data.length; i++) {
+                    var newDiv = document.createElement("div");
+                    var newContent = document.createTextNode("UserName: " + data[i].UserName);
+                    newDiv.appendChild(newContent); //add the text node to the newly created div. 
+
+                    // add the newly created element and its content into the DOM 
+                    var currentDiv = document.getElementById("div1");
+                    document.body.insertBefore(newDiv, currentDiv);
+
+                }
             }
-            */
-
         });
 
-        var matchArray = getMatches(dummyUser.UserId);
-        // alert(matchArray[0]);
 
-        // call ajax to use API calls for getMatches
-        // alert(document.cookie);
+        function addElement(array) {
+            // create a new div element 
+            // and give it some content 
+
+            for (var i = 0; i < array.length; i++) {
+                var newDiv = document.createElement("div");
+                var newContent = document.createTextNode("UserName: " + array[i].UserName);
+                newDiv.appendChild(newContent); //add the text node to the newly created div. 
+
+                // add the newly created element and its content into the DOM 
+                var currentDiv = document.getElementById("div1");
+                document.body.insertBefore(newDiv, currentDiv);
+
+            }
+
+
+        }
     </script>
+
+
 
 
 
