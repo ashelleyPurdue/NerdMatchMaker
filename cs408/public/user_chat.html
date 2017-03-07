@@ -33,8 +33,8 @@
         var partsOfCookie = testCookie.split(',');
         // alert(partsOfCookie[1]);
         var dummyUser = ({
-            UserID: 2, //partsOfCookie[0],
-            UserName: "Alex" //partsOfCookie[1]
+            UserID: partsOfCookie[0],
+            UserName: partsOfCookie[1]
         });
         var contact = ({
             UserID: 1,
