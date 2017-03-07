@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="account_page.css">
     <title>Account Homepage</title>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	
+
 </head>
 
 <body>
@@ -62,50 +62,6 @@
         </script>
     </div>
 
-
-
-    <form id="getMatches">
-
-        <button type="submit">Matches</button>
-
-        <script>
-            $("#getMatches").submit(function(event) {
-
-                event.preventDefault();
-
-                var $getMatches = $(this),
-                    UserID1 = dummyUser.UserID;
-
-                var getting = $.get("/BackEnd/getMatches/", {
-                        UserID1: UserID1
-                    })
-                    // location.replace('/matches.html');
-                    // alert("going to matches");
-                getting.done(function(data) {
-                    // location.replace('/matches.html');
-                    alert(data[0].UserName);
-                    if (data[0].UserID != null) {
-                        alert("userID not null");
-                        i = 0;
-                        while (data[i] != null) {
-                            document.cookie = testCookie + "," + data[i];
-                            i++;
-                        }
-                        alert("all users added");
-                        // alert(data[i]);
-                        location.replace('/matches.html');
-                    } else if (data.Error === -2)
-                        alert("Sorry, server issues");
-                    else {
-                        alert("No Matches");
-                    }
-                });
-            });
-        </script>
-
-    </form>
-
-
     <form id="logout">
 
         <button type="submit">Logout</button>
@@ -132,6 +88,7 @@
 
     <div class="container" style="background-color:#f1f1f1">
         <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
+        <span class="newact"> <a href="/matches.html">Matches</a></span>
 
     </div>
 
