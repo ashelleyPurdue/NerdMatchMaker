@@ -12,9 +12,6 @@
 
     <h1>Matches</h1>
 
-    <div ng-app="myApp" ng-controller="myCtrl">
-        {{userName + " " + mathchedUserName}}
-    </div>
     <script>
         // alert(document.cookie);
         var testCookie = document.cookie;
@@ -45,25 +42,6 @@
                 }
             }
         });
-
-
-        function addElement(array) {
-            // create a new div element 
-            // and give it some content 
-
-            for (var i = 0; i < array.length; i++) {
-                var newDiv = document.createElement("div");
-                var newContent = document.createTextNode("UserName: " + array[i].UserName);
-                newDiv.appendChild(newContent); //add the text node to the newly created div. 
-
-                // add the newly created element and its content into the DOM 
-                var currentDiv = document.getElementById("div1");
-                document.body.insertBefore(newDiv, currentDiv);
-
-            }
-
-
-        }
     </script>
 
 
