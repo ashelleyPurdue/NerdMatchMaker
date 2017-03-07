@@ -7,7 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body>Jelious
 
     <h1>Create A New Account</h1>
 
@@ -185,14 +185,14 @@
 				 //$(document).ready(function() {
 
 				 $('#uploadForm').submit(function(event) {
-					event.preventDefault();
-					 alert("hello world");
+					alert("hello world");
+					 event.preventDefault();
 					 $.ajax({
 						type: 'POST',
 						url: '/BackEnd/file_upload',
 						data: { file: $(this).file.value},
 						success: function(response) {
-							$("#status").empty().text(response);
+							alert("Hello");
 							alert(response);  
 						 }
 					 });

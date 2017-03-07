@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 
 app.post('/BackEnd/file_upload',function(req,res){
 	var url;
+	console.log("Called upon");
 	var storage =   multer.diskStorage({
   		destination: function (req, file, callback) {
     		callback(null, '../public/Images/');
@@ -47,23 +48,6 @@ app.post('/BackEnd/file_upload',function(req,res){
     });
 });
 
-// File input field name is simply 'file'
-/*app.post('/BackEnd/file_upload', upload.single('file'), function(req, res) {
-  //var file = __dirname + '/' + req.file.filename;
-  console.log(req.body);
-	 console.log(req.file);
-  /*fs.rename(req.file.path, file, function(err) {
-    if (err) {
-      console.log(err);
-      res.send(500);
-    } else {
-      res.json({
-        message: 'File uploaded successfully',
-        filename: req.file.filename
-      });
-    }
-  });
-});*/
 app.post("/BackEnd/createUser/",function(req,res){
   console.log(req.body);
   var callback = {success:sqlFile.createAccountCallback,error:sqlFile.createAccountError};
@@ -114,7 +98,7 @@ app.get("/BackEnd/getMatches/", function(req, res){
 });
 
 app.get("/BackEnd/getMessages/", function(req, res){
-	console.log(req.query);
+	console.log("Messages" + req.query);
 	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
 	sqlFile.getMessages(req.query, callback, res);
 });
@@ -134,10 +118,6 @@ app.post("/BackEnd/addUserLanguage/", function(req, res){
 	sqlFile.addUserLan(req.body, callback, res);
 });
 
-app.post("/BackEnd/addUserLanguage/", function(req, res){
-	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
-	sqlFile.addUserLan(req.body, callback, res);
-});
 app.post("/BackEnd/editPicture/", function(req, res){
 	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
 	sqlFile.editPicture(req.body, callback, res);
@@ -211,6 +191,7 @@ socket.on('connection', function(client) {
     //allClients.push({data.UserID:client); 
    });
    client.on("send",function(data){
+	console.log("recieved message");
 	if(data.UserID != null){
 	  //TODO change to make deal with sending error and success with messages
 	  let callback = {success:sendSuccess,error:sendError,Empty:sendEmpty};

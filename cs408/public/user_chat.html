@@ -2,36 +2,12 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="user_chat.css">
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js">
+		
+	</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
     <title>Messages From </title>
 </head>
-<script>
-	// alert(document.cookie);
-    var testCookie = document.cookie;
-    var partsOfCookie = testCookie.split(',');
-    // alert(partsOfCookie[1]);
-    var dummyUser = ({
-        UserID: 1,//partsOfCookie[0],
-        UserName: "Alex"//partsOfCookie[1]
-    });
-	var contact = ({
-		UserID: 2,
-		UserName: "Steve"
-	});
-
-	$.ajax({
-		type : 'GET',
-		url: '/BackEnd/getMessages/',
-		data: {UserID1: dummyUser.UserID, UserID2: contact.UserID},
-		success: function(data,status){
-			
-		}
-	});
-	
-	
-</script>
-
 <body>
 
 	    <div>	     
@@ -50,32 +26,74 @@
             </div>
             <button id="button2" type="submit">Send</button>
     </form>
-    <script>
-        var socket = io.connect();
+	<script>
+		var string = "";
+		// alert(document.cookie);
+		var testCookie = document.cookie;
+		var partsOfCookie = testCookie.split(',');
+		// alert(partsOfCookie[1]);
+		var dummyUser = ({
+			UserID: 2,//partsOfCookie[0],
+			UserName: "Alex"//partsOfCookie[1]
+		});
+		var contact = ({
+			UserID: 1,
+			UserName: "Steve"
+		});
+		
+		var socket = io.connect();
+		socket.on('Success',function(data) {
+			var message = document.getElementById("message").value;
+			string += "<p style=\"color:FF0000\";"+" align=\"right\">" + dummyUser.UserName + ": " + message + "<br>";
+			document.getElementById("message").innerHTML = "";
+			document.getElementById("chatbox").innerHTML = string;
+		});
+		socket.on('message',function(data) {
+			string += "<p style=\"color:000000\";"+" align=\"left\">" + contact.UserName + ": " + data.Message + "<br>";
+			document.getElementById("chatbox").innerHTML = string;
+		});
+		
+		socket.emit("hello", {
+			UserID: dummyUser.UserID
+		});
 
-        $("form").submit(function(event) {
-            //$( "#button1" ).prop( "disabled", true );        
-            var user = document.getElementById("UserID").value;
-            event.preventDefault();
-            socket.emit("hello", {
-                UserID: user
-            });
-        });
+		$.ajax({
+			type : 'GET',
+			url: '/BackEnd/getMessages/',
+			data: {UserID1: dummyUser.UserID, UserID2: contact.UserID},
+			success: function(data,status){
 
-        $("#send").submit(function(event) {
-            //$( "#button2" ).prop( "disabled", true );        
-            var user = document.getElementById("UserID_chat").value;
+				for (var i = 0; i < data.length; i++) {
+					var userName;
+					var postion;
+					var color;
+					if(data[i].UserID1 == dummyUser.UserID){
+						userName = dummyUser.UserName;
+						color = "FF0000";
+						postion = "right"
+					}
+					else{
+						userName = contact.UserName;
+						color = "000000";
+						postion = "left";
+					}
+					string += "<p style=\"color:"+color+"\";"+" align=\""+postion+"\">" + userName + ": " + data[i].Message + "<br>";
+				}
+				document.getElementById("chatbox").innerHTML = string;
+			}
+		});
+		$("#send").submit(function(event) {
+            alert("hello world");
             var message = document.getElementById("message").value;
             event.preventDefault();
             socket.emit("send", {
-                UserID: user,
+                UserID: contact.UserID,
                 Message: message
             });
+			event.preventDefault();
+			return false;
         });
-        socket.on('message', function(data) {
-            alert(data.message);
-        });
-    </script>
+	</script>
 </body>
 
 </html>
