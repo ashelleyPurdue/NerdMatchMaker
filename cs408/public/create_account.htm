@@ -169,6 +169,7 @@
                 <label>
                 <input id="Link" type="url" name="Picture Url " placeholder="Add picture Url here or upload photo"/></label>
             </div>
+
     </form>
 
 
@@ -184,8 +185,8 @@
         //$(document).ready(function() {
 
         $('#uploadForm').submit(function(event) {
-            event.preventDefault();
             alert("hello world");
+            event.preventDefault();
             $.ajax({
                 type: 'POST',
                 url: '/BackEnd/file_upload',
@@ -193,13 +194,14 @@
                     file: $(this).file.value
                 },
                 success: function(response) {
-                    $("#status").empty().text(response);
+                    alert("Hello");
                     alert(response);
                 }
             });
             return false;
         });
     </script>
+    >>>>>>> origin/master
 
     <br>
 
