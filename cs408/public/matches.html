@@ -44,7 +44,6 @@
                     $temp.appendTo(document.body);
                     $temp.submit(function(event) {
 						var text = $(this).find('input[name="UserID"]').val();
-                        alert( text);
 						event.preventDefault();
              			var posting = $.post("/BackEnd/blockUser/", {
                  			UserID1: dummyUser.UserID,
