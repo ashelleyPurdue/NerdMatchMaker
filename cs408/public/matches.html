@@ -38,10 +38,9 @@
             },
             success: function(data, status) {
                 for (var i = 0; i < data.length; i++) {
-					
                     $temp = $('<form>', {});
                     $temp.append('<button><input type = "submit" value = "UserName:+' + data[i].UserName + ' "></button>');
-					$temp.append('<input type = "hidden" name = "UserID" value = '+data[i].UserID+'>');
+                    $temp.append('<input type = "hidden" name = "UserID" value = ' + data[i].UserID + '>');
                     $temp.appendTo(document.body);
                     $temp.submit(function(event) {
 						var text = $(this).find('input[name="UserID"]').val();
@@ -67,12 +66,22 @@
                         alert("blocking user " + user[0].value);
                         var blockedU = user[0].value;
                         event.preventDefault();
-                    });*/
+
+                        var $blockUser = $(this),
+                            UserID1: dummyUser.UserID,
+                            UserID2: text;
+
+                        var posting = $.post("/BackEnd/blockUser/", {
+                            UserID1: UserID1,
+                            UserID2: UserID2
+                        });
+
+                        posting.done(function(data) {
+                            alert("blocked");
+                        });
 
 
-
-
-
+                    });
 
                 }
                 // document.body.removeChild(blockForm);
@@ -86,14 +95,14 @@
             var blockedU = user[0].value;
             event.preventDefault();
 
-            // var $blockUser = $(this),
-            //     UserID1: dummyUser.UserID,
-            //     UserID2: blockedU;
+            var $blockUser = $(this),
+                UserID1: dummyUser.UserID,
+                UserID2: blockedU;
 
-            // var posting = $.post("/BackEnd/blockUser/", {
-            //     UserID1: UserID1,
-            //     UserID2: UserID2
-            // });
+            var posting = $.post("/BackEnd/blockUser/", {
+                UserID1: UserID1,
+                UserID2: UserID2
+            });
 
             posting.done(function(data) {
                 alert("blocked");
