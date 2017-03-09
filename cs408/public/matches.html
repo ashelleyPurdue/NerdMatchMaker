@@ -4,13 +4,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="account_page.css">
+    <link rel="stylesheet" type="text/css" href="matches.css">
     <title>Matches</title>
 </head>
 
 <body>
 
     <h1>Matches</h1>
+
+    <!--<div id="block">
+        <form id="blockUserDiv" name="block">
+
+
+        </form>
+    </div>-->
 
     <script>
         // alert(document.cookie);
@@ -30,17 +37,84 @@
                 UserID1: dummyUser.UserID
             },
             success: function(data, status) {
-                for (var i = 0; i < data.length; i++) {
-                    var newDiv = document.createElement("div");
-                    var newContent = document.createTextNode("UserName: " + data[i].UserName);
-                    newDiv.appendChild(newContent); //add the text node to the newly created div. 
 
-                    // add the newly created element and its content into the DOM 
-                    var currentDiv = document.getElementById("div1");
+                for (var i = 0; i < data.length; i++) {
+                    //var newDiv = document.createElement("div");
+                    // var formDiv = document.createElement("form");
+                    // formDiv.id = "blockUserDiv" + i;
+                    // // var blockForm = document.createElement("form");
+                    // // blockForm.id = "blockUser";
+                    // // newDiv.getElementsByTagName("button")[0];
+                    // var newContent = document.createTextNode("UserName: " + data[i].UserName + " " + data[i].UserID);
+                    // var messageButton = document.createElement("button");
+                    // var blockButton = document.createElement("button");
+                    // blockButton.type = "submit";
+                    // blockButton.name = "blockedUser";
+                    // // blockButton.tagName = "blockedUser";
+                    // // blockButton.id = "blockedUser";
+                    // blockButton.value = data[i].UserID;
+                    // messageButton.innerHTML = "Message";
+                    // blockButton.innerHTML = "Block " + data[i].UserName;
+                    // newDiv.appendChild(newContent); //add the text node to the newly created div. 
+                    // newDiv.appendChild(messageButton);
+                    // formDiv.appendChild(blockButton); // add the button into each users match
+
+                    // // add the newly created element and its content into the DOM 
+                    //var currentDiv = document.getElementById("divUser");
+                    //document.body.insertBefore(newDiv, currentDiv);
+                    // document.body.insertBefore(formDiv, currentDiv);
+                    //$form = $('<form></form>');
+                    //$form.append('<input type = "submit" value = "button">');
+                    $temp = $('<form onsubmit="return block();">', {});
+                    $temp.append('<button><input type = "submit" value = "UserName:+' + data[i].UserName + ' "></button>');
+                    $temp.appendTo(document.body);
+                    $temp.submit(function(event) {
+                        alert(data[i].UserName);
+                    });
+
+
+                    /*$("#divUser").append("<h1>" + data[i].UserID +"</h1>");
+
+                    var currentDiv = document.getElementById("divUser");
                     document.body.insertBefore(newDiv, currentDiv);
 
+                    $form.submit(function(event) {
+                        alert("called");
+                        var user = document.getElementsByName("blockedUser");
+                        alert("blocking user " + user[0].value);
+                        var blockedU = user[0].value;
+                        event.preventDefault();
+                    });*/
+
+
+
+
+
+
                 }
+                // document.body.removeChild(blockForm);
             }
+        });
+
+        $('#blockUserDiv0').submit(function(event) {
+            alert("called");
+            var user = document.getElementsByName("blockedUser");
+            alert("blocking user " + user[0].value);
+            var blockedU = user[0].value;
+            event.preventDefault();
+
+            // var $blockUser = $(this),
+            //     UserID1: dummyUser.UserID,
+            //     UserID2: blockedU;
+
+            // var posting = $.post("/BackEnd/blockUser/", {
+            //     UserID1: UserID1,
+            //     UserID2: UserID2
+            // });
+
+            posting.done(function(data) {
+                alert("blocked");
+            });
         });
     </script>
 
@@ -49,12 +123,14 @@
 
 
 
-    <div class="container" style="background-color:#f1f1f1">
-        <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
-    </div>
 
 
+    <!--
 </body>
+
+<div class="container" style="background-color:#f1f1f1">
+    <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
+</div>-->
 
 
 
