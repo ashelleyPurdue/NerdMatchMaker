@@ -46,7 +46,6 @@
 						var text = $(this).find('input[name="UserID"]').val();
                         alert( text);
 						event.preventDefault();
-						console.log(dummyUser.UserID+","+text);
              			var posting = $.post("/BackEnd/blockUser/", {
                  			UserID1: dummyUser.UserID,
                  			UserID2: text
