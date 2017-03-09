@@ -171,40 +171,6 @@
             </div>
     	</form>
 
-            
-			<form id="uploadForm"
-         		enctype="multipart/form-data">
-      			<input type="file" name="userPhoto" id = "file"/>
-      			<input type="submit" value="Upload Image" name="upload"> 
-      		<span id = "status"></span> 
-    		</form>
-             <!--<input type='file' onchange="readURL(this);" />
-             <img id="profilePicture" src="#"/> --> 
-
-            <script>
-				 $('#uploadForm').submit(function(event) {
-					alert("hello world");
-					event.preventDefault();
-					var data = new FormData();
-					var fileInput = document.getElementById('file');
-  					var file = fileInput.files[0];
-    				data.append( 'file', file )
-					
-					$.ajax({
-						type: 'POST',
-						url: '/BackEnd/file_upload',
-						data: data,
-						processData: false,
-    					contentType: false,
-						success: function(response) {
-							alert("Hello");
-							alert(response);  
-						}
-					 });
-					 return false;
-				 });
-            </script>   
-
             <br>
 
             </br>

@@ -1,88 +1,90 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="user_chat.css">
+    <link rel="stylesheet" type="text/css" href="user_chat.css">
     <script src="/socket.io/socket.io.js">
-		
-	</script>
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
     <title>Messages From </title>
 </head>
+
 <body>
 
-	    <div>	     
-	       <label>Chatroom</label> 
-	        <br>
-	        </br>
-	        <div id="chatbox"></div>
-	        <script>
-	            // filled matchedUser with UserName of who messages are being sent to
-	            // document.getElementById("UserName").innerHTML = dummyUser.UserName;
-	        </script>
-	    </div>
+    <div>
+        <label>Chatroom</label>
+        <br>
+        </br>
+        <div id="chatbox"></div>
+        <script>
+            // filled matchedUser with UserName of who messages are being sent to
+            // document.getElementById("UserName").innerHTML = dummyUser.UserName;
+        </script>
+    </div>
     <form id="send">
-    	<div>
-         	<input id="message" type="text" placeholder="Enter message" name="messageBox" required>
-            </div>
-            <button id="button2" type="submit">Send</button>
+        <div>
+            <input id="message" type="text" placeholder="Enter message" name="messageBox" required>
+        </div>
+        <button id="button2" type="submit">Send</button>
     </form>
-	<script>
-		var string = "";
-		// alert(document.cookie);
-		var testCookie = document.cookie;
-		var partsOfCookie = testCookie.split(',');
-		// alert(partsOfCookie[1]);
-		var dummyUser = ({
-			UserID: 2,//partsOfCookie[0],
-			UserName: "Alex"//partsOfCookie[1]
-		});
-		var contact = ({
-			UserID: 1,
-			UserName: "Steve"
-		});
-		
-		var socket = io.connect();
-		socket.on('Success',function(data) {
-			var message = document.getElementById("message").value;
-			string += "<p style=\"color:FF0000\";"+" align=\"right\">" + dummyUser.UserName + ": " + message + "<br>";
-			document.getElementById("message").innerHTML = "";
-			document.getElementById("chatbox").innerHTML = string;
-		});
-		socket.on('message',function(data) {
-			string += "<p style=\"color:000000\";"+" align=\"left\">" + contact.UserName + ": " + data.Message + "<br>";
-			document.getElementById("chatbox").innerHTML = string;
-		});
-		
-		socket.emit("hello", {
-			UserID: dummyUser.UserID
-		});
+    <script>
+        var string = "";
+        // alert(document.cookie);
+        var testCookie = document.cookie;
+        var partsOfCookie = testCookie.split(',');
+        // alert(partsOfCookie[1]);
+        var dummyUser = ({
+            UserID: partsOfCookie[0],
+            UserName: partsOfCookie[1]
+        });
+        var contact = ({
+            UserID: 1,
+            UserName: "Steve"
+        });
 
-		$.ajax({
-			type : 'GET',
-			url: '/BackEnd/getMessages/',
-			data: {UserID1: dummyUser.UserID, UserID2: contact.UserID},
-			success: function(data,status){
+        var socket = io.connect();
+        socket.on('Success', function(data) {
+            var message = document.getElementById("message").value;
+            string += "<p style=\"color:FF0000\";" + " align=\"right\">" + dummyUser.UserName + ": " + message + "<br>";
+            document.getElementById("message").innerHTML = "";
+            document.getElementById("chatbox").innerHTML = string;
+        });
+        socket.on('message', function(data) {
+            string += "<p style=\"color:000000\";" + " align=\"left\">" + contact.UserName + ": " + data.Message + "<br>";
+            document.getElementById("chatbox").innerHTML = string;
+        });
 
-				for (var i = 0; i < data.length; i++) {
-					var userName;
-					var postion;
-					var color;
-					if(data[i].UserID1 == dummyUser.UserID){
-						userName = dummyUser.UserName;
-						color = "FF0000";
-						postion = "right"
-					}
-					else{
-						userName = contact.UserName;
-						color = "000000";
-						postion = "left";
-					}
-					string += "<p style=\"color:"+color+"\";"+" align=\""+postion+"\">" + userName + ": " + data[i].Message + "<br>";
-				}
-				document.getElementById("chatbox").innerHTML = string;
-			}
-		});
-		$("#send").submit(function(event) {
+        socket.emit("hello", {
+            UserID: dummyUser.UserID
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/BackEnd/getMessages/',
+            data: {
+                UserID1: dummyUser.UserID,
+                UserID2: contact.UserID
+            },
+            success: function(data, status) {
+
+                for (var i = 0; i < data.length; i++) {
+                    var userName;
+                    var postion;
+                    var color;
+                    if (data[i].UserID1 == dummyUser.UserID) {
+                        userName = dummyUser.UserName;
+                        color = "FF0000";
+                        postion = "right"
+                    } else {
+                        userName = contact.UserName;
+                        color = "000000";
+                        postion = "left";
+                    }
+                    string += "<p style=\"color:" + color + "\";" + " align=\"" + postion + "\">" + userName + ": " + data[i].Message + "<br>";
+                }
+                document.getElementById("chatbox").innerHTML = string;
+            }
+        });
+        $("#send").submit(function(event) {
             alert("hello world");
             var message = document.getElementById("message").value;
             event.preventDefault();
@@ -90,10 +92,10 @@
                 UserID: contact.UserID,
                 Message: message
             });
-			event.preventDefault();
-			return false;
+            event.preventDefault();
+            return false;
         });
-	</script>
+    </script>
 </body>
 
 </html>
