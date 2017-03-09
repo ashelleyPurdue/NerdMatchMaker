@@ -65,6 +65,7 @@
                     // document.body.insertBefore(formDiv, currentDiv);
                     //$form = $('<form></form>');
                     //$form.append('<input type = "submit" value = "button">');
+
                     $temp = $('<form onsubmit="return block();">', {});
                     $temp.append('<button><input type = "submit" value = "UserName:+' + data[i].UserName + ' "></button>');
                     $temp.appendTo(document.body);
