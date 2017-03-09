@@ -11,4 +11,7 @@ npm install socket.io
 npm install hashtable --python=2.7
 npm install socket.io-client
 npm install --save multer
+npm install xml2js
+npm install --save form-data
+npm install multiparty
 echo "NPM packages updated."

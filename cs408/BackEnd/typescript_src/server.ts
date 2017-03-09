@@ -6,7 +6,9 @@ import express = require('express');
 import bodyParser =  require("body-parser");
 import sqlFile = require("./sql");
 import io = require('socket.io');
-import multer  = require('multer')
+import multer  = require('multer');
+import xml2js = require('xml2js');
+import FormData = require('form-data');
 //import HashTable = require('hashtable');
 //needs to contain {socket:,userID:} turn into a hash table with id being the key
 //var allClients = new HashTable();
@@ -23,10 +25,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //handles uploading an image
 
+function get_type(thing){
+    if(thing===null)return "[object Null]"; // special case
+    return Object.prototype.toString.call(thing);
+}
 
 app.post('/BackEnd/file_upload',function(req,res){
 	var url;
-	console.log("Called upon");
+	/*console.log("file upload called" + req.forms +","+req.body+","+req+","+req.file+","+req);
 	var storage =   multer.diskStorage({
   		destination: function (req, file, callback) {
     		callback(null, '../public/Images/');
@@ -43,9 +49,9 @@ app.post('/BackEnd/file_upload',function(req,res){
             return res.end("Error uploading file.");
         }
 		url = "Images/"+url;
-		console.log("Images/"+url);
+		console.log(url);
         res.end(url);
-    });
+    });*/
 });
 
 app.post("/BackEnd/createUser/",function(req,res){
