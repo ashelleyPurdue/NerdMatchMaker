@@ -37,7 +37,6 @@
                 UserID1: dummyUser.UserID
             },
             success: function(data, status) {
-
                 for (var i = 0; i < data.length; i++) {
                     //var newDiv = document.createElement("div");
                     // var formDiv = document.createElement("form");
@@ -65,12 +64,16 @@
                     // document.body.insertBefore(formDiv, currentDiv);
                     //$form = $('<form></form>');
                     //$form.append('<input type = "submit" value = "button">');
-
-                    $temp = $('<form onsubmit="return block();">', {});
+					
+                    $temp = $('<form>', {});
                     $temp.append('<button><input type = "submit" value = "UserName:+' + data[i].UserName + ' "></button>');
+					$temp.append('<input type = "hidden" name = "UserID" value = '+data[i].UserID+'>');
                     $temp.appendTo(document.body);
                     $temp.submit(function(event) {
-                        alert(data[i].UserName);
+						var text = $(this).find('input[name="UserID"]').val();
+                        alert( text);
+						event.preventDefault();
+						return false;
                     });
 
 
@@ -97,7 +100,7 @@
             }
         });
 
-        $('#blockUserDiv0').submit(function(event) {
+        /*$('#blockUserDiv0').submit(function(event) {
             alert("called");
             var user = document.getElementsByName("blockedUser");
             alert("blocking user " + user[0].value);
@@ -116,7 +119,7 @@
             posting.done(function(data) {
                 alert("blocked");
             });
-        });
+        });*/
     </script>
 
 
