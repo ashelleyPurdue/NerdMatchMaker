@@ -38,32 +38,6 @@
             },
             success: function(data, status) {
                 for (var i = 0; i < data.length; i++) {
-                    //var newDiv = document.createElement("div");
-                    // var formDiv = document.createElement("form");
-                    // formDiv.id = "blockUserDiv" + i;
-                    // // var blockForm = document.createElement("form");
-                    // // blockForm.id = "blockUser";
-                    // // newDiv.getElementsByTagName("button")[0];
-                    // var newContent = document.createTextNode("UserName: " + data[i].UserName + " " + data[i].UserID);
-                    // var messageButton = document.createElement("button");
-                    // var blockButton = document.createElement("button");
-                    // blockButton.type = "submit";
-                    // blockButton.name = "blockedUser";
-                    // // blockButton.tagName = "blockedUser";
-                    // // blockButton.id = "blockedUser";
-                    // blockButton.value = data[i].UserID;
-                    // messageButton.innerHTML = "Message";
-                    // blockButton.innerHTML = "Block " + data[i].UserName;
-                    // newDiv.appendChild(newContent); //add the text node to the newly created div. 
-                    // newDiv.appendChild(messageButton);
-                    // formDiv.appendChild(blockButton); // add the button into each users match
-
-                    // // add the newly created element and its content into the DOM 
-                    //var currentDiv = document.getElementById("divUser");
-                    //document.body.insertBefore(newDiv, currentDiv);
-                    // document.body.insertBefore(formDiv, currentDiv);
-                    //$form = $('<form></form>');
-                    //$form.append('<input type = "submit" value = "button">');
 					
                     $temp = $('<form>', {});
                     $temp.append('<button><input type = "submit" value = "UserName:+' + data[i].UserName + ' "></button>');
@@ -73,6 +47,11 @@
 						var text = $(this).find('input[name="UserID"]').val();
                         alert( text);
 						event.preventDefault();
+						console.log(dummyUser.UserID+","+text);
+             			var posting = $.post("/BackEnd/blockUser/", {
+                 			UserID1: dummyUser.UserID,
+                 			UserID2: text
+             			});
 						return false;
                     });
 
