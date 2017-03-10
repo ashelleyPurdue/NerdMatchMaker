@@ -95,7 +95,7 @@
         </div>
     </form>
 
-    <form" id="picChanger">
+    <form id="picChanger">
 
         <h1>Change Profile Picture
             <h1>
@@ -105,7 +105,7 @@
                 </label>
 
                 <script>
-                    $("picChanger").submit(function(event) {
+                    $("#picChanger").submit(function(event) {
                         var dCookie = document.cookie;
                         var id1 = JSON.stringify(dCookie.split(',', 1));
                         var id2 = id1.substring(2, id1.length - 2);

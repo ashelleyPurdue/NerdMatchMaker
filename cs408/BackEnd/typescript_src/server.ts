@@ -125,6 +125,7 @@ app.post("/BackEnd/addUserLanguage/", function(req, res){
 });
 
 app.post("/BackEnd/editPicture/", function(req, res){
+	console.log(req.body);
 	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
 	sqlFile.editPicture(req.body, callback, res);
 });

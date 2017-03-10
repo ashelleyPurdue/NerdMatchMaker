@@ -516,7 +516,7 @@ export var getLanID = function(Name, returnFunc) {
 give {UserID: id,Picture: link}
 */
 /*need to call login first to check that password is correct if not user can just change password*/
-export function editPicture(json,res,callback){
+export function editPicture(json,callback,res){
   con.query('Update User Set Picture = ? where UserID = ?',[json.Picture,json.UserID],function(err,row){
     if(err){
       callback.error(err,json,res,callback,con);  
