@@ -1,8 +1,9 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="user_chat.css">
-    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" type="text/css" href="user_chat.css">
+    <script src="/socket.io/socket.io.js">
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
     <title>Messages From </title>
 </head>
@@ -38,46 +39,114 @@
 
 <body>
 
-	    <div>	     
-	       <label>Chatroom</label> 
-	        <br>
-	        </br>
-	        <div id="chatbox"></div>
-	        <script>
-	            // filled matchedUser with UserName of who messages are being sent to
-	            // document.getElementById("UserName").innerHTML = dummyUser.UserName;
-	        </script>
-	    </div>
+    <div>
+        <label>Chatroom</label>
+        <br>
+        </br>
+        <div id="chatbox"></div>
+        <script>
+            // filled matchedUser with UserName of who messages are being sent to
+            // document.getElementById("UserName").innerHTML = dummyUser.UserName;
+        </script>
+    </div>
     <form id="send">
-    	<div>
-         	<input id="message" type="text" placeholder="Enter message" name="messageBox" required>
-            </div>
-            <button id="button2" type="submit">Send</button>
+        <div>
+            <input id="message" type="text" placeholder="Enter message" name="messageBox" required>
+        </div>
+        <button id="button2" type="submit">Send</button>
     </form>
     <script>
+		var query = document.URL;
+		query = query.substring(query.indexOf("?")+1,query.length);
+		//expects two and only values
+		var query1 = query.substring(0,query.indexOf("&"));
+		var query2 = query.substring(query.indexOf("&")+1,query.length);
+		var query1Name = query1.substring(0,query.indexOf("="));
+		if(query1Name === "UserID"){
+			//gets the id of the user
+			query1 = query1.substring(query.indexOf("=")+1,query.length);
+		}
+		else{
+			alert("error in url, try going back one page and retry action");
+			throw new Error("Something went badly wrong!");
+		}
+		var query2Name = query2.substring(0,query2.indexOf("="));
+		if(query2Name === "UserName"){
+			//gets the id of the user
+			query2 = query2.substring(query2.indexOf("=")+1,query2.length);
+		}
+		else{
+			alert("error in url, try going back one page and retry action");
+			throw new Error("Something went badly wrong!");
+		}
+        var string = "";
+        // alert(document.cookie);
+        var testCookie = document.cookie;
+        var partsOfCookie = testCookie.split(',');
+        // alert(partsOfCookie[1]);
+        var dummyUser = ({
+            UserID: partsOfCookie[0],
+            UserName: partsOfCookie[1]
+        });
+        var contact = ({
+            UserID: parseInt(query1),
+            UserName: query2
+        });
+		alert(contact.UserID);
+		alert(contact.UserName);
         var socket = io.connect();
-
-        $("form").submit(function(event) {
-            //$( "#button1" ).prop( "disabled", true );        
-            var user = document.getElementById("UserID").value;
-            event.preventDefault();
-            socket.emit("hello", {
-                UserID: user
-            });
+        socket.on('Success', function(data) {
+            var message = document.getElementById("message").value;
+            string += "<p style=\"color:FF0000\";" + " align=\"right\">" + dummyUser.UserName + ": " + message + "<br>";
+            document.getElementById("message").innerHTML = "";
+            document.getElementById("chatbox").innerHTML = string;
+        });
+        socket.on('message', function(data) {
+            string += "<p style=\"color:000000\";" + " align=\"left\">" + contact.UserName + ": " + data.Message + "<br>";
+            document.getElementById("chatbox").innerHTML = string;
         });
 
+        socket.emit("hello", {
+            UserID: dummyUser.UserID
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/BackEnd/getMessages/',
+            data: {
+                UserID1: dummyUser.UserID,
+                UserID2: contact.UserID
+            },
+            success: function(data, status) {
+
+                for (var i = 0; i < data.length; i++) {
+                    var userName;
+                    var postion;
+                    var color;
+                    if (data[i].UserID1 == dummyUser.UserID) {
+                        userName = dummyUser.UserName;
+                        color = "FF0000";
+                        postion = "right"
+                    } else {
+                        userName = contact.UserName;
+                        color = "000000";
+                        postion = "left";
+                    }
+                    string += "<p style=\"color:" + color + "\";" + " align=\"" + postion + "\">" + userName + ": " + data[i].Message + "<br>";
+                }
+                document.getElementById("chatbox").innerHTML = string;
+            }
+        });
         $("#send").submit(function(event) {
-            //$( "#button2" ).prop( "disabled", true );        
-            var user = document.getElementById("UserID_chat").value;
+            alert("hello world");
             var message = document.getElementById("message").value;
             event.preventDefault();
             socket.emit("send", {
-                UserID: user,
+                UserID: contact.UserID,
                 Message: message
             });
-        });
-        socket.on('message', function(data) {
-            alert(data.message);
+            event.preventDefault();
+            return false;
         });
     </script>
 </body>

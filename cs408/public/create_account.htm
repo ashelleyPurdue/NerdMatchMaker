@@ -7,7 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body>Jelious
 
     <h1>Create A New Account</h1>
 
@@ -79,7 +79,7 @@
                         Gender: Gender,
                         GenderInto: GenderInto,
                         minAge: minAge,
-                        maxAge: maxAge
+                        maxAge: maxAge,
                     });
                     alert("posted to server");
 
@@ -170,35 +170,6 @@
                 <input id="Link" type="url" name="Picture Url " placeholder="Add picture Url here or upload photo"/></label>
             </div>
     	</form>
-
-            
-			<form id="uploadForm"
-         		enctype="multipart/form-data">
-      			<input type="file" name="userPhoto" />
-      			<input type="submit" value="Upload Image" name="upload"> 
-      		<span id = "status"></span> 
-    		</form>
-             <!--<input type='file' onchange="readURL(this);" />
-             <img id="profilePicture" src="#"/> --> 
-
-            <script>
-				 //$(document).ready(function() {
-
-				 $('#uploadForm').submit(function(event) {
-					event.preventDefault();
-					 alert("hello world");
-					 $.ajax({
-						type: 'POST',
-						url: '/BackEnd/file_upload',
-						data: { file: $(this).file.value},
-						success: function(response) {
-							$("#status").empty().text(response);
-							alert(response);  
-						 }
-					 });
-					 return false;
-				 });
-            </script>   
 
             <br>
 

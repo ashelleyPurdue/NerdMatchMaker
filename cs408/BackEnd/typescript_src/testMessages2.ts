@@ -5,7 +5,6 @@ import fs = require('fs');
 import express = require('express');
 import bodyParser =  require("body-parser");
 import io = require('socket.io-client');
-import HashTable = require('hashtable');
 var socket = io.connect('http://localhost:3000', {reconnect: true});
 socket.on("success",function(data){
 		console.log("success");
