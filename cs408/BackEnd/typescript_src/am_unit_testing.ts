@@ -305,7 +305,100 @@ var getPrefTest = function(){
   let callback = {error: genericErrorTest, success: getPrefsSuccess , main: testAll};
   sqlFile.getPrefs(null,callback,null);
 }
-//end test case for getting matches
+var getMessagesTest = function(){
+    let callback = {error: genericErrorTest, success: getMessagesSuccess , main: testAll};
+    sqlFile.getMessages({UserID1:2,UserID2:1},callback,null);    
+}
+var getMessagesSuccess = function(rows, json, res, callback){
+    console.log(rows);
+	if(rows.length != 3){
+        success = false;
+        error = "wrong length of rows in getting messages"
+    }
+    else if(rows[0].Message == null || rows[0].Message !== "Hello"){
+        success = false; 
+        error = "Did not get right message for row 0"
+    }
+    else if(rows[1].Message == null || rows[1].Message !== "World"){
+        success = false; 
+        error = "Did not get right message for row 1"
+    }
+    else if(rows[2].Message == null || rows[2].Message !== "GoodBye"){
+        success = false; 
+        error = "Did not get right message for row 1"
+    }
+    else{
+        success = true;   
+    }
+    callback.main();
+}
+var getMessagesTest2 = function(){
+    let callback = {error: genericErrorTest, success: getMessagesSuccess , main: testAll};
+    sqlFile.getMessages({UserID1:1,UserID2:2},callback,null);    
+}
+var getMessagesTest3 = function(){
+    let callback = {error: genericErrorTest, success: getMessagesSuccess2 , main: testAll};
+    sqlFile.getMessages({UserID1:2,UserID2:4},callback,null);    
+}
+var getMessagesSuccess2 = function(rows, json, res, callback){
+    console.log("2nd Success Message"  +rows);
+	if(rows.length != 1){
+        success = false;
+        error = "wrong length of rows in getting messages"
+    }
+    else if(rows[0].Message == null || rows[0].Message !== "I will miss you"){
+        error = "Did not get right message for row 0"
+    }
+    else{
+        success = true;   
+    }
+    callback.main();
+}
+//end checking for messages
+//check for adding Messages
+var addMessageTest = function(){
+	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll,Empty:emptyAddMessage};
+    sqlFile.insertMessage({UserID1:3,UserID2:1,Message:"I will see you soon"},callback,null);	
+}
+var addMessageTest2 = function(){
+	let callback = {error: genericErrorTest, success: successFailureTest , main: testAll,Empty:emptyTest};
+    sqlFile.insertMessage({UserID1:9,UserID2:1,Message:"I will see you soon"},callback,null);	
+}
+var emptyAddMessage = function(res,callback){
+	success = false;
+	error = "should allowed those two to talk"
+	callback.main();
+}
+var addMessageTest3 = function(){
+	let callback = {error: genericErrorTest, success: successFailureTest , main: testAll,Empty:emptyTest};
+    sqlFile.insertMessage({UserID1:9,UserID2:8,Message:"I will see you soon"},callback,null);	
+}
+var successFailureTest = function(rows, json, res, callback){
+	success = false;
+	error = "Should not allowed to contact someone of that is not matched or blocked";
+}
+//Called if a success in creating an account
+var emptyTest = function (res, callback) {
+    success = true;
+    callback.main();
+};
+var getMessagesTest4 = function(){
+    let callback = {error: genericErrorTest, success: getMessagesSuccess4 , main: testAll};
+    sqlFile.getMessages({UserID1:1,UserID2:3},callback,null);    
+}
+var getMessagesSuccess4 = function(rows, json, res, callback){
+    if(rows.length != 1){
+        success = false;
+        error = "wrong length of rows in getting messages"
+    }
+    else if(rows[0].Message == null || rows[0].Message !== "I will see you soon"){
+        error = "Did not get right message for row 0"
+    }
+    else{
+        success = true;   
+    }
+    callback.main();
+}
 var getMatchesTest = function(){
   let callback = {error: genericErrorTest, success:getMatchesSuccess1  , main: testAll};
   sqlFile.getMatches({UserID1:1},callback,null);
@@ -384,98 +477,7 @@ var getMatchesSuccess3 = function(rows, json, res, callback){
     callback.main();
 }
 //end test cases for getting matches
-var getMessagesTest = function(){
-    let callback = {error: genericErrorTest, success: getMessagesSuccess , main: testAll};
-    sqlFile.getMessages({UserID1:2,UserID2:1},callback,null);    
-}
-var getMessagesSuccess = function(rows, json, res, callback){
-    if(rows.length != 3){
-        success = false;
-        error = "wrong length of rows in getting messages"
-    }
-    else if(rows[0].Message == null || rows[0].Message !== "Hello"){
-        success = false; 
-        error = "Did not get right message for row 0"
-    }
-    else if(rows[1].Message == null || rows[1].Message !== "World"){
-        success = false; 
-        error = "Did not get right message for row 1"
-    }
-    else if(rows[2].Message == null || rows[2].Message !== "GoodBye"){
-        success = false; 
-        error = "Did not get right message for row 1"
-    }
-    else{
-        success = true;   
-    }
-    callback.main();
-}
-var getMessagesTest2 = function(){
-    let callback = {error: genericErrorTest, success: getMessagesSuccess , main: testAll};
-    sqlFile.getMessages({UserID1:1,UserID2:2},callback,null);    
-}
-var getMessagesTest3 = function(){
-    let callback = {error: genericErrorTest, success: getMessagesSuccess2 , main: testAll};
-    sqlFile.getMessages({UserID1:2,UserID2:3},callback,null);    
-}
-var getMessagesSuccess2 = function(rows, json, res, callback){
-    if(rows.length != 1){
-        success = false;
-        error = "wrong length of rows in getting messages"
-    }
-    else if(rows[0].Message == null || rows[0].Message !== "I will miss you"){
-        error = "Did not get right message for row 0"
-    }
-    else{
-        success = true;   
-    }
-    callback.main();
-}
-//end checking for messages
-//check for adding Messages
-var addMessageTest = function(){
-	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll,Empty:emptyAddMessage};
-    sqlFile.insertMessage({UserID1:3,UserID2:1,Message:"I will see you soon"},callback,null);	
-}
-var addMessageTest2 = function(){
-	let callback = {error: genericErrorTest, success: successFailureTest , main: testAll,Empty:emptyTest};
-    sqlFile.insertMessage({UserID1:9,UserID2:1,Message:"I will see you soon"},callback,null);	
-}
-var emptyAddMessage = function(res,callback){
-	success = false;
-	error = "should allowed those two to talk"
-	callback.main();
-}
-var addMessageTest3 = function(){
-	let callback = {error: genericErrorTest, success: successFailureTest , main: testAll,Empty:emptyTest};
-    sqlFile.insertMessage({UserID1:9,UserID2:8,Message:"I will see you soon"},callback,null);	
-}
-var successFailureTest = function(rows, json, res, callback){
-	success = false;
-	error = "Should not allowed to contact someone of that is not matched or blocked";
-}
-//Called if a success in creating an account
-var emptyTest = function (res, callback) {
-    success = true;
-    callback.main();
-};
-var getMessagesTest4 = function(){
-    let callback = {error: genericErrorTest, success: getMessagesSuccess4 , main: testAll};
-    sqlFile.getMessages({UserID1:1,UserID2:3},callback,null);    
-}
-var getMessagesSuccess4 = function(rows, json, res, callback){
-    if(rows.length != 1){
-        success = false;
-        error = "wrong length of rows in getting messages"
-    }
-    else if(rows[0].Message == null || rows[0].Message !== "I will see you soon"){
-        error = "Did not get right message for row 0"
-    }
-    else{
-        success = true;   
-    }
-    callback.main();
-}
+
 //end test messages
 var testAddMinAge = function(){
 	let callback = {error: genericErrorTest, success: genericSuccessTest , main: testAll};
@@ -596,14 +598,14 @@ allTests.push({fun: getUserPrefTest5, check: notSuccess});
 allTests.push({fun: getPrefTest, check: successGetPrefs});
 
 //check for getmatches works right
+allTests.push({fun:getMessagesTest,check:isSuccess});
+allTests.push({fun:getMessagesTest2,check:isSuccess});
+allTests.push({fun:getMessagesTest3,check:isSuccess});
 allTests.push({fun:getMatchesTest,check:isSuccess});
 allTests.push({fun:getMatchesTest2,check:isSuccess});
 allTests.push({fun:setBlocksTest,check:isSuccess});
 allTests.push({fun:setBlocksTest2,check:isSuccess});
 allTests.push({fun:getMatchesTest3,check:isSuccess});
-allTests.push({fun:getMessagesTest,check:isSuccess});
-allTests.push({fun:getMessagesTest2,check:isSuccess});
-allTests.push({fun:getMessagesTest3,check:isSuccess});
 allTests.push({fun:addMessageTest,check:isSuccess});
 allTests.push({fun:addMessageTest2,check:isSuccess});
 allTests.push({fun:addMessageTest3,check:isSuccess});

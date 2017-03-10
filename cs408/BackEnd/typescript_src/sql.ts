@@ -323,7 +323,7 @@ export var insertMessage = function(json,callback,res){
 };
 
 export var getMessages = function(json,callback,res){
-	con.query("Select * from Messages where (UserID1 = ? AND UserID2 = ?) OR (UserID1 = ? AND UserID2 = ?) order by MessageID",[json.UserID1,json.UserID2,json.UserID2,json.UserID1],function(err,rows){
+	con.query("Select * from Messages as me Join Matches as m on (m.UserID1 = ? AND m.UserID2 = ?) OR (m.UserID1 = ? AND m.UserID2 = ?) where ((me.UserID1 = ? AND me.UserID2 = ?) OR (me.UserID1 = ? AND me.UserID2 = ?)) AND m.IsBlocked = 0 order by MessageID",[json.UserID1,json.UserID2,json.UserID2,json.UserID1,json.UserID1,json.UserID2,json.UserID2,json.UserID1],function(err,rows){
     	if (err) {
             callback.error(err, json, res, callback, con);
         } else {
