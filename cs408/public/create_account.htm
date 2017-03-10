@@ -67,7 +67,8 @@
                         Gender,
                         GenderInto,
                         minAge = document.getElementById("minAge").value,
-                        maxAge = document.getElementById("maxAge").value;
+                        maxAge = document.getElementById("maxAge").value,
+                        Picture = document.getElementById("Link").value;
 
                     var posting = $.post("/BackEnd/createUser/", {
                         UserName: UserName,
@@ -80,6 +81,7 @@
                         GenderInto: GenderInto,
                         minAge: minAge,
                         maxAge: maxAge,
+                        Picture: Picture
                     });
                     alert("posted to server");
 
@@ -167,7 +169,7 @@
 			<label><b>Add a profile picture (Optional)</b></label>
 			<div>
                 <label>
-                <input id="Link" type="url" name="Picture Url " placeholder="Add picture Url here or upload photo"/></label>
+                <input id="Link" type="text" name="Picture Url " placeholder="Add picture URL here"/></label>
             </div>
     	</form>
 
