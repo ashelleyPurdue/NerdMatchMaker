@@ -7,7 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
-<body>Jelious
+<body>
 
     <h1>Create A New Account</h1>
 
@@ -38,8 +38,7 @@
                     return ok;
                 }
 
-                $("createUser").submit(function(event) {
-					console.log("called");
+                $("#createUser").submit(function(event) {
                     event.preventDefault();
 
                     if (document.getElementById('Gender0').checked) {
@@ -100,6 +99,7 @@
                                 alert("Sorry, server issues");
                         }
                     });
+					return false;
                 });
             </script>
 
@@ -148,7 +148,7 @@
 
             </br>
 
-            <label><b>Age Range Interested In</b></label>
+            <label><b>Age Range Interested In (Optional)</b></label>
 
             <div>
                 <label>
