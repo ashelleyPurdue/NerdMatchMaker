@@ -2,7 +2,7 @@ Create Table User(
 	UserID int Primary Key AUTO_INCREMENT,
 	UserName varchar(30) Not Null Unique,
 	Password varchar(30) Not Null,
-	Picture varchar(30),
+	Picture varchar(1000),
 	Birthday_year int Not Null,
 	Birthday_month int Not Null,
 	Birthday_day int Not Null,
