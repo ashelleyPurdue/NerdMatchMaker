@@ -110,7 +110,7 @@
                         var id1 = JSON.stringify(dCookie.split(',', 1));
                         var id2 = id1.substring(2, id1.length - 2);
                         var picValue = document.getElementById("profilePicture").value;
-            
+
                         event.preventDefault();
 
                         var $picChanger = $(this),
@@ -146,8 +146,23 @@
     <h3>Current Preferences</h3>
 
     <label id="getPref"></label>
+
     <script>
-        document.getElementById("getPref").innerHTML = 'users prefs will be shown here';
+        $.ajax({
+            type: 'GET',
+            url: '/BackEnd/getUserPref/',
+            data: {
+                UserID1: dummyUser.UserID
+            },
+            success: function(data, status) {
+                for (i = 0; i < data.length; i++) {
+                    alert("got prefs");
+                    document.getElementById("getPref").innerHTML = 'sdfasd';
+
+                }
+            }
+        });
+        // document.getElementById("getPref").innerHTML = 'users prefs will be shown here';
     </script>
 
 
