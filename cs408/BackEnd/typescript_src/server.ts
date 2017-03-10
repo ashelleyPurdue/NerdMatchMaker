@@ -171,6 +171,7 @@ socket.on('connection', function(client) {
       if(socket2 != null){
         socket2.emit('message',{UserID:userID,Message:json.Message});
       }
+	  console.log("send success");
 	  client.emit('success',{success:0});
    }
    var sendError = function(err, json, res, callback, con){

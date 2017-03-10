@@ -65,14 +65,18 @@
         });
 		alert(contact.UserID);
 		alert(contact.UserName);
+		alert(dummyUser.UserID);
+		alert(dummyUser.UserName);
         var socket = io.connect();
-        socket.on('Success', function(data) {
+        socket.on('success', function(data) {
+			alert("recived");
             var message = document.getElementById("message").value;
             string += "<p style=\"color:FF0000\";" + " align=\"right\">" + dummyUser.UserName + ": " + message + "<br>";
             document.getElementById("message").innerHTML = "";
             document.getElementById("chatbox").innerHTML = string;
         });
         socket.on('message', function(data) {
+			alert("hello world");
             string += "<p style=\"color:000000\";" + " align=\"left\">" + contact.UserName + ": " + data.Message + "<br>";
             document.getElementById("chatbox").innerHTML = string;
         });
@@ -109,7 +113,6 @@
             }
         });
         $("#send").submit(function(event) {
-            alert("hello world");
             var message = document.getElementById("message").value;
             event.preventDefault();
             socket.emit("send", {
