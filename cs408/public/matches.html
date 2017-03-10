@@ -61,7 +61,9 @@
 
                     // message a user
                     $message = $('<form action="user_chat.html" method="GET">', {});
-                    $message.append('<input type="submit" value="Message" name="UserID' + data[i].UserID + 'UserID' + data[i].UserName + ' " id="submit">');
+                    $message.append('<input type="submit" value="Message"  id="submit">');
+					$message.append('<input type = "hidden" name = "UserID" value=' + data[i].UserID + '>');
+					$message.append('<input type = "hidden" name = "UserName" value=' + data[i].UserName + '>');
                     $message.appendTo(".inner" + i);
                     /*
                         <input type="text" id="foo" name="foo">
