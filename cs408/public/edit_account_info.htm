@@ -95,42 +95,25 @@
         </div>
     </form>
 
-    <form>
+    <form" id="picChanger">
 
         <h1>Change Profile Picture
             <h1>
 
-                <input type='file' onchange="readURL(this);" />
-                <img id="profilePicture" src="#" />
+                <label>
+                <input id="profilePicture" type="text" name="Picture Url" placeholder="Picture URL"/>
+                </label>
 
                 <script>
-                    function readURL(input) {
-                        if (input.files && input.files[0]) {
-                            var reader = new FileReader();
-
-                            reader.onload = function(e) {
-                                $('#profilePicture')
-                                    .attr('src', e.target.result)
-                                    .width(250)
-                                    .height(250);
-                            };
-
-                            reader.readAsDataURL(input.files[0]);
-                        }
-                    }
-                </script>
-
-                <script>
-                    $("#picChange").submit(function(event) {
-
+                    $("picChanger").submit(function(event) {
                         var dCookie = document.cookie;
                         var id1 = JSON.stringify(dCookie.split(',', 1));
                         var id2 = id1.substring(2, id1.length - 2);
                         var picValue = document.getElementById("profilePicture").value;
-
+            
                         event.preventDefault();
 
-                        var $picChange = $(this),
+                        var $picChanger = $(this),
                             UserID = id2,
                             Picture = picValue;
 
