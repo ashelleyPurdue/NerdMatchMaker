@@ -82,9 +82,9 @@ app.post("/BackEnd/addUserPref/", function(req, res){
 	sqlFile.addUserPref(req.body, callback, res);
 });
 
-app.post("/BackEnd/getUserPref/", function(req, res){
+app.get("/BackEnd/getUserPref/", function(req, res){
 	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
-	sqlFile.getUserPref(req.body, callback, res);
+	sqlFile.getUserPref(req.query, callback, res);
 });
 
 app.post("/BackEnd/setAge/", function(req, res){
@@ -98,7 +98,6 @@ app.post("/BackEnd/blockUser/", function(req, res){
 });
 
 app.get("/BackEnd/getMatches/", function(req, res){
-	console.log(req.query)
 	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
 	sqlFile.getMatches(req.query, callback, res);
 });
