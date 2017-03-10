@@ -24,9 +24,13 @@
 		type : 'GET',
 		url: '/BackEnd/getMessages/',
 		data: {UserID1: dummyUser.UserID, UserID2: contact.UserID},
-		success: function(data,status){
-			
-		}
+		success: function(data,status) {
+			var string = "";
+            for (var i = 0; i < data.length; i++) {
+                string += data[i].UserID1 + ": " + data[i].Message + "<br>";
+            }
+            	document.getElementById("chatbox").innerHTML = string;	
+            }       
 	});
 	
 	
