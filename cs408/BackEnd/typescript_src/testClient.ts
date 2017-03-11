@@ -60,6 +60,7 @@ function failure(testName: string, message: string){
 	nextTest();
 }
 
+
 //Test cases
 
 let createCase0: TestCase = {
@@ -73,7 +74,6 @@ let createCase0: TestCase = {
 	requestFunction: function(error, response, body){
 		if (!error){
       body = JSON.parse( body );
-			console.log(body);
 			
 			if ((body.UserID != null && body.UserID > 0)){
 				success("test0");
@@ -87,6 +87,7 @@ let createCase0: TestCase = {
 		}
 	}
 };
+
 //test create account twice in a row
 testCases.push(createCase0);
 
@@ -101,7 +102,7 @@ let createCase1: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.Error != null && body.Error === -1)){
         success("test1");
@@ -116,6 +117,7 @@ let createCase1: TestCase = {
   }
 };
 testCases.push(createCase1);
+
 //Test login with given userName and password
 let createLogin1: TestCase = {
   options: {
@@ -128,7 +130,7 @@ let createLogin1: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.UserID != null && body.UserID > 0)){
         success("test2");
@@ -156,7 +158,7 @@ let createLogin2: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.UserID != null && body.UserID > 0)){
         success("test3");
@@ -184,7 +186,7 @@ let createLogin3: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.Error != null && body.Error === -1)){
         success("test4");
@@ -212,7 +214,7 @@ let createLogin4: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.Error != null && body.Error === -1)){
         success("test5");
@@ -240,7 +242,7 @@ let editPassWord1: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.success != null && body.success === 0)){
         success("test6");
@@ -267,7 +269,7 @@ let createLogin5: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.UserID != null && body.UserID > 0)){
         success("test7");
@@ -294,7 +296,7 @@ let editPassWord2: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.Error != null && body.Error < 0)){
         success("test8");
@@ -322,7 +324,7 @@ let editPassWord3: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.Error != null && body.Error < 0)){
         success("test9");
@@ -350,7 +352,7 @@ let createLogin6: TestCase = {
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
-      console.log(body);
+
       //checks to see if error
       if ((body.Error != null && body.Error === -1)){
         success("test10");
@@ -609,9 +611,8 @@ let getMessages: TestCase = {
 
   requestFunction: function(error, response, body){
     if (!error){
-      console.log(body);
-	  body = JSON.parse( body );
-	  if(body.length != 3){
+  	  body = JSON.parse( body );
+  	  if(body.length != 3){
         failure("test17","wrong length of rows in getting matches.  Expected 3, but got " + body.length);
       }
       else if(body[0].Message == null || body[0].Message !== "Hello"){
@@ -729,10 +730,8 @@ let getMatches1: TestCase = {
   },
 
   requestFunction: function(error, response, body){
-	console.log("This should work now");
     if (!error){
       body = JSON.parse( body );
-	  console.log(body);
 	  if(body.length != 6){
        	failure("test11","wrong length of rows in getting matches");
       }
