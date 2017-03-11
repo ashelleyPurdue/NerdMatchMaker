@@ -365,6 +365,7 @@ let createLogin6: TestCase = {
   }
 };
 testCases.push(createLogin6);
+
 //TODO test login after this to make sure changes work
 //addUserPref test cases
 function addUserPref_requestFunction(testName: string, error, response, body){
@@ -472,7 +473,7 @@ let addUserPrefs_invalidUserID3: TestCase = {
 };
 testCases.push(addUserPrefs_invalidUserID3);
 
-let addUserPrefs_invalidPrefName0: TestCase = {
+/*let addUserPrefs_invalidPrefName0: TestCase = {
 	options: {
 		url: 'http://localhost:3000/BackEnd/addUserPref',
 		method: 'POST',
@@ -484,7 +485,7 @@ let addUserPrefs_invalidPrefName0: TestCase = {
 		addUserPref_requestFunctionExpectError("addUserPref_invalidPrefName0", error, response, body);
 	}
 };
-testCases.push(addUserPrefs_invalidPrefName0);
+testCases.push(addUserPrefs_invalidPrefName0);*/
 
 let addUserPrefs_invalidPrefName1: TestCase = {
 	options: {
@@ -1268,7 +1269,6 @@ let getMatches0: TestCase = {
 	
 };
 testCases.push(getMatches0);
-
 
 //File entry point
 nextTest();

@@ -165,6 +165,31 @@ export var genSQLError = function(err, json, res, callback, con){
 //getPreferences will return list of preferences.
 //callback is an object that is used to communicate with the testing framework.
 export var addUserPref = function(json, callback, res){
+	
+	//Error if name is a bad input(null, undefined, empty string, etc.)
+	console.log("addUserPref:");
+	console.log(json);
+	if (!json.Name){
+
+		console.log("Error in addUserPref: json.Name = " + json.Name);
+
+		callback.error(null, null, res, callback);
+		return;
+	}
+	else{
+		console.log("name is fine");
+	}
+
+	//UserID must be a number >= 1.  If it's not a number or if it's less than 1, error.
+	if (!(json.UserID >= 1)){
+
+		console.log("Error in addUserPref: json.UserID = " + json.UserID);
+
+		callback.error(null, null, res, callback);
+		return;
+	}
+
+	//Get the prefID for this preference
 	getPrefID(json.Name, function(id:number){
 		
 		//If we didn't find that ID, create it and use that as ID.
