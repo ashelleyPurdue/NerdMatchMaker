@@ -3,7 +3,8 @@
 <head>
     <link rel="stylesheet" type="text/css" href="create_account.css">
     <title>Create an Account</title>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js">
+	</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
@@ -24,6 +25,23 @@
 
             <script>
                 function checkPasswords() {
+					var today = new Date();
+					var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+					var Birthday_year = document.getElementById("Birthday_year").value;
+                    var Birthday_month = document.getElementById("Birthday_month").value;
+                    var Birthday_day = document.getElementById("Birthday_day").value;
+					if(Birthday_year > (today.getFullYear() - 18)){
+						alert("You are too young to use this website year");
+						return false;
+					}
+					else if(Birthday_year == (today.getFullYear() - 18) && Birthday_month > (today.getMonth() +1)){
+						alert("You are too young to use this website month");
+						return false;
+					}
+					else if(Birthday_year == (today.getFullYear() - 18) && (Birthday_month == (today.getMonth() +1))  && (Birthday_day > (today.getDate()))){
+						alert("You are too young to use this website day");
+						return false;
+					}
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
