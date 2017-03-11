@@ -79,7 +79,7 @@ app.post("/BackEnd/addUserPref/", function(req, res){
 });
 
 app.get("/BackEnd/getUserPref/", function(req, res){
-	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
+	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
 	sqlFile.getUserPref(req.query, callback, res);
 });
 

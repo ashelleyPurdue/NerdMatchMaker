@@ -155,11 +155,14 @@
                 UserID: dummyUser.UserID
             },
             success: function(data, status) {
+				var string = "";
                 for (i = 0; i < data.length; i++) {
                     alert("got prefs");
-                    document.getElementById("getPref").innerHTML = 'sdfasd';
+					
+                    string += ","+data[i].Name;
 
                 }
+				document.getElementById("getPref").innerHTML = string;
             }
         });
         // document.getElementById("getPref").innerHTML = 'users prefs will be shown here';
