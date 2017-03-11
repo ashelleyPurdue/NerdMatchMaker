@@ -67,7 +67,7 @@ let createCase0: TestCase = {
 		url: 'http://localhost:3000/BackEnd/createUser/',
 		method: 'POST',
 		headers: headers,
-		form: {'UserName': 'xxx', 'Password': 'yyy',Picture:null,Birthday_year:1995,Birthday_month:2,Birthday_day:7,Gender: "M",GenderInto:"M",loc:null}
+		form: {'UserName': 'xxx', 'Password': '12345678',Picture:null,Birthday_year:1995,Birthday_month:2,Birthday_day:7,Gender: "M",GenderInto:"M",loc:null}
 	},
 	
 	requestFunction: function(error, response, body){
@@ -95,7 +95,7 @@ let createCase1: TestCase = {
     url: 'http://localhost:3000/BackEnd/createUser/',
     method: 'POST',
     headers: headers,
-    form: {'UserName': 'xxx', 'Password': 'yyy',Picture:null,Birthday_year:1995,Birthday_month:2,Birthday_day:7,Gender: "M",GenderInto:"M",loc:null}
+    form: {'UserName': 'xxx', 'Password': '12345678',Picture:null,Birthday_year:1995,Birthday_month:2,Birthday_day:7,Gender: "M",GenderInto:"M",loc:null}
   },
 
   requestFunction: function(error, response, body){
@@ -107,7 +107,7 @@ let createCase1: TestCase = {
         success("test1");
       }
       else{
-        failure("test1", "Allowed creating two users")
+        failure("test1", "Allowed creating two users with the same name")
       }
     }
     else{
@@ -122,7 +122,7 @@ let createLogin1: TestCase = {
     url: 'http://localhost:3000/BackEnd/login/',
     method: 'POST',
     headers: headers,
-    form: {'UserName': 'xxx', 'Password': 'yyy'}
+    form: {'UserName': 'xxx', 'Password': '12345678'}
   },
 
   requestFunction: function(error, response, body){
