@@ -75,7 +75,7 @@ BEGIN
 		BlockingID int(11)
 	);
 
-	INSERT INTO defaultBlockedInfo VALUES (0, 0);
+	INSERT INTO defaultBlockedInfo(IsBlocked, BlockingID) VALUES (0, 0);
 
 	INSERT IGNORE INTO matches
 		SELECT ui1.UserID, ui2.UserID, defaultBlockedInfo.IsBlocked, defaultBlockedInfo.BlockingID
