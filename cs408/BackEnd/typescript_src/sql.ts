@@ -30,6 +30,10 @@ json will be {UserName: "Not Null",Password "Not Null(I will salt this)",Picture
 //inside callback will deal with two functions on error and on success
 export function createAccount(json, callback, res) {
     //TODO salt passwords
+	if(json.Password.length < 8){
+		res.send({Error: -1,err:"Password length is too short"});
+		return;
+	}
     con.query('Insert Into User Set ?', json, function(err, rows) {
         if (err) {
             callback.error(err, json, res, callback);
