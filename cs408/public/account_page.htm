@@ -15,7 +15,6 @@
         // alert(document.cookie);
         var testCookie = document.cookie;
         var partsOfCookie = testCookie.split(',');
-        // alert(partsOfCookie[1]);
         var dummyUser = ({
             UserID: partsOfCookie[0],
             UserName: partsOfCookie[1],
@@ -30,69 +29,79 @@
             InARelationship: false
         });
     </script>
+	<div id="divRight">
+		<div>
+			<label>User Name</br></label>
+			<label id="UserName"></label>
+			<script>
+				document.getElementById("UserName").innerHTML = dummyUser.UserName;
+			</script>
+		</div>
 
-    <div>
-        <label>User Name</br></label>
-        <label id="UserName"></label>
-        <script>
-            document.getElementById("UserName").innerHTML = dummyUser.UserName;
-        </script>
-    </div>
+		<div>
+			<label>Birthday</br></label>
+			<label id="Birthday"></label>
+			<script>
+				document.getElementById("Birthday").innerHTML = dummyUser.Birthday_month + "/" + dummyUser.Birthday_day + "/" + dummyUser.Birthday_year;
+			</script>
+		</div>
 
-    <div>
-        <label>Birthday</br></label>
-        <label id="Birthday"></label>
-        <script>
-            document.getElementById("Birthday").innerHTML = dummyUser.Birthday_month + "/" + dummyUser.Birthday_day + "/" + dummyUser.Birthday_year;
-        </script>
-    </div>
+		<div>
+			<label>Gender</br></label>
+			<label id="Gender"></label>
+			<script>
+				document.getElementById("Gender").innerHTML = dummyUser.Gender;
+			</script>
+		</div>
 
-    <div>
-        <label>Gender</br></label>
-        <label id="Gender"></label>
-        <script>
-            document.getElementById("Gender").innerHTML = dummyUser.Gender;
-        </script>
-    </div>
+		<div>
+			<label>Gender Interested In</br></label>
+			<label id="GenderInto"></label>
+			<script>
+				document.getElementById("GenderInto").innerHTML = dummyUser.GenderInto;
+			</script>
+		</div>
+		</div>
+		<div id="divLeft">
+			<img id = "imageid">
+			<script>
+				if(dummyUser.Picture == `null`){
+					dummyUser.Picture = "http://localhost:3000/Images/blank.png";
+				}
+				document.getElementById("imageid").src=  dummyUser.Picture;
+			</script>
+		</div>
+		<form id="logout">
 
-    <div>
-        <label>Gender Interested In</br></label>
-        <label id="GenderInto"></label>
-        <script>
-            document.getElementById("GenderInto").innerHTML = dummyUser.GenderInto;
-        </script>
-    </div>
+			<button type="submit">Logout</button>
 
-    <form id="logout">
+			<script>
+				$("#logout").submit(function(event) {
+					alert("logging out");
+					event.preventDefault();
+					// document.cookie("testCookie", null);
+					//document.removeCookie("testCookie");
 
-        <button type="submit">Logout</button>
+					testCookie = null;
+					document.cookie = null;
+					alert("cookie removed");
+					if (testCookie != null) {
+						alert("logout failed");
+					} else {
+						location.replace('/index.html');
+					}
+				});
+			</script>
 
-        <script>
-            $("#logout").submit(function(event) {
-                alert("logging out");
-                event.preventDefault();
-                // document.cookie("testCookie", null);
-                //document.removeCookie("testCookie");
+		</form>
 
-                testCookie = null;
-                document.cookie = null;
-                alert("cookie removed");
-                if (testCookie != null) {
-                    alert("logout failed");
-                } else {
-                    location.replace('/index.html');
-                }
-            });
-        </script>
+		<div class="container" style="background-color:#f1f1f1">
+			<span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
+			<span class="newact"> <a href="/matches.html">Matches</a></span>
 
-    </form>
-
-    <div class="container" style="background-color:#f1f1f1">
-        <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
-        <span class="newact"> <a href="/matches.html">Matches</a></span>
-
-    </div>
-
+		</div>
+	
+	
 
 </body>
 
