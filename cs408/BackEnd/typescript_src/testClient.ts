@@ -604,8 +604,8 @@ let getMatches1: TestCase = {
   options: {
     url: 'http://localhost:3000/BackEnd/getMatches?UserID1=1',
     method: 'GET',
-    headers: headers,
-    query: {UserID1:1}
+    headers: headers//,
+    //query: {UserID1:1}
   },
 
   requestFunction: function(error, response, body){
@@ -637,10 +637,9 @@ let getMatches1: TestCase = {
 testCases.push(getMatches1);
 let getMatches2: TestCase = {
   options: {
-    url: 'http://localhost:3000/BackEnd/getMatches/',
+    url: 'http://localhost:3000/BackEnd/getMatches?UserID1=2',
     method: 'GET',
-    headers: headers,
-    form: {UserID1:2}
+    headers: headers
   },
 
   requestFunction: function(error, response, body){
@@ -743,10 +742,9 @@ let setBlocks3: TestCase = {
 testCases.push(setBlocks3);
 let getMatches3: TestCase = {
   options: {
-    url: 'http://localhost:3000/BackEnd/getMatches/',
+    url: 'http://localhost:3000/BackEnd/getMatches?UserID1:1',
     method: 'GET',
-    headers: headers,
-    form: {UserID1:1}
+    headers: headers
   },
 
   requestFunction: function(error, response, body){
@@ -774,10 +772,9 @@ let getMatches3: TestCase = {
 testCases.push(getMatches3);
 let getMatches4: TestCase = {
   options: {
-    url: 'http://localhost:3000/BackEnd/getMatches/',
+    url: 'http://localhost:3000/BackEnd/getMatches?UserID1=2',
     method: 'GET',
-    headers: headers,
-    form: {UserID1:2}
+    headers: headers
   },
 
   requestFunction: function(error, response, body){
