@@ -601,10 +601,9 @@ testCases.push(addUserPrefs_invalidForm5);
 
 let getMessages: TestCase = {
   options: {
-    url: 'http://localhost:3000/BackEnd/getMessages?UserID1=2&UserID2=1',///',
+    url: 'http://localhost:3000/BackEnd/getMessages?UserID1=2&UserID2=1',
     method: 'GET',
-    headers: headers//,
-    //form: {UserID1:2,UserID2:1}
+    headers: headers
   },
 
   requestFunction: function(error, response, body){
@@ -636,10 +635,9 @@ let getMessages: TestCase = {
 testCases.push(getMessages);
 let getMessages2: TestCase = {
   options: {
-    url: 'http://localhost:3000/BackEnd/getMessages/',
+    url: 'http://localhost:3000/BackEnd/getMessages?UserID1=1&UserID2=2',
     method: 'GET',
-    headers: headers,
-    form: {UserID1:1,UserID2:2}
+    headers: headers
   },
 
   requestFunction: function(error, response, body){
@@ -670,10 +668,9 @@ let getMessages2: TestCase = {
 testCases.push(getMessages2);
 let getMessages3: TestCase = {
   options: {
-    url: 'http://localhost:3000/BackEnd/getMessages/',
+    url: 'http://localhost:3000/BackEnd/getMessages?UserID1=2&UserID2=4',
     method: 'GET',
-    headers: headers,
-    form: {UserID1:2,UserID2:4}
+    headers: headers
   },
 
   requestFunction: function(error, response, body){
@@ -699,10 +696,9 @@ testCases.push(getMessages3);
 
 let getMessages4: TestCase = {
   options: {
-    url: 'http://localhost:3000/BackEnd/getMessages/',
+    url: 'http://localhost:3000/BackEnd/getMessages?UserID1=4,UserID2=5',
     method: 'GET',
-    headers: headers,
-    form: {UserID1:4,UserID2:5}
+    headers: headers
   },
 
   requestFunction: function(error, response, body){
@@ -728,8 +724,7 @@ let getMatches1: TestCase = {
   options: {
     url: 'http://localhost:3000/BackEnd/getMatches?UserID1=1',
     method: 'GET',
-    headers: headers//,
-    //query: {UserID1:1}
+    headers: headers
   },
 
   requestFunction: function(error, response, body){
