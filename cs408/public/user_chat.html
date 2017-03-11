@@ -8,33 +8,34 @@
     <title>Messages From </title>
 </head>
 <script>
-	// alert(document.cookie);
+    // alert(document.cookie);
     var testCookie = document.cookie;
     var partsOfCookie = testCookie.split(',');
     // alert(partsOfCookie[1]);
     var dummyUser = ({
-        UserID: 1,//partsOfCookie[0],
-        UserName: "Alex"//partsOfCookie[1]
+        UserID: 1, //partsOfCookie[0],
+        UserName: "Alex" //partsOfCookie[1]
     });
-	var contact = ({
-		UserID: 2,
-		UserName: "Steve"
-	});
+    var contact = ({
+        UserID: 2,
+        UserName: "Steve"
+    });
 
-	$.ajax({
-		type : 'GET',
-		url: '/BackEnd/getMessages/',
-		data: {UserID1: dummyUser.UserID, UserID2: contact.UserID},
-		success: function(data,status) {
-			var string = "";
+    $.ajax({
+        type: 'GET',
+        url: '/BackEnd/getMessages/',
+        data: {
+            UserID1: dummyUser.UserID,
+            UserID2: contact.UserID
+        },
+        success: function(data, status) {
+            var string = "";
             for (var i = 0; i < data.length; i++) {
                 string += data[i].UserID1 + ": " + data[i].Message + "<br>";
             }
-            	document.getElementById("chatbox").innerHTML = string;	
-            }       
-	});
-	
-	
+            document.getElementById("chatbox").innerHTML = string;
+        }
+    });
 </script>
 
 <body>
@@ -56,29 +57,27 @@
         <button id="button2" type="submit">Send</button>
     </form>
     <script>
-		var query = document.URL;
-		query = query.substring(query.indexOf("?")+1,query.length);
-		//expects two and only values
-		var query1 = query.substring(0,query.indexOf("&"));
-		var query2 = query.substring(query.indexOf("&")+1,query.length);
-		var query1Name = query1.substring(0,query.indexOf("="));
-		if(query1Name === "UserID"){
-			//gets the id of the user
-			query1 = query1.substring(query.indexOf("=")+1,query.length);
-		}
-		else{
-			alert("error in url, try going back one page and retry action");
-			throw new Error("Something went badly wrong!");
-		}
-		var query2Name = query2.substring(0,query2.indexOf("="));
-		if(query2Name === "UserName"){
-			//gets the id of the user
-			query2 = query2.substring(query2.indexOf("=")+1,query2.length);
-		}
-		else{
-			alert("error in url, try going back one page and retry action");
-			throw new Error("Something went badly wrong!");
-		}
+        var query = document.URL;
+        query = query.substring(query.indexOf("?") + 1, query.length);
+        //expects two and only values
+        var query1 = query.substring(0, query.indexOf("&"));
+        var query2 = query.substring(query.indexOf("&") + 1, query.length);
+        var query1Name = query1.substring(0, query.indexOf("="));
+        if (query1Name === "UserID") {
+            //gets the id of the user
+            query1 = query1.substring(query.indexOf("=") + 1, query.length);
+        } else {
+            alert("error in url, try going back one page and retry action");
+            throw new Error("Something went badly wrong!");
+        }
+        var query2Name = query2.substring(0, query2.indexOf("="));
+        if (query2Name === "UserName") {
+            //gets the id of the user
+            query2 = query2.substring(query2.indexOf("=") + 1, query2.length);
+        } else {
+            alert("error in url, try going back one page and retry action");
+            throw new Error("Something went badly wrong!");
+        }
         var string = "";
         // alert(document.cookie);
         var testCookie = document.cookie;
@@ -92,22 +91,23 @@
             UserID: parseInt(query1),
             UserName: query2
         });
-		alert(contact.UserID);
-		alert(contact.UserName);
-		alert(dummyUser.UserID);
-		alert(dummyUser.UserName);
+        // alert(contact.UserID);
+        // alert(contact.UserName);
+        // alert(dummyUser.UserID);
+        // alert(dummyUser.UserName);
         var socket = io.connect();
         socket.on('success', function(data) {
-			alert("recived");
+            //alert("recived");
             var message = document.getElementById("message").value;
             string += "<p style=\"color:FF0000\";" + " align=\"right\">" + dummyUser.UserName + ": " + message + "<br>";
             document.getElementById("message").value = "";
             document.getElementById("chatbox").innerHTML = string;
         });
-		socket.on('err',function(data){
-			alert(data.err);
-		});
+        socket.on('err', function(data) {
+            alert(data.err);
+        });
         socket.on('message', function(data) {
+
             string += "<p style=\"color:000000\";" + " align=\"left\">" + contact.UserName + ": " + data.Message + "<br>";
             document.getElementById("chatbox").innerHTML = string;
         });
@@ -155,5 +155,12 @@
         });
     </script>
 </body>
+
+
+<div class="container" style="background-color:#f1f1f1">
+    <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
+    <span class="newact"> <a href="/account_page.htm">Account Homepage</a></span>
+    <span class="newact"> <a href="/matches.html">Matches</a></span>
+</div>
 
 </html>
