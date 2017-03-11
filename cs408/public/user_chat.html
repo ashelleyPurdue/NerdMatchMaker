@@ -91,20 +91,20 @@
             UserID: parseInt(query1),
             UserName: query2
         });
-        alert(contact.UserID);
-        alert(contact.UserName);
-        alert(dummyUser.UserID);
-        alert(dummyUser.UserName);
+        // alert(contact.UserID);
+        // alert(contact.UserName);
+        // alert(dummyUser.UserID);
+        // alert(dummyUser.UserName);
         var socket = io.connect();
         socket.on('success', function(data) {
-            alert("recived");
+            //alert("recived");
             var message = document.getElementById("message").value;
             string += "<p style=\"color:FF0000\";" + " align=\"right\">" + dummyUser.UserName + ": " + message + "<br>";
             document.getElementById("message").innerHTML = "";
             document.getElementById("chatbox").innerHTML = string;
         });
         socket.on('message', function(data) {
-            alert("hello world");
+            // alert("hello world");
             string += "<p style=\"color:000000\";" + " align=\"left\">" + contact.UserName + ": " + data.Message + "<br>";
             document.getElementById("chatbox").innerHTML = string;
         });

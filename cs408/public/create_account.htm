@@ -4,14 +4,14 @@
     <link rel="stylesheet" type="text/css" href="create_account.css">
     <title>Create an Account</title>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
 <body>
 
     <h1>Create A New Account</h1>
 
-    <form onsubmit="return passWordsMatch" id = "createUser">
+    <form id="createUser">
         <div class="container">
             <label><b>Username</b></label>
             <input id="userName" type="text" placeholder="Enter Username" name="UserName" required>
@@ -23,7 +23,7 @@
             <input id="pass2" type="password" placeholder="Enter Same Password" required>
 
             <script>
-                function passWordsMatch() {
+                function checkPasswords() {
                     var pass1 = document.getElementById("pass1").value;
                     var pass2 = document.getElementById("pass2").value;
                     var ok = true;
@@ -31,15 +31,22 @@
                         //alert("Passwords Do not match");
                         document.getElementById("pass1").style.borderColor = "#E34234";
                         document.getElementById("pass2").style.borderColor = "#E34234";
+                        alert("passwords dont match");
                         ok = false;
-                    } else {
-                        // alert("Passwords Match!!!");
-                    }
+                    } else if (pass1.length < 8 || pass2.length < 8) {
+                        alert("Passwords must be 8 characters long");
+                        ok = false;
+                    } else {}
                     return ok;
                 }
 
                 $("#createUser").submit(function(event) {
                     event.preventDefault();
+                    var matching = checkPasswords();
+                    if (matching != true) {
+                        return false;
+
+                    }
 
                     if (document.getElementById('Gender0').checked) {
                         Gender = document.getElementById('Gender0').value;
@@ -57,7 +64,7 @@
                         GenderInto = document.getElementById('GenderInto').value;
                     }
 
-                    var $createUser= $(this),
+                    var $createUser = $(this),
                         UserName = document.getElementById("userName").value,
                         Password = document.getElementById("pass1").value,
                         Birthday_year = document.getElementById("Birthday_year").value,
@@ -82,7 +89,7 @@
                         maxAge: maxAge,
                         Picture: Picture
                     });
-                    alert("posted to server");
+                    // alert("posted to server");
 
                     posting.done(function(data) {
                         alert("ID is " + data.UserID);
@@ -99,7 +106,7 @@
                                 alert("Sorry, server issues");
                         }
                     });
-					return false;
+                    return false;
                 });
             </script>
 
@@ -166,21 +173,21 @@
             <br>
 
             </br>
-			<label><b>Add a profile picture (Optional)</b></label>
-			<div>
+            <label><b>Add a profile picture (Optional)</b></label>
+            <div>
                 <label>
                 <input id="Link" type="text" name="Picture Url " placeholder="Add picture URL here"/></label>
             </div>
-    	</form>
+    </form>
 
-            <br>
+    <br>
 
-            </br>
+    </br>
 
 
-            <button type="submit">Login</button>
+    <button type="submit">Login</button>
 
-        </div>
+    </div>
 
 </body>
 
