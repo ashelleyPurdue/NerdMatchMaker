@@ -23,7 +23,16 @@ export function createCon() {
     })
     return con;
 };
-
+//checks if it is an int or not
+function isInt(value) {
+  function isInt(value) {
+  if (isNaN(value)) {
+    return false;
+  }
+  var x = parseFloat(value);
+  return (x | 0) === x;
+}
+}
 /*this function will create an account in sql and return 0 if the account was created successfully, else it will return -1 if username exist or -2 if sql error happens
 json will be {UserName: "Not Null",Password "Not Null(I will salt this)",Picture: "Null",Birthday : "00/00/0000",Gender: "M","F,"MF",GenderInto: "M","F","MF",Location: "Not Null",InARelationship:"false"}
 */
@@ -33,6 +42,12 @@ export function createAccount(json, callback, res) {
 	if(json.Password.length < 8){
 		res.send({Error: -1,err:"Password length is too short"});
 		return;
+	}
+	if(!isInt(json.minAge)){
+		json.minAge = 18;	
+	}
+	if(!isInt(json.maxAge)){
+		json.maxAge = 120;	
 	}
     con.query('Insert Into User Set ?', json, function(err, rows) {
         if (err) {
