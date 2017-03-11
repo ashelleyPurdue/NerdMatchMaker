@@ -55,18 +55,15 @@ app.post('/BackEnd/file_upload',function(req,res){
 });
 
 app.post("/BackEnd/createUser/",function(req,res){
-  console.log(req.body);
   var callback = {success:sqlFile.createAccountCallback,error:sqlFile.createAccountError};
   sqlFile.createAccount(req.body,callback,res);
 });
 app.post("/BackEnd/login/",function(req,res){
-  console.log(req.body);
   var callback = {success: sqlFile.loginTest,Empty:sqlFile.loginEmptySet ,error:sqlFile.genSQLError};
   sqlFile.login(req.body,res,callback);
 });
 
 app.post("/BackEnd/editPassword/",function(req,res){
-  console.log(req.body);
   var callback = {success: sqlFile.loginForEdPassSuc,Empty:sqlFile.loginEmptySet ,error:sqlFile.genSQLError};
   //login then can call editPassword
   sqlFile.loginWithID(req.body,res,callback);
@@ -77,12 +74,12 @@ app.post("/BackEnd/getPrefs/",function(req,res){
 });
 
 app.post("/BackEnd/addUserPref/", function(req, res){
-	console.log("addUserPref");
 	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
 	sqlFile.addUserPref(req.body, callback, res);
 });
 
 app.get("/BackEnd/getUserPref/", function(req, res){
+	console.log("query is "+(req ));
 	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
 	sqlFile.getUserPref(req.query, callback, res);
 });
@@ -103,7 +100,6 @@ app.get("/BackEnd/getMatches/", function(req, res){
 });
 
 app.get("/BackEnd/getMessages/", function(req, res){
-	console.log("Messages" + req.query);
 	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
 	sqlFile.getMessages(req.query, callback, res);
 });

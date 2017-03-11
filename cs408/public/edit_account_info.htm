@@ -148,11 +148,12 @@
     <label id="getPref"></label>
 
     <script>
+		alert(dummyUser.UserID);
         $.ajax({
             type: 'GET',
             url: '/BackEnd/getUserPref/',
             data: {
-                UserID1: dummyUser.UserID
+                UserID: dummyUser.UserID
             },
             success: function(data, status) {
                 for (i = 0; i < data.length; i++) {
