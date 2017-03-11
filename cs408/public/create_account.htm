@@ -46,12 +46,13 @@
                     if (matching != true) {
                         return false;
                     }
+
                     var minAge = document.getElementById("minAge").value;
                     var maxAge = document.getElementById("maxAge").value;
-                    if (minAge < 18 || minAge == null)
+                    if (minAge < 18 || minAge > maxAge)
                     	minAge = 18;
-                    if (maxAge > 65 || maxAge == null)
-                    	maxAge = 65;
+                    if (maxAge > 40 || maxAge < minAge)
+                    	maxAge = 40;
 
 
 
@@ -103,7 +104,7 @@
                         // obj = jQuery.parseJSON(data);
                         if (data.UserID != null) {
                             // alert("userID not null");
-                            document.cookie = data.UserID + "," + data.UserName + "," + data.Birthday_year + "," + data.Birthday_month + "," + data.Birthday_day + "," + data.Gender + "," + data.GenderInto + "," + "path=/";
+                            document.cookie = data.UserID + "," + data.UserName + "," + data.Birthday_year + "," + data.Birthday_month + "," + data.Birthday_day + "," + data.Gender + "," + data.GenderInto + "," + data.Picture + "," +"path=/";
                             location.replace('/account_page.htm');
 
                         } else {
@@ -167,7 +168,7 @@
             <div>
                 <label>
                 <input id="minAge" type="number" name="minAge" placeholder="Minimum"/></label>
-                <input id="maxAge" type="number" name="maxAge" placeholder="Maximum" /></label>
+                <input id="maxAge" type="number" name="maxAge" placeholder="Maximum"/></label>
             </div>
 
             <br>
