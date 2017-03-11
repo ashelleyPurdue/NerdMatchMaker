@@ -47,12 +47,13 @@
                         return false;
                     }
                     var minAge = document.getElementById("minAge").value;
+                    var maxAge = document.getElementById("maxAge").value;
                     if (minAge < 18 || minAge == null)
                     	minAge = 18;
                     if (maxAge > 65 || maxAge == null)
-                    	minAge = 65;
+                    	maxAge = 65;
 
-                    var maxAge = document.getElementById("maxAge").value;
+
 
                     if (document.getElementById('Gender0').checked) {
                         Gender = document.getElementById('Gender0').value;
