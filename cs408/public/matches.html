@@ -61,8 +61,8 @@
                     // message a user
                     $message = $('<form action="user_chat.html" method="GET">', {});
                     $message.append('<input type="submit" value="Message"  id="submit">');
-					$message.append('<input type = "hidden" name = "UserID" value=' + data[i].UserID + '>');
-					$message.append('<input type = "hidden" name = "UserName" value=' + data[i].UserName + '>');
+                    $message.append('<input type = "hidden" name = "UserID" value=' + data[i].UserID + '>');
+                    $message.append('<input type = "hidden" name = "UserName" value=' + data[i].UserName + '>');
                     $message.appendTo(".inner" + i);
                     /*
                         <input type="text" id="foo" name="foo">
@@ -78,7 +78,9 @@
 
 <div class="container" style="background-color:#f1f1f1">
     <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
+    <span class="newact"> <a href="/account_page.htm">Account Homepage</a></span>
 </div>
+
 
 
 
