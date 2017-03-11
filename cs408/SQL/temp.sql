@@ -1,3 +1,8 @@
+Create Table GlobalVars(
+	current_date_var DATE 
+);
+INSERT INTO GlobalVars(current_date_var) VALUES(CURDATE());
+
 Create Table User(
 	UserID int Primary Key AUTO_INCREMENT,
 	UserName varchar(30) Not Null Unique,
@@ -6,13 +11,14 @@ Create Table User(
 	Birthday_year int Not Null,
 	Birthday_month int Not Null,
 	Birthday_day int Not Null,
+	Birthdate DATE As (STR_TO_DATE(CONCAT (Birthday_day, '/', Birthday_month, '/', Birthday_year), '%d/%m/%Y')),
 	Gender varchar(2) Not Null,
 	GenderInto varchar(2) Not Null,
 	loc varchar(45),
 	InARelationship boolean DEFAULT false,
 	minAge int,
-	maxAge int,
-	age int
+	maxAge int
+	/*age int*/
 );
 Create Table Interests(
 	InterestID int Primary Key AUTO_INCREMENT,
@@ -61,6 +67,8 @@ DROP PROCEDURE IF EXISTS update_matches_procedure;
 DELIMITER //
 CREATE PROCEDURE update_matches_procedure()
 BEGIN
+	
+	DROP TABLE IF EXISTS defaultBlockedInfo;
 
 	CREATE TEMPORARY TABLE defaultBlockedInfo(
 		IsBlocked tinyint(1),
@@ -79,10 +87,10 @@ BEGIN
 				AND u2.UserID = ui2.UserID
 				AND u1.Gender = u2.GenderInto
 				AND u2.Gender = u1.GenderInto
-				AND u2.age >= u1.minAge
-				AND u2.age <= u1.maxAge
-				AND u1.age >= u2.minAge
-				AND u1.age <= u2.maxAge
+				AND DATEDIFF(CURDATE(), u2.Birthdate) / 365 >= u1.minAge
+				AND DATEDIFF(CURDATE(), u2.Birthdate) / 365 <= u1.maxAge
+				AND DATEDIFF(CURDATE(), u1.Birthdate) / 365 >= u2.minAge
+				AND DATEDIFF(CURDATE(), u1.Birthdate) / 365 <= u2.maxAge
 	;
 
 	DROP TABLE defaultBlockedInfo;
