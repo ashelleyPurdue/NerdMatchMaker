@@ -79,15 +79,12 @@ BEGIN
 
 	INSERT IGNORE INTO matches
 		SELECT ui1.UserID, ui2.UserID, defaultBlockedInfo.IsBlocked, defaultBlockedInfo.BlockingID
-			FROM user_interests AS ui1, user_interests AS ui2, user AS u1, user AS u2, user_interests AS ul1, user_interests AS ul2, defaultBlockedInfo
+			FROM user_interests AS ui1, user_interests AS ui2, user AS u1, user AS u2, defaultBlockedInfo
 			WHERE ui1.UserID <> ui2.UserID
 				AND ui1.UserID < ui2.UserID
 				AND ui1.InterestID = ui2.InterestID
-				AND ul1.LanguageID = ul2.LanguageID
 				AND u1.UserID = ui1.UserID
-				AND ul1.UserID = ui1.UserID
 				AND u2.UserID = ui2.UserID
-				AND ul2.UserID = ui2.UserID
 				AND u1.Gender = u2.GenderInto
 				AND u2.Gender = u1.GenderInto
 				AND DATEDIFF(CURDATE(), u2.Birthdate) / 365 >= u1.minAge
