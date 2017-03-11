@@ -599,6 +599,130 @@ let addUserPrefs_invalidForm5: TestCase = {
 testCases.push(addUserPrefs_invalidForm5);
 
 
+let getMessages: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMessages?UserID1=2&UserID2=1',///',
+    method: 'GET',
+    headers: headers//,
+    //form: {UserID1:2,UserID2:1}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      console.log(body);
+	  body = JSON.parse( body );
+	  if(body.length != 3){
+        failure("test17","wrong length of rows in getting matches.  Expected 3, but got " + body.length);
+      }
+      else if(body[0].Message == null || body[0].Message !== "Hello"){
+        failure("test17", "wrong enrty in 0 in getting messages");
+      }
+      else if(body[1].Message == null || body[1].Message !== "World"){
+        failure("test17", "wrong enrty in 1 in getting messages");
+      }
+      else if(body[2].Message == null || body[2].Message !== "GoodBye"){
+        failure("test17", "wrong enrty in 2 in getting messages");
+      }
+      else{
+      	//checks to see if error
+      	success("test17");
+      }
+    }
+    else{
+      failure("test17", "error number " + error);
+    }
+  }
+};
+testCases.push(getMessages);
+let getMessages2: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMessages/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:1,UserID2:2}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 3){
+        failure("test18","wrong length of rows in getting matches");
+      }
+      else if(body[0].Message == null || body[0].Message !== "Hello"){
+        failure("test18", "wrong enrty in 0 in getting messages");
+      }
+      else if(body[1].Message == null || body[1].Message !== "World"){
+        failure("test18", "wrong enrty in 1 in getting messages");
+      }
+      else if(body[2].Message == null || body[2].Message !== "GoodBye"){
+        failure("test18", "wrong enrty in 2 in getting messages");
+      }
+      else{
+      	//checks to see if error
+      	success("test18");
+      }
+    }
+    else{
+      failure("test18", "error number " + error);
+    }
+  }
+};
+testCases.push(getMessages2);
+let getMessages3: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMessages/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:2,UserID2:4}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 1){
+        failure("test19","wrong length of rows in getting matches");
+      }
+      else if(body[0].Message == null || body[0].Message !== "I will miss you"){
+        failure("test18", "wrong enrty in 0 in getting messages");
+      }
+      else{
+      	//checks to see if error
+      	success("test19");
+      }
+    }
+    else{
+      failure("test19", "error number " + error);
+    }
+  }
+};
+testCases.push(getMessages3);
+
+let getMessages4: TestCase = {
+  options: {
+    url: 'http://localhost:3000/BackEnd/getMessages/',
+    method: 'GET',
+    headers: headers,
+    form: {UserID1:4,UserID2:5}
+  },
+
+  requestFunction: function(error, response, body){
+    if (!error){
+      body = JSON.parse( body );
+	  if(body.length != 0){
+        failure("test20","wrong length of rows in getting matches");
+      }
+      else{
+      	//checks to see if error
+      	success("test20");
+      }
+    }
+    else{
+      failure("test20", "error number " + error);
+    }
+  }
+};
+testCases.push(getMessages4);
+
 //test get matches
 let getMatches1: TestCase = {
   options: {
@@ -798,131 +922,6 @@ let getMatches4: TestCase = {
   }
 };
 testCases.push(getMatches4);
-
-let getMessages: TestCase = {
-  options: {
-    url: 'http://localhost:3000/BackEnd/getMessages?UserID1=2&UserID2=1',///',
-    method: 'GET',
-    headers: headers//,
-    //form: {UserID1:2,UserID2:1}
-  },
-
-  requestFunction: function(error, response, body){
-    if (!error){
-      console.log(body);
-	  body = JSON.parse( body );
-	  if(body.length != 3){
-        failure("test17","wrong length of rows in getting matches.  Expected 3, but got " + body.length);
-      }
-      else if(body[0].Message == null || body[0].Message !== "Hello"){
-        failure("test17", "wrong enrty in 0 in getting messages");
-      }
-      else if(body[1].Message == null || body[1].Message !== "World"){
-        failure("test17", "wrong enrty in 1 in getting messages");
-      }
-      else if(body[2].Message == null || body[2].Message !== "GoodBye"){
-        failure("test17", "wrong enrty in 2 in getting messages");
-      }
-      else{
-      	//checks to see if error
-      	success("test17");
-      }
-    }
-    else{
-      failure("test17", "error number " + error);
-    }
-  }
-};
-testCases.push(getMessages);
-let getMessages2: TestCase = {
-  options: {
-    url: 'http://localhost:3000/BackEnd/getMessages/',
-    method: 'GET',
-    headers: headers,
-    form: {UserID1:1,UserID2:2}
-  },
-
-  requestFunction: function(error, response, body){
-    if (!error){
-      body = JSON.parse( body );
-	  if(body.length != 3){
-        failure("test18","wrong length of rows in getting matches");
-      }
-      else if(body[0].Message == null || body[0].Message !== "Hello"){
-        failure("test18", "wrong enrty in 0 in getting messages");
-      }
-      else if(body[1].Message == null || body[1].Message !== "World"){
-        failure("test18", "wrong enrty in 1 in getting messages");
-      }
-      else if(body[2].Message == null || body[2].Message !== "GoodBye"){
-        failure("test18", "wrong enrty in 2 in getting messages");
-      }
-      else{
-      	//checks to see if error
-      	success("test18");
-      }
-    }
-    else{
-      failure("test18", "error number " + error);
-    }
-  }
-};
-testCases.push(getMessages2);
-let getMessages3: TestCase = {
-  options: {
-    url: 'http://localhost:3000/BackEnd/getMessages/',
-    method: 'GET',
-    headers: headers,
-    form: {UserID1:2,UserID2:3}
-  },
-
-  requestFunction: function(error, response, body){
-    if (!error){
-      body = JSON.parse( body );
-	  if(body.length != 1){
-        failure("test19","wrong length of rows in getting matches");
-      }
-      else if(body[0].Message == null || body[0].Message !== "I will miss you"){
-        failure("test18", "wrong enrty in 0 in getting messages");
-      }
-      else{
-      	//checks to see if error
-      	success("test19");
-      }
-    }
-    else{
-      failure("test19", "error number " + error);
-    }
-  }
-};
-testCases.push(getMessages3);
-
-let getMessages4: TestCase = {
-  options: {
-    url: 'http://localhost:3000/BackEnd/getMessages/',
-    method: 'GET',
-    headers: headers,
-    form: {UserID1:4,UserID2:5}
-  },
-
-  requestFunction: function(error, response, body){
-    if (!error){
-      body = JSON.parse( body );
-	  if(body.length != 0){
-        failure("test20","wrong length of rows in getting matches");
-      }
-      else{
-      	//checks to see if error
-      	success("test20");
-      }
-    }
-    else{
-      failure("test20", "error number " + error);
-    }
-  }
-};
-testCases.push(getMessages4);
-
 
 let setAge: TestCase = {
   options: {
