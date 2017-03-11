@@ -46,12 +46,13 @@
                     if (matching != true) {
                         return false;
                     }
+
                     var minAge = document.getElementById("minAge").value;
                     var maxAge = document.getElementById("maxAge").value;
-                    if (minAge < 18 || minAge == null)
+                    if (minAge < 18 || minAge > maxAge)
                     	minAge = 18;
-                    if (maxAge > 65 || maxAge == null)
-                    	maxAge = 65;
+                    if (maxAge > 40 || maxAge < minAge)
+                    	maxAge = 40;
 
 
 
@@ -166,8 +167,8 @@
 
             <div>
                 <label>
-                <input id="minAge" type="number" name="minAge" placeholder="Minimum"/></label>
-                <input id="maxAge" type="number" name="maxAge" placeholder="Maximum" /></label>
+                <input id="minAge" type="number" name="minAge" placeholder="Minimum" / required></label>
+                <input id="maxAge" type="number" name="maxAge" placeholder="Maximum" / required></label>
             </div>
 
             <br>
