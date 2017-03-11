@@ -369,20 +369,37 @@ testCases.push(createLogin6);
 //addUserPref test cases
 function addUserPref_requestFunction(testName: string, error, response, body){
 		
-		//Fail if error
-		console.log("adduserPref request function");
-		if (error){
-			failure(testName, "error number " + error);
-			return;
-		}
+	//Fail if error
+	if (error){
+		failure(testName, "error number " + error);
+		return;
+	}
 		
-		//Success if we received 0 from server, error if otherwise.
-		if (body == 0){
-			success(testName);
-		}
-		else{
-			failure(testName, "body = " + body);
-		}
+	let parsedBody = JSON.parse(body);
+	if (parsedBody.success == 0){
+		success(testName);
+	}
+	else{
+		console.log("body.success = " + body.success);
+		failure(testName, "body = " + body);
+	}
+}
+
+function addUserPref_requestFunctionExpectError(testName: string, error, response, body){
+	
+	//Fail if error is passed in
+	if (error){
+		failure(testName, "error number " + error);
+		return;
+	}
+	
+	let parsedBody = JSON.parse(body);
+	if (parsedBody.Error == -2){
+		success(testName);
+	}
+	else{
+		failure(testName, "body = " + body);
+	}
 }
 
 let addUserPrefsTest0: TestCase = {
@@ -408,7 +425,7 @@ let addUserPrefs_invalidUserID0: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidUserID0", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidUserID0", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidUserID0);
@@ -422,7 +439,7 @@ let addUserPrefs_invalidUserID1: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidUserID1", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidUserID1", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidUserID1);
@@ -436,7 +453,7 @@ let addUserPrefs_invalidUserID2: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidUserID2", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidUserID2", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidUserID2);
@@ -450,7 +467,7 @@ let addUserPrefs_invalidUserID3: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidUserID3", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidUserID3", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidUserID3);
@@ -464,7 +481,7 @@ let addUserPrefs_invalidPrefName0: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidPrefName0", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidPrefName0", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidPrefName0);
@@ -478,7 +495,7 @@ let addUserPrefs_invalidPrefName1: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidPrefName1", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidPrefName1", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidPrefName1);
@@ -492,7 +509,7 @@ let addUserPrefs_invalidPrefName2: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidPrefName2", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidPrefName2", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidPrefName2);
@@ -506,7 +523,7 @@ let addUserPrefs_invalidForm0: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidForm0", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidForm0", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidForm0);
@@ -520,7 +537,7 @@ let addUserPrefs_invalidForm1: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidForm1", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidForm1", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidForm1);
@@ -534,7 +551,7 @@ let addUserPrefs_invalidForm2: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidForm2", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidForm2", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidForm2);
@@ -548,7 +565,7 @@ let addUserPrefs_invalidForm3: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidForm3", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidForm3", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidForm3);
@@ -562,7 +579,7 @@ let addUserPrefs_invalidForm4: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidForm0", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidForm0", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidForm4);
@@ -576,7 +593,7 @@ let addUserPrefs_invalidForm5: TestCase = {
 	},
 	
 	requestFunction: function(error, response, body){
-		addUserPref_requestFunction("addUserPref_invalidForm5", error, response, body);
+		addUserPref_requestFunctionExpectError("addUserPref_invalidForm5", error, response, body);
 	}
 };
 testCases.push(addUserPrefs_invalidForm5);
