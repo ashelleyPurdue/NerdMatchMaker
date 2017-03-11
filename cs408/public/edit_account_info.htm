@@ -14,8 +14,8 @@
         // alert(document.cookie);
         var testCookie = document.cookie;
         var partsOfCookie = testCookie.split(',');
-        // alert(partsOfCookie[1]);
         var dummyUser = ({
+			UserID: partsOfCookie[0],
             UserName: partsOfCookie[1],
             Picture: null,
             Birthday: partsOfCookie[2],
@@ -148,7 +148,6 @@
     <label id="getPref"></label>
 
     <script>
-		alert(dummyUser.UserID);
         $.ajax({
             type: 'GET',
             url: '/BackEnd/getUserPref/',
