@@ -101,11 +101,13 @@
 			alert("recived");
             var message = document.getElementById("message").value;
             string += "<p style=\"color:FF0000\";" + " align=\"right\">" + dummyUser.UserName + ": " + message + "<br>";
-            document.getElementById("message").innerHTML = "";
+            document.getElementById("message").value = "";
             document.getElementById("chatbox").innerHTML = string;
         });
+		socket.on('err',function(data){
+			alert(data.err);
+		});
         socket.on('message', function(data) {
-			alert("hello world");
             string += "<p style=\"color:000000\";" + " align=\"left\">" + contact.UserName + ": " + data.Message + "<br>";
             document.getElementById("chatbox").innerHTML = string;
         });
