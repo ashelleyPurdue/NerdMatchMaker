@@ -801,10 +801,10 @@ testCases.push(getMatches4);
 
 let getMessages: TestCase = {
   options: {
-    url: 'http://localhost:3000/BackEnd/getMessages/',
+    url: 'http://localhost:3000/BackEnd/getMessages?UserID1=2&UserID2=1',///',
     method: 'GET',
-    headers: headers,
-    form: {UserID1:2,UserID2:1}
+    headers: headers//,
+    //form: {UserID1:2,UserID2:1}
   },
 
   requestFunction: function(error, response, body){
@@ -812,7 +812,7 @@ let getMessages: TestCase = {
       console.log(body);
 	  body = JSON.parse( body );
 	  if(body.length != 3){
-        failure("test17","wrong length of rows in getting matches");
+        failure("test17","wrong length of rows in getting matches.  Expected 3, but got " + body.length);
       }
       else if(body[0].Message == null || body[0].Message !== "Hello"){
         failure("test17", "wrong enrty in 0 in getting messages");
