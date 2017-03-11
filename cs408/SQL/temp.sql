@@ -67,6 +67,8 @@ DROP PROCEDURE IF EXISTS update_matches_procedure;
 DELIMITER //
 CREATE PROCEDURE update_matches_procedure()
 BEGIN
+	
+	DROP TABLE IF EXISTS defaultBlockedInfo;
 
 	CREATE TEMPORARY TABLE defaultBlockedInfo(
 		IsBlocked tinyint(1),
@@ -85,10 +87,10 @@ BEGIN
 				AND u2.UserID = ui2.UserID
 				AND u1.Gender = u2.GenderInto
 				AND u2.Gender = u1.GenderInto
-				AND /*u2.age*/DATEDIFF(CURDATE(), u2.Birthdate) >= u1.minAge * 365
-				AND DATEDIFF(CURDATE(), u2.Birthdate) <= u1.maxAge * 365
-				AND DATEDIFF(CURDATE(), u1.Birthdate) >= u2.minAge * 365
-				AND DATEDIFF(CURDATE(), u1.Birthdate) <= u2.maxAge * 365
+				AND DATEDIFF(CURDATE(), u2.Birthdate) / 365 >= u1.minAge
+				AND DATEDIFF(CURDATE(), u2.Birthdate) / 365 <= u1.maxAge
+				AND DATEDIFF(CURDATE(), u1.Birthdate) / 365 >= u2.minAge
+				AND DATEDIFF(CURDATE(), u1.Birthdate) / 365 <= u2.maxAge
 	;
 
 	DROP TABLE defaultBlockedInfo;
