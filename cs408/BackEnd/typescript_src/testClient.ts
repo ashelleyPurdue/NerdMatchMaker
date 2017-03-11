@@ -602,13 +602,14 @@ testCases.push(addUserPrefs_invalidForm5);
 //test get matches
 let getMatches1: TestCase = {
   options: {
-    url: 'http://localhost:3000/BackEnd/getMatches/',
+    url: 'http://localhost:3000/BackEnd/getMatches?UserID1=1',
     method: 'GET',
     headers: headers,
     query: {UserID1:1}
   },
 
   requestFunction: function(error, response, body){
+	console.log("This should work now");
     if (!error){
       body = JSON.parse( body );
 	  console.log(body);
