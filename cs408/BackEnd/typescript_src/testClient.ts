@@ -11,7 +11,8 @@ interface OptionSet{
 	url: string;
 	method: string;
 	headers: any;
-	form: any;
+	form?: any;
+	query?: any
 }
 
 interface TestCase{
