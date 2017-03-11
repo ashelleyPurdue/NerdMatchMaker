@@ -66,7 +66,7 @@ let createCase0: TestCase = {
 		url: 'http://localhost:3000/BackEnd/createUser/',
 		method: 'POST',
 		headers: headers,
-		form: {'UserName': 'xxx', 'Password': 'yyy',Picture:null,Birthday:"02/07/1995",Gender: "M",GenderInto:"M",loc:null}
+		form: {'UserName': 'xxx', 'Password': 'yyy',Picture:null,Birthday_year:1995,Birthday_month:2,Birthday_day:7,Gender: "M",GenderInto:"M",loc:null}
 	},
 	
 	requestFunction: function(error, response, body){
@@ -587,12 +587,13 @@ let getMatches1: TestCase = {
     url: 'http://localhost:3000/BackEnd/getMatches/',
     method: 'GET',
     headers: headers,
-    form: {UserID1:1}
+    query: {UserID1:1}
   },
 
   requestFunction: function(error, response, body){
     if (!error){
       body = JSON.parse( body );
+	  console.log(body);
 	  if(body.length != 6){
        	failure("test11","wrong length of rows in getting matches");
       }

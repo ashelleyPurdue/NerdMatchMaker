@@ -6,7 +6,9 @@ import express = require('express');
 import bodyParser =  require("body-parser");
 import sqlFile = require("./sql");
 import io = require('socket.io');
-import multer  = require('multer')
+import multer  = require('multer');
+import xml2js = require('xml2js');
+import FormData = require('form-data');
 //import HashTable = require('hashtable');
 //needs to contain {socket:,userID:} turn into a hash table with id being the key
 //var allClients = new HashTable();
@@ -23,9 +25,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //handles uploading an image
 
+function get_type(thing){
+    if(thing===null)return "[object Null]"; // special case
+    return Object.prototype.toString.call(thing);
+}
 
 app.post('/BackEnd/file_upload',function(req,res){
 	var url;
+	/*console.log("file upload called" + req.forms +","+req.body+","+req+","+req.file+","+req);
 	var storage =   multer.diskStorage({
   		destination: function (req, file, callback) {
     		callback(null, '../public/Images/');
@@ -42,28 +49,11 @@ app.post('/BackEnd/file_upload',function(req,res){
             return res.end("Error uploading file.");
         }
 		url = "Images/"+url;
-		console.log("Images/"+url);
+		console.log(url);
         res.end(url);
-    });
+    });*/
 });
 
-// File input field name is simply 'file'
-/*app.post('/BackEnd/file_upload', upload.single('file'), function(req, res) {
-  //var file = __dirname + '/' + req.file.filename;
-  console.log(req.body);
-	 console.log(req.file);
-  /*fs.rename(req.file.path, file, function(err) {
-    if (err) {
-      console.log(err);
-      res.send(500);
-    } else {
-      res.json({
-        message: 'File uploaded successfully',
-        filename: req.file.filename
-      });
-    }
-  });
-});*/
 app.post("/BackEnd/createUser/",function(req,res){
   console.log(req.body);
   var callback = {success:sqlFile.createAccountCallback,error:sqlFile.createAccountError};
@@ -92,9 +82,9 @@ app.post("/BackEnd/addUserPref/", function(req, res){
 	sqlFile.addUserPref(req.body, callback, res);
 });
 
-app.post("/BackEnd/getUserPref/", function(req, res){
+app.get("/BackEnd/getUserPref/", function(req, res){
 	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
-	sqlFile.getUserPref(req.body, callback, res);
+	sqlFile.getUserPref(req.query, callback, res);
 });
 
 app.post("/BackEnd/setAge/", function(req, res){
@@ -108,13 +98,12 @@ app.post("/BackEnd/blockUser/", function(req, res){
 });
 
 app.get("/BackEnd/getMatches/", function(req, res){
-	console.log(req.query)
 	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
 	sqlFile.getMatches(req.query, callback, res);
 });
 
 app.get("/BackEnd/getMessages/", function(req, res){
-	console.log(req.query);
+	console.log("Messages" + req.query);
 	var callback = {success:sqlFile.sendRows, error:sqlFile.genSQLError};
 	sqlFile.getMessages(req.query, callback, res);
 });
@@ -134,11 +123,8 @@ app.post("/BackEnd/addUserLanguage/", function(req, res){
 	sqlFile.addUserLan(req.body, callback, res);
 });
 
-app.post("/BackEnd/addUserLanguage/", function(req, res){
-	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
-	sqlFile.addUserLan(req.body, callback, res);
-});
 app.post("/BackEnd/editPicture/", function(req, res){
+	console.log(req.body);
 	var callback = {success:sqlFile.genSuccess, error:sqlFile.genSQLError};
 	sqlFile.editPicture(req.body, callback, res);
 });
@@ -185,6 +171,7 @@ socket.on('connection', function(client) {
       if(socket2 != null){
         socket2.emit('message',{UserID:userID,Message:json.Message});
       }
+	  console.log("send success");
 	  client.emit('success',{success:0});
    }
    var sendError = function(err, json, res, callback, con){
@@ -211,6 +198,7 @@ socket.on('connection', function(client) {
     //allClients.push({data.UserID:client); 
    });
    client.on("send",function(data){
+	console.log("recieved message");
 	if(data.UserID != null){
 	  //TODO change to make deal with sending error and success with messages
 	  let callback = {success:sendSuccess,error:sendError,Empty:sendEmpty};

@@ -95,76 +95,75 @@
         </div>
     </form>
 
-    <form>
+    <form id="picChanger">
 
-        <h1>Change Profile Picture<h1>
+        <h1>Change Profile Picture
+            <h1>
 
-        <input type='file' onchange="readURL(this);" />
-        <img id="profilePicture" src="#"/>  
+                <label>
+                <input id="profilePicture" type="text" name="Picture Url" placeholder="Picture URL"/>
+                </label>
 
-            <script>
-                 function readURL(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
+                <script>
+                    $("#picChanger").submit(function(event) {
+                        var dCookie = document.cookie;
+                        var id1 = JSON.stringify(dCookie.split(',', 1));
+                        var id2 = id1.substring(2, id1.length - 2);
+                        var picValue = document.getElementById("profilePicture").value;
 
-                        reader.onload = function (e) {
-                            $('#profilePicture')
-                            .attr('src', e.target.result)
-                            .width(250)
-                            .height(250);
-                        };
+                        event.preventDefault();
 
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                }
-            </script>
+                        var $picChanger = $(this),
+                            UserID = id2,
+                            Picture = picValue;
 
-            <script>
-                $("#picChange").submit(function(event) {
+                        var posting = $.post("/BackEnd/editPicture/", {
+                            UserID: UserID,
+                            Picture: Picture
+                        });
 
-                    var dCookie = document.cookie;
-                    var id1 = JSON.stringify(dCookie.split(',', 1));
-                    var id2 = id1.substring(2, id1.length - 2);
-                    var picValue = document.getElementById("profilePicture").value;
+                        posting.done(function(data) {
+                            alert("Picture sent");
+                            // obj = jQuery.parseJSON(data);
+                            if (data.UserID != null) {
+                                location.replace('/account_page.htm');
+                            } else {
+                                if (data.Error === -1)
+                                    alert("Picture is null");
+                                else if (data.Error === -2)
+                                    alert("Sorry, server issues");
+                            }
 
-                    event.preventDefault();
-
-                    var $picChange = $(this),
-                        UserID = id2,
-                        Picture = picValue;
-
-                    var posting = $.post("/BackEnd/editPicture/", {
-                        UserID: UserID,
-                        Picture: Picture
+                        });
                     });
-
-                    posting.done(function(data) {
-                        alert("Picture sent");
-                        // obj = jQuery.parseJSON(data);
-                        if (data.UserID != null) {
-                            location.replace('/account_page.htm');
-                        } else {
-                            if (data.Error === -1)
-                                alert("Picture is null");
-                            else if (data.Error === -2)
-                                alert("Sorry, server issues");
-                        }
-
-                    });
-                });
-            </script>
+                </script>
 
 
-        <button type="submit">Change Profile Picture</button>
+                <button type="submit">Change Profile Picture</button>
     </form>
 
-        <h1>Edit Preferences</h1>
-        <h3>Current Preferences</h3>
+    <h1>Edit Preferences</h1>
+    <h3>Current Preferences</h3>
 
-        <label id="getPref"></label>
-        <script>
-            document.getElementById("getPref").innerHTML = 'users prefs will be shown here';
-        </script>
+    <label id="getPref"></label>
+
+    <script>
+        $.ajax({
+            type: 'GET',
+            url: '/BackEnd/getUserPref/',
+            data: {
+                UserID1: dummyUser.UserID
+            },
+            success: function(data, status) {
+                for (i = 0; i < data.length; i++) {
+                    alert("got prefs");
+                    document.getElementById("getPref").innerHTML = 'sdfasd';
+
+                }
+            }
+        });
+        // document.getElementById("getPref").innerHTML = 'users prefs will be shown here';
+    </script>
 
 
 

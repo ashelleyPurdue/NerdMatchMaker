@@ -38,8 +38,7 @@
                     return ok;
                 }
 
-                $("createUser").submit(function(event) {
-					console.log("called");
+                $("#createUser").submit(function(event) {
                     event.preventDefault();
 
                     if (document.getElementById('Gender0').checked) {
@@ -67,7 +66,8 @@
                         Gender,
                         GenderInto,
                         minAge = document.getElementById("minAge").value,
-                        maxAge = document.getElementById("maxAge").value;
+                        maxAge = document.getElementById("maxAge").value,
+                        Picture = document.getElementById("Link").value;
 
                     var posting = $.post("/BackEnd/createUser/", {
                         UserName: UserName,
@@ -79,7 +79,8 @@
                         Gender: Gender,
                         GenderInto: GenderInto,
                         minAge: minAge,
-                        maxAge: maxAge
+                        maxAge: maxAge,
+                        Picture: Picture
                     });
                     alert("posted to server");
 
@@ -98,6 +99,7 @@
                                 alert("Sorry, server issues");
                         }
                     });
+					return false;
                 });
             </script>
 
@@ -146,7 +148,7 @@
 
             </br>
 
-            <label><b>Age Range Interested In</b></label>
+            <label><b>Age Range Interested In (Optional)</b></label>
 
             <div>
                 <label>
@@ -167,38 +169,9 @@
 			<label><b>Add a profile picture (Optional)</b></label>
 			<div>
                 <label>
-                <input id="Link" type="url" name="Picture Url " placeholder="Add picture Url here or upload photo"/></label>
+                <input id="Link" type="text" name="Picture Url " placeholder="Add picture URL here"/></label>
             </div>
     	</form>
-
-            
-			<form id="uploadForm"
-         		enctype="multipart/form-data">
-      			<input type="file" name="userPhoto" />
-      			<input type="submit" value="Upload Image" name="upload"> 
-      		<span id = "status"></span> 
-    		</form>
-             <!--<input type='file' onchange="readURL(this);" />
-             <img id="profilePicture" src="#"/> --> 
-
-            <script>
-				 //$(document).ready(function() {
-
-				 $('#uploadForm').submit(function(event) {
-					event.preventDefault();
-					 alert("hello world");
-					 $.ajax({
-						type: 'POST',
-						url: '/BackEnd/file_upload',
-						data: { file: $(this).file.value},
-						success: function(response) {
-							$("#status").empty().text(response);
-							alert(response);  
-						 }
-					 });
-					 return false;
-				 });
-            </script>   
 
             <br>
 

@@ -1,9 +1,10 @@
 <html>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="account_page.css">
+    <link rel="stylesheet" type="text/css" href="matches.css">
     <title>Matches</title>
 </head>
 
@@ -11,61 +12,73 @@
 
     <h1>Matches</h1>
 
-    <div ng-app="myApp" ng-controller="myCtrl">
-        {{userName + " " + mathchedUserName}}
-    </div>
+    <!--<div id="block">
+        <form id="blockUserDiv" name="block">
+
+
+        </form>
+    </div>-->
 
     <script>
         var testCookie = document.cookie;
         var partsOfCookie = testCookie.split(',');
         // alert(partsOfCookie[1]);
         var dummyUser = ({
-            UserID: partsOfCookie[0],
-            UserName: partsOfCookie[1],
-            Picture: null,
-            Birthday_year: partsOfCookie[2],
-            Birthday_month: partsOfCookie[3],
-            Birthday_day: partsOfCookie[4],
-            Gender: partsOfCookie[5],
-            GenderInto: partsOfCookie[6],
-            Location: null,
-            InARelationship: false,
-            matches: partsOfCookie[8]
+            UserID: partsOfCookie[0], //partsOfCookie[0],
+            UserName: partsOfCookie[1] //partsOfCookie[1]
         });
-        var matchArray = dummyUser.matches.split(',');
-        alert("matches are " + matchArray[0]);
 
-        var app = angular.module("myApp", []);
-        app.controller("myCtrl", function($scope) {
-            $scope.userName = "UserName:";
-            $scope.mathchedUserName = dummyUser.UserName;
 
-            /*
-            $scope.myObj = {
-                "User Name": "joe",
-                "Country": "Germany",
-                "City": "Berlin"
+        $.ajax({
+            type: 'GET',
+            url: '/BackEnd/getMatches/',
+            data: {
+                UserID1: dummyUser.UserID
+            },
+            success: function(data, status) {
+                for (var i = 0; i < data.length; i++) {
+                    $temp = $('<div class = "inner' + i + '">', {});
+                    $temp.append('<h4>Info about ' + data[i].UserName + ' </h4>');
+                    $temp.appendTo(document.body);
+                    // block a user
+                    $temp = $('<form>', {});
+                    $temp.append('<button><input type = "submit" value = "Block: ' + data[i].UserName + ' "></button>');
+                    $temp.append('<input type = "hidden" name = "UserID" value = ' + data[i].UserID + '>');
+                    $temp.appendTo(".inner" + i);
+                    $temp.submit(function(event) {
+                        var text = $(this).find('input[name="UserID"]').val();
+                        event.preventDefault();
+                        var posting = $.post("/BackEnd/blockUser/", {
+                            UserID1: dummyUser.UserID,
+                            UserID2: text
+                        });
+                        posting.done(function(data) {
+                            location.reload();
+                            // alert("blocked");
+                        });
+                    });
+
+                    // message a user
+                    $message = $('<form action="user_chat.html" method="GET">', {});
+                    $message.append('<input type="submit" value="Message"  id="submit">');
+					$message.append('<input type = "hidden" name = "UserID" value=' + data[i].UserID + '>');
+					$message.append('<input type = "hidden" name = "UserName" value=' + data[i].UserName + '>');
+                    $message.appendTo(".inner" + i);
+                    /*
+                        <input type="text" id="foo" name="foo">
+                        <input type="submit" value="Send" name="submit" id="submit">
+                    */
+                }
             }
-            */
-
         });
-
-        var matchArray = getMatches(dummyUser.UserId);
-        // alert(matchArray[0]);
-
-        // call ajax to use API calls for getMatches
-        // alert(document.cookie);
     </script>
 
 
-
-
-    <div class="container" style="background-color:#f1f1f1">
-        <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
-    </div>
-
-
 </body>
+
+<div class="container" style="background-color:#f1f1f1">
+    <span class="newact"> <a href="/edit_account_info.htm">Edit Account Information</a></span>
+</div>
 
 
 
