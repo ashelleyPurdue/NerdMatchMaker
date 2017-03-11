@@ -5,4 +5,5 @@ drop Table if exists User_Interests;
 drop Table if exists Interests;
 drop Table if exists Language;
 drop table if exists User;
+drop Table if exists GlobalVars;
 

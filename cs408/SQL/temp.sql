@@ -1,3 +1,8 @@
+Create Table GlobalVars(
+	current_date_var DATE 
+);
+INSERT INTO GlobalVars(current_date_var) VALUES(CURDATE());
+
 Create Table User(
 	UserID int Primary Key AUTO_INCREMENT,
 	UserName varchar(30) Not Null Unique,
@@ -6,13 +11,15 @@ Create Table User(
 	Birthday_year int Not Null,
 	Birthday_month int Not Null,
 	Birthday_day int Not Null,
+	Birthdate DATE As (STR_TO_DATE(CONCAT (Birthday_day, '/', Birthday_month, '/', Birthday_year), '%d/%m/%Y')),
+	Age int As (DATEDIFF(SELECT current_date_var FROM GlobalVars, Birthdate)),
 	Gender varchar(2) Not Null,
 	GenderInto varchar(2) Not Null,
 	loc varchar(45),
 	InARelationship boolean DEFAULT false,
 	minAge int,
-	maxAge int,
-	age int
+	maxAge int
+	/*age int*/
 );
 Create Table Interests(
 	InterestID int Primary Key AUTO_INCREMENT,
