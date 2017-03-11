@@ -33,7 +33,7 @@
                         document.getElementById("pass2").style.borderColor = "#E34234";
                         alert("passwords dont match");
                         ok = false;
-                    } else if (pass1.length < 8 || pass2.length < 8) {
+                    } else if (pass1.length < 8) {
                         alert("Passwords must be 8 characters long");
                         ok = false;
                     } else {}
@@ -45,8 +45,14 @@
                     var matching = checkPasswords();
                     if (matching != true) {
                         return false;
-
                     }
+                    var minAge = document.getElementById("minAge").value;
+                    if (minAge < 18 || minAge == null)
+                    	minAge = 18;
+                    if (maxAge > 65 || maxAge == null)
+                    	minAge = 65;
+
+                    var maxAge = document.getElementById("maxAge").value;
 
                     if (document.getElementById('Gender0').checked) {
                         Gender = document.getElementById('Gender0').value;
@@ -72,8 +78,8 @@
                         Birthday_day = document.getElementById("Birthday_day").value,
                         Gender,
                         GenderInto,
-                        minAge = document.getElementById("minAge").value,
-                        maxAge = document.getElementById("maxAge").value,
+                        minAge,
+                        maxAge,
                         Picture = document.getElementById("Link").value;
 
                     var posting = $.post("/BackEnd/createUser/", {
