@@ -39,6 +39,10 @@
                 for (var i = 0; i < data.length; i++) {
                     $temp = $('<div class = "inner' + i + '">', {});
                     $temp.append('<h4>Info about ' + data[i].UserName + ' </h4>');
+                    if (data[i].Picture == null) {
+                        data[i].Picture = "http://localhost:3000/Images/blank.png"
+                    }
+                    $temp.append('<img src="' + data[i].Picture + '">');
                     $temp.appendTo(document.body);
                     // block a user
                     $temp = $('<form>', {});
