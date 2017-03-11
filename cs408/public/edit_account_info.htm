@@ -155,14 +155,17 @@
                 UserID: dummyUser.UserID
             },
             success: function(data, status) {
-				var string = "";
+                var string = "";
                 for (i = 0; i < data.length; i++) {
-                    alert("got prefs");
-					
-                    string += ","+data[i].Name;
+                    // alert("got prefs");
+                    if (i == 0) {
+                        string += data[i].Name;
+                    } else {
+                        string += ", " + data[i].Name;
+                    }
 
                 }
-				document.getElementById("getPref").innerHTML = string;
+                document.getElementById("getPref").innerHTML = string;
             }
         });
         // document.getElementById("getPref").innerHTML = 'users prefs will be shown here';
